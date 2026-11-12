@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { VoiceSettings } from './Voice.jsx';
 import { APP_NAME } from '../lib/brand.js';
+import { AccountInfo, Subscription, Payment, PaymentDone, Billing } from './Account.jsx';
 
 const ICONS = {
   farm: 'M12 3 3 9v12h6v-6h6v6h6V9l-9-6Zm0 2.5 7 4.7V19h-2v-6H7v6H5v-8.8l7-4.7Z',
@@ -12,6 +13,9 @@ const ICONS = {
   help: 'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Zm-1-5h2v2h-2v-2Zm1-9a4 4 0 0 0-4 4h2a2 2 0 1 1 3.2 1.6c-.9.7-2.2 1.6-2.2 3.4h2c0-.9.6-1.4 1.4-2A4 4 0 0 0 12 6Z',
   doc: 'M6 2h8l6 6v14H6V2Zm7 1.5V9h5.5L13 3.5ZM8 12v2h8v-2H8Zm0 4v2h8v-2H8Z',
   chevron: 'm9 6 6 6-6 6-1.4-1.4 4.6-4.6-4.6-4.6L9 6Z',
+  user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0-6a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm0 8c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5Zm-5.8 4c.7-1.2 3-2 5.8-2s5.1.8 5.8 2H6.2Z',
+  star: 'm12 2 3 6.3 7 1-5 4.8 1.2 6.9L12 17.8 5.8 21l1.2-6.9-5-4.8 7-1L12 2Zm0 4.5-1.7 3.6-3.9.6 2.8 2.7-.7 3.9 3.5-1.9 3.5 1.9-.7-3.9 2.8-2.7-3.9-.6L12 6.5Z',
+  receipt: 'M5 2h14v20l-3-2-2 2-2-2-2 2-2-2-3 2V2Zm2 2v14.3l1-.7 2 2 2-2 2 2 2-2 1 .7V4H7Zm2 3h6v2H9V7Zm0 4h6v2H9v-2Z',
   back: 'M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20v-2Z',
 };
 
@@ -116,7 +120,10 @@ function Terms({ onBack }) {
       <Faq q="3. Tus datos">
         <p>No pedimos datos identificativos. Tu explotación y tus conversaciones se guardan solo en este dispositivo y puedes borrarlos cuando quieras.</p>
       </Faq>
-      <Faq q="4. Responsabilidad">
+      <Faq q="4. Plan Pro y pagos">
+        <p>Lo esencial es gratis. El plan Pro y sus pagos son una propuesta para después del reto: hoy no se realiza ningún cobro.</p>
+      </Faq>
+      <Faq q="5. Responsabilidad">
         <p>Las decisiones sobre solicitudes son tuyas y de la administración. Ante cualquier duda, consulta tu oficina comarcal o un profesional.</p>
       </Faq>
       <p className="notice notice-warning">Proyecto del Tech for Inclusion Challenge: los textos legales completos están pendientes de redactar.</p>
@@ -165,8 +172,16 @@ function ClearData({ onBack, onConfirm }) {
   );
 }
 
-export default function Settings({ page, setPage, summary, voiceSettings, setVoiceSettings, speaker, health, isMock, onGo, onAsk, onClear }) {
+export default function Settings({
+  page, setPage, summary, voiceSettings, setVoiceSettings, speaker, health, isMock, onGo, onAsk, onClear,
+  demo, setDemo, bigText, setBigText,
+}) {
   const back = () => setPage(null);
+  if (page === 'cuenta') return <AccountInfo onBack={back} bigText={bigText} setBigText={setBigText} onClearData={() => setPage('borrar')} />;
+  if (page === 'suscripcion') return <Subscription onBack={back} demo={demo} onChoosePro={() => setPage('pago')} />;
+  if (page === 'pago') return <Payment onBack={() => setPage('suscripcion')} onPaid={(method) => { setDemo({ plan: 'pro', method }); setPage('pago-ok'); }} />;
+  if (page === 'pago-ok') return <PaymentDone demo={demo} onAids={() => onGo('ayudas')} onBilling={() => setPage('facturacion')} />;
+  if (page === 'facturacion') return <Billing onBack={back} demo={demo} onChangePlan={() => setPage('suscripcion')} onCancel={() => setDemo({ plan: 'gratis' })} />;
   if (page === 'voz') {
     return (
       <Page title="Voz" onBack={back}>
@@ -185,6 +200,11 @@ export default function Settings({ page, setPage, summary, voiceSettings, setVoi
         <Row icon="farm" title="Mi explotación" subtitle={summary} onClick={() => onGo('explotacion')} />
         <Row icon="voice" title="Voz" subtitle={voiceSettings.micEnabled ? 'Hablar y escuchar las respuestas' : 'Desactivada'} onClick={() => setPage('voz')} />
         <Row icon="map" title="Cobertura" subtitle="Qué ayudas buscamos hoy" onClick={() => setPage('cobertura')} />
+      </Group>
+      <Group label="Cuenta · vista previa">
+        <Row icon="user" title="Información de la cuenta" subtitle="Nombre, correo, idioma, letra grande" onClick={() => setPage('cuenta')} />
+        <Row icon="star" title="Suscripción" subtitle={demo.plan === 'pro' ? 'Plan Pro (demostración)' : 'Plan Gratis · Ver el plan Pro'} onClick={() => setPage('suscripcion')} />
+        <Row icon="receipt" title="Facturación" subtitle="Método de pago y facturas" onClick={() => setPage('facturacion')} />
       </Group>
       <Group label="Ayuda y legal">
         <Row icon="help" title="Ayuda" subtitle="Preguntas frecuentes y guías rápidas" onClick={() => setPage('ayuda')} />

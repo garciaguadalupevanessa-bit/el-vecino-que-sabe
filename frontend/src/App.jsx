@@ -14,7 +14,7 @@ import { quickRepliesFor } from './lib/quickReplies.js';
 import { buildChatPayload, validateUserText } from './lib/history.js';
 import {
   loadState, saveProfile, clearAll, loadVoiceSettings, saveVoiceSettings,
-  loadConversations, saveConversations, dropLegacyChat, loadUi, saveUi,
+  loadConversations, saveConversations, dropLegacyChat, loadUi, saveUi, loadDemo, saveDemo,
 } from './lib/storage.js';
 import * as conv from './lib/conversations.js';
 import { profileSummary, boolLabel } from './lib/profile.js';
@@ -48,6 +48,8 @@ export default function App() {
   const [draft, setDraft] = useState('');
   const [section, setSection] = useState('chat'); // chat | explotacion | ayudas | historial
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => loadUi(storage).sidebarCollapsed === true);
+  const [bigText, setBigText] = useState(() => loadUi(storage).bigText === true);
+  const [demo, setDemo] = useState(() => loadDemo(storage)); // subscription preview, no real payments
   const [route, setRoute] = useState(null); // { name: 'detail'|'guide'|'alternatives', id, from }
   const [details, setDetails] = useState({}); // id -> normalized aid from GET /api/aids/{id}
   const [detailStatus, setDetailStatus] = useState({});
@@ -70,7 +72,9 @@ export default function App() {
     setConvState((st) => conv.updateCurrent(st, { messages: messages.filter((m) => m.role !== 'note'), results }));
   }, [messages, results]);
   useEffect(() => { if (saveConversations(storage, convState)) dropLegacyChat(storage); }, [convState]);
-  useEffect(() => { saveUi(storage, { sidebarCollapsed }); }, [sidebarCollapsed]);
+  useEffect(() => { saveUi(storage, { sidebarCollapsed, bigText }); }, [sidebarCollapsed, bigText]);
+  useEffect(() => { saveDemo(storage, demo); }, [demo]);
+  useEffect(() => { document.documentElement.dataset.text = bigText ? 'large' : 'normal'; }, [bigText]);
   useEffect(() => { saveVoiceSettings(storage, voiceSettings); }, [voiceSettings]);
   useEffect(() => {
     api.getHealth().then(setHealth).catch(() => setHealth({ status: 'error' }));
@@ -201,6 +205,8 @@ export default function App() {
   const doClear = () => {
     clearAll(storage);
     setVoiceSettings(normalizeVoiceSettings(null));
+    setDemo({ plan: 'gratis' });
+    setBigText(false);
     setProfile({});
     loadConversation(conv.restoreConversations(null, {}));
     setSettingsPage(null);
@@ -256,6 +262,7 @@ export default function App() {
           page={settingsPage} setPage={setSettingsPage} summary={summary}
           voiceSettings={voiceSettings} setVoiceSettings={setVoiceSettings} speaker={speaker}
           health={health} isMock={USE_MOCK} onGo={goTo} onClear={doClear}
+          demo={demo} setDemo={setDemo} bigText={bigText} setBigText={setBigText}
           onAsk={(text) => { if (text) send(text); else { goTo('chat'); setTimeout(() => document.getElementById('composer-input')?.focus(), 0); } }}
         />
       </div>

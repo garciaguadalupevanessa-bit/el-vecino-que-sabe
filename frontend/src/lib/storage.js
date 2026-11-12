@@ -7,7 +7,8 @@ const KEY_RESULTS = 'evqs.results.v1';
 const KEY_VOICE = 'evqs.voice.v1';
 const KEY_CONVERSATIONS = 'evqs.conversations.v1';
 const KEY_UI = 'evqs.ui.v1';
-export const STORAGE_KEYS = [KEY_PROFILE, KEY_MESSAGES, KEY_RESULTS, KEY_VOICE, KEY_CONVERSATIONS, KEY_UI];
+const KEY_DEMO = 'evqs.demo.v1';
+export const STORAGE_KEYS = [KEY_PROFILE, KEY_MESSAGES, KEY_RESULTS, KEY_VOICE, KEY_CONVERSATIONS, KEY_UI, KEY_DEMO];
 
 const MAX_STORED_MESSAGES = 60;
 
@@ -50,6 +51,9 @@ export const saveResults = (storage, results) => write(storage, KEY_RESULTS, res
 export const loadConversations = (storage) => read(storage, KEY_CONVERSATIONS, null);
 export const saveConversations = (storage, state) => write(storage, KEY_CONVERSATIONS, state);
 export const loadUi = (storage) => read(storage, KEY_UI, {});
+/** Subscription preview state (no real payments): { plan: 'gratis' | 'pro', method }. */
+export const loadDemo = (storage) => read(storage, KEY_DEMO, { plan: 'gratis' });
+export const saveDemo = (storage, demo) => write(storage, KEY_DEMO, demo);
 export const saveUi = (storage, ui) => write(storage, KEY_UI, ui);
 /** The single-chat keys from the first version, removed once migrated. */
 export function dropLegacyChat(storage) {

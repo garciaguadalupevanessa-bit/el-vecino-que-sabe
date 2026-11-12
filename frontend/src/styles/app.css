@@ -395,3 +395,41 @@ input[aria-invalid='true'], select[aria-invalid='true'] { border: 2px solid var(
 .faq > summary { gap: var(--s2); }
 .faq-icon { width: 20px; height: 20px; flex: none; fill: var(--primary); }
 .voice-settings { padding: var(--s4); }
+
+/* ---------- Cuenta, suscripción y facturación (vista previa, Paso 14–18) ---------- */
+:root[data-text='large'] { --fs-body: 20px; --fs-label: 19px; --fs-support: 17px; --fs-section: 23px; --fs-title: 27px; }
+.preview-notice { margin-bottom: var(--s4); }
+.settings .card h3 { font-size: var(--fs-section); margin-bottom: var(--s3); }
+.toggle input:disabled { opacity: .5; cursor: not-allowed; }
+input:disabled, select:disabled { background: var(--bg-wheat); color: var(--ink-muted); cursor: not-allowed; }
+.plans { overflow-x: auto; margin-bottom: var(--s4); border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); }
+.plans-table { width: 100%; border-collapse: collapse; font-size: var(--fs-support); }
+.plans-table th, .plans-table td { padding: var(--s2) var(--s3); border-top: 1px solid var(--line); text-align: left; vertical-align: middle; }
+.plans-table thead th { border-top: 0; text-align: center; font-size: var(--fs-label); vertical-align: top; }
+.plans-table thead th > span { display: block; }
+.plans-table td { text-align: center; white-space: nowrap; }
+.plans-table tbody th { font-weight: 400; }
+.plan-price { font-size: var(--fs-title); font-weight: 700; }
+.plan-pro { background: var(--primary); color: var(--on-primary); }
+.plan-pro .badge { background: var(--surface); color: var(--primary-strong); }
+.plan-pro-cell { background: var(--sage); }
+.yes { color: var(--success); font-weight: 700; }
+.no { color: var(--ink-muted); }
+.steps-bar { margin-bottom: var(--s3); }
+.steps-track { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s2); }
+.steps-track span { height: 6px; border-radius: 999px; background: var(--line); }
+.steps-track span.on { background: var(--primary); }
+.plan-summary p:first-child { display: flex; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s1); }
+.pay-option { border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); margin-bottom: var(--s3); }
+.pay-option-on { border: 2px solid var(--primary); background: var(--sage); }
+.pay-head { display: flex; gap: var(--s3); align-items: flex-start; padding: var(--s3) var(--s4); cursor: pointer; min-height: var(--touch); }
+.pay-head input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--primary); }
+.pay-head .support { display: block; }
+.pay-fields { padding: 0 var(--s4) var(--s3); }
+.pay-fields p { margin-bottom: var(--s1); }
+.pay-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.done-card { text-align: center; }
+.done-icon { width: 64px; height: 64px; margin: 0 auto var(--s3); border-radius: 50%; display: grid; place-items: center; background: var(--sage); color: var(--primary-strong); font-size: 32px; font-weight: 700; }
+.invoices { list-style: none; padding: 0; margin: 0; }
+.invoices li { display: flex; justify-content: space-between; align-items: center; gap: var(--s3); padding: var(--s2) 0; border-top: 1px solid var(--line); }
+.invoices li > span:first-child { display: flex; flex-direction: column; }
