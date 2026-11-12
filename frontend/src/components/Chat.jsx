@@ -4,6 +4,7 @@ import { STARTER_PROMPTS, quickRepliesFor } from '../lib/quickReplies.js';
 import { MAX_CHARS } from '../lib/history.js';
 import { starterProgress } from '../lib/profile.js';
 import { formatDuration } from '../lib/voice.js';
+import { APP_NAME, APP_TAGLINE } from '../lib/brand.js';
 import { useVoiceInput, voiceAvailable, MicButton, VoicePanel, ReadAloudBar, ListenButton } from './Voice.jsx';
 
 export function Disclaimer() {
@@ -18,8 +19,8 @@ export function Disclaimer() {
 function Welcome({ onPrompt, voiceOn }) {
   return (
     <div className="welcome">
-      <h2>Hola. Soy El vecino que sabe.</h2>
-      <p>Te ayudo a encontrar ayudas públicas que puedan encajar con tu explotación, a ver qué requisitos cumples y cómo solicitarlas.</p>
+      <h2>Hola. Soy {APP_NAME}.</h2>
+      <p>{APP_TAGLINE}</p>
       <ul>
         <li>Buscar ayudas para tu actividad</li>
         <li>Decirte qué cumples y qué falta</li>
@@ -49,7 +50,7 @@ function Message({ m, onShowAids, speaker }) {
     <div className={`msg ${isUser ? 'msg-user' : 'msg-assistant'}`}>
       {!isUser && <span className="avatar" aria-hidden="true">EV</span>}
       <div className="bubble">
-        <span className="visually-hidden">{isUser ? 'Tú dijiste:' : 'El vecino que sabe responde:'}</span>
+        <span className="visually-hidden">{isUser ? 'Tú dijiste:' : `${APP_NAME} responde:`}</span>
         {isUser ? <p>{m.content}</p> : <RichText text={m.content} />}
         {isUser && m.via === 'voz' && <p className="bubble-voice">🎙️ Mensaje de voz · {formatDuration(m.duration)}</p>}
         {!isUser && <ListenButton id={m.id} text={m.content} speaker={speaker} />}

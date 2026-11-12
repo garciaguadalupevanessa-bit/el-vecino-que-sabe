@@ -140,6 +140,7 @@ export default function AidsPanel({ results, profileSummary, onOpen, onAlternati
         </>
       )}
       {results && <HowWeChecked trace={results.trace} sources={results.sources} />}
+      {results?.coverage?.map((note) => <p key={note} className="notice notice-warning">{note}</p>)}
       <CoverageNote />
     </section>
   );

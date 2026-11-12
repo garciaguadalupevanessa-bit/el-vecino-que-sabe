@@ -3,6 +3,7 @@
 // accepted too, so a small naming drift in the backend does not break the screen.
 
 import { safeHttpUrl, displayHost } from './urls.js';
+import { fromBackendField, scopeLabel } from './backendContract.js';
 
 export const ELIGIBILITY = {
   elegible: { label: 'Encaje favorable', tone: 'success', icon: '✓', rank: 0 },
@@ -37,9 +38,10 @@ const norm = (v) => String(v ?? '').toLowerCase().normalize('NFD').replace(/[̀-
 
 export function normalizeEligibility(value) {
   const v = norm(value);
-  if (['elegible', 'eligible', 'cumple', 'favorable'].includes(v)) return 'elegible';
+  // Backend (check_eligibility): overall_result = met | not_met | unknown.
+  if (['elegible', 'eligible', 'cumple', 'favorable', 'met'].includes(v)) return 'elegible';
   if (['condicional', 'conditional', 'por_confirmar', 'pendiente', 'unknown'].includes(v)) return 'condicional';
-  if (['no_elegible', 'not_eligible', 'ineligible', 'no_cumple'].includes(v)) return 'no_elegible';
+  if (['no_elegible', 'not_eligible', 'ineligible', 'no_cumple', 'not_met'].includes(v)) return 'no_elegible';
   return 'desconocido';
 }
 
@@ -54,7 +56,7 @@ export function normalizeRequirementStatus(value) {
 
 export function normalizeReliability(value) {
   const v = norm(value);
-  if (v.startsWith('verific')) return 'verificada';
+  if (v.startsWith('verif')) return 'verificada';
   if (v.startsWith('extra')) return 'extraida';
   return 'solo_metadatos';
 }
@@ -80,7 +82,8 @@ function normalizeRequirement(r) {
     descripcion: first(r, ['descripcion', 'description', 'texto', 'nombre', 'requisito', 'campo', 'field']) ?? 'Requisito',
     campo: first(r, ['campo', 'field']) ?? null,
     estado: normalizeRequirementStatus(first(r, ['estado', 'status', 'resultado', 'result', 'cumple', 'met'])),
-    detalle: first(r, ['detalle', 'motivo', 'reason', 'explicacion', 'mensaje', 'message']) ?? null,
+    // explanation_es is written for the farmer; `reason` is the English debug text, never shown.
+    detalle: first(r, ['explanation_es', 'detalle', 'motivo', 'explicacion']) ?? null,
   };
 }
 
@@ -99,14 +102,15 @@ export function normalizeAid(raw) {
   const evObj = ev && typeof ev === 'object' ? ev : {};
 
   const reqSource = first(evObj, ['requisitos', 'requirements', 'checks', 'detalle']) ??
-    first(raw, ['requisitos_evaluados', 'requirements_evaluated', 'requisitos']);
+    first(raw, ['requisitos_evaluados', 'requirements_evaluated', 'requisitos', 'requirements']);
   const requisitos = Array.isArray(reqSource)
     // Unevaluated definitions (no status at all) are still listed, as "por confirmar".
-    ? reqSource.filter((r) => r && (typeof r === 'string' || typeof r === 'object') && !r.bloque && !r.block).map(normalizeRequirement)
+    ? reqSource.filter((r) => r && (typeof r === 'string' || typeof r === 'object') && !r.bloque && !r.block && !(r.ref && !r.description)).map(normalizeRequirement)
     : [];
 
+  // (`status` on an aid is its call status: active/closed, not eligibility.)
   const resultadoRaw = first(evObj, ['resultado', 'result', 'overall', 'global', 'estado']) ??
-    first(raw, ['resultado', 'resultado_global', 'elegibilidad', 'eligibility', 'estado', 'status']);
+    first(raw, ['overall_result', 'eligibility_status', 'resultado', 'resultado_global', 'elegibilidad', 'eligibility', 'estado']);
   let resultado = normalizeEligibility(typeof resultadoRaw === 'string' ? resultadoRaw : undefined);
   // If the backend sent requirement states but no global result, derive it like the engine does.
   if (resultado === 'desconocido' && requisitos.length && Array.isArray(reqSource) && reqSource.some((r) => r && typeof r === 'object' && (r.estado ?? r.status) !== undefined)) {
@@ -115,21 +119,22 @@ export function normalizeAid(raw) {
   }
 
   const faltan = first(evObj, ['datos_faltantes', 'faltan', 'missing', 'missing_fields']) ??
-    first(raw, ['datos_faltantes', 'missing_fields', 'faltan']);
+    first(raw, ['datos_faltantes', 'missing_fields', 'faltan']) ??
+    (Array.isArray(reqSource) ? reqSource.map((r) => r?.missing_field).filter(Boolean) : undefined);
 
   const url = safeHttpUrl(first(raw, ['url_fuente', 'source_url', 'fuente.url', 'url']));
 
   return {
     id: String(first(raw, ['id', 'aid_id', 'codigo']) ?? ''),
     nombre: first(raw, ['nombre', 'name', 'titulo', 'title']) ?? 'Ayuda sin nombre',
-    organismo: first(raw, ['organismo', 'body', 'organism']) ?? null,
-    ambito: first(raw, ['ambito', 'scope']) ?? null,
-    tipo_ayuda: first(raw, ['tipo_ayuda', 'type']) ?? null,
-    descripcion: first(raw, ['descripcion_corta', 'descripcion', 'description', 'resumen']) ?? null,
+    organismo: first(raw, ['organismo', 'agency', 'body', 'organism']) ?? null,
+    ambito: scopeLabel(first(raw, ['ambito', 'scope'])) ?? null,
+    tipo_ayuda: first(raw, ['tipo_ayuda', 'aid_type', 'type']) ?? null,
+    descripcion: first(raw, ['descripcion_corta', 'short_description', 'descripcion', 'description', 'resumen']) ?? null,
     fiabilidad: normalizeReliability(first(raw, ['fiabilidad', 'reliability'])),
     url_fuente: url,
     host_fuente: displayHost(url),
-    fecha_verificacion: first(raw, ['fecha_verificacion', 'verified_at', 'fuente.fecha_verificacion']) ?? null,
+    fecha_verificacion: first(raw, ['fecha_verificacion', 'verified_on', 'verified_at', 'fuente.fecha_verificacion']) ?? null,
     verificado_por: first(raw, ['verificado_por', 'verified_by']) ?? null,
     importe: toText(first(raw, ['importe', 'amount'])),
     plazo: toText(first(raw, ['plazo', 'deadline'])),
@@ -141,7 +146,7 @@ export function normalizeAid(raw) {
     notas: first(raw, ['notas', 'notes']) ?? null,
     resultado,
     requisitos,
-    datos_faltantes: Array.isArray(faltan) ? faltan.map(String) : [],
+    datos_faltantes: Array.isArray(faltan) ? [...new Set(faltan.map((f) => fromBackendField(String(f))))] : [],
     cambio_sugerido: first(raw, ['que_cambiaria', 'cambio', 'what_would_change', 'motivo_alternativa']) ?? null,
     es_ejemplo: Boolean(raw.es_ejemplo),
   };
@@ -218,7 +223,7 @@ function normalizeSource(s) {
   return {
     url,
     nombre: first(s, ['nombre', 'name', 'titulo', 'title']) ?? displayHost(url),
-    fecha_verificacion: first(s, ['fecha_verificacion', 'verified_at', 'fecha']) ?? null,
+    fecha_verificacion: first(s, ['fecha_verificacion', 'verified_on', 'verified_at', 'fecha']) ?? null,
   };
 }
 
@@ -233,6 +238,9 @@ export function normalizeChatResponse(data) {
     aids: sortAids(unique),
     sources,
     trace: (Array.isArray(d.trace) ? d.trace : []).map(normalizeTraceEntry).filter(Boolean),
+    // Backend: "we do not cover this region yet"-style notes, written in Spanish for the user.
+    coverage: (Array.isArray(d.coverage_notes) ? d.coverage_notes : [])
+      .map((n) => (typeof n === 'string' ? n : n?.message)).filter((m) => typeof m === 'string' && m.trim()),
   };
 }
 

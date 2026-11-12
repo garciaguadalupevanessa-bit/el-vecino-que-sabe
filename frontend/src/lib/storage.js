@@ -5,7 +5,9 @@ const KEY_PROFILE = 'evqs.profile.v1';
 const KEY_MESSAGES = 'evqs.messages.v1';
 const KEY_RESULTS = 'evqs.results.v1';
 const KEY_VOICE = 'evqs.voice.v1';
-export const STORAGE_KEYS = [KEY_PROFILE, KEY_MESSAGES, KEY_RESULTS, KEY_VOICE];
+const KEY_CONVERSATIONS = 'evqs.conversations.v1';
+const KEY_UI = 'evqs.ui.v1';
+export const STORAGE_KEYS = [KEY_PROFILE, KEY_MESSAGES, KEY_RESULTS, KEY_VOICE, KEY_CONVERSATIONS, KEY_UI];
 
 const MAX_STORED_MESSAGES = 60;
 
@@ -45,6 +47,16 @@ export function loadState(storage) {
 export const saveProfile = (storage, profile) => write(storage, KEY_PROFILE, profile);
 export const saveMessages = (storage, messages) => write(storage, KEY_MESSAGES, messages.slice(-MAX_STORED_MESSAGES));
 export const saveResults = (storage, results) => write(storage, KEY_RESULTS, results);
+export const loadConversations = (storage) => read(storage, KEY_CONVERSATIONS, null);
+export const saveConversations = (storage, state) => write(storage, KEY_CONVERSATIONS, state);
+export const loadUi = (storage) => read(storage, KEY_UI, {});
+export const saveUi = (storage, ui) => write(storage, KEY_UI, ui);
+/** The single-chat keys from the first version, removed once migrated. */
+export function dropLegacyChat(storage) {
+  for (const key of [KEY_MESSAGES, KEY_RESULTS]) {
+    try { storage?.removeItem(key); } catch { /* ignore */ }
+  }
+}
 export const loadVoiceSettings = (storage) => read(storage, KEY_VOICE, null);
 export const saveVoiceSettings = (storage, settings) => write(storage, KEY_VOICE, settings);
 

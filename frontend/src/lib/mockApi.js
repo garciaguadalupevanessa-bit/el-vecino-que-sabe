@@ -1,9 +1,11 @@
-// Demo-only fake backend (`npm run dev:mock`). Same raw shape as POST /api/chat so the
-// real normalizer runs. All aids are illustrative examples, flagged es_ejemplo.
+// Demo-only fake backend (`npm run dev:mock`). It receives and returns exactly the real
+// backend shapes (FarmProfile in, ChatResponse out, see backend/app/models/api.py), so the
+// real mapping and normalizer run. All aids are illustrative examples, flagged es_ejemplo.
 
 import { normalizeChatResponse, normalizeAid } from './aids.js';
 import { ApiError } from './api.js';
 import { extractNumber } from './voice.js';
+import { fromBackendProfile } from './backendContract.js';
 
 const AIDS = {
   'ej-ovino-asociada': {
@@ -51,8 +53,8 @@ const AIDS = {
   },
 };
 
-function extract(messages, profile) {
-  const p = { ...profile };
+function extract(messages, backendProfile) {
+  const p = fromBackendProfile(backendProfile);
   const text = messages.filter((m) => m.role === 'user').map((m) => m.content.toLowerCase()).join(' ');
   if (!p.tipo_ganado && /ovej|ovino/.test(text)) p.tipo_ganado = ['ovino'];
   if (!p.tipo_ganado && /cabra|caprino/.test(text)) p.tipo_ganado = ['caprino'];
@@ -64,15 +66,37 @@ function extract(messages, profile) {
   return p;
 }
 
+const RELIABILITY_EN = { verificada: 'verified', extraida: 'extracted', solo_metadatos: 'metadata_only' };
+const FIELD_EN = { tipo_ganado: 'livestock_type', comunidad: 'region', num_cabezas: 'head_count', inscrita_rega: 'rega_registered', agricultor_activo: 'active_farmer', edad_titular: 'holder_age', anos_actividad: 'years_active' };
+
+/** Aid model (GET /api/aids/{id}) for an example definition. */
+function asBackendAid(def) {
+  return {
+    id: def.id, es_ejemplo: true, name: def.nombre, agency: def.organismo, scope: def.ambito === 'estatal' ? 'national' : def.ambito,
+    aid_type: def.tipo_ayuda, short_description: def.descripcion_corta, reliability: RELIABILITY_EN[def.fiabilidad],
+    source_url: def.url_fuente, verified_on: def.fecha_verificacion, verified_by: def.verificado_por ?? null,
+    deadline: def.plazo ?? null, amount: def.importe ?? null, open: def.abierta ?? null,
+    how_to_apply: def.como_solicitar ? def.como_solicitar.split('\n') : [], documents: def.documentacion ?? [],
+    alternatives: def.alternativas ?? [], que_cambiaria: def.que_cambiaria,
+    requirements: def.reqs.map((r) => ({ description: r.descripcion, field: FIELD_EN[r.campo] })),
+  };
+}
+
+/** EvaluatedAid (POST /api/chat) with the requirements engine's output shape. */
 function evaluate(def, p) {
-  const requisitos = def.reqs.map((r) => {
+  const requirements = def.reqs.map((r) => {
     const v = r.test(p);
-    return { descripcion: r.descripcion, campo: r.campo, estado: v === null ? 'por_confirmar' : v ? 'cumple' : 'no_cumple' };
+    const status = v === null ? 'unknown' : v ? 'met' : 'not_met';
+    return {
+      description: r.descripcion, status, missing_field: v === null ? FIELD_EN[r.campo] : null,
+      reason: `${r.campo} (debug)`,
+      explanation_es: v === null ? 'Falta indicar este dato en tu explotación.' : v ? 'El dato cumple.' : 'El dato no cumple.',
+    };
   });
-  const resultado = requisitos.some((r) => r.estado === 'no_cumple') ? 'no_elegible'
-    : requisitos.some((r) => r.estado === 'por_confirmar') ? 'condicional' : 'elegible';
-  const { reqs, ...rest } = def;
-  return { ...rest, resultado, requisitos, datos_faltantes: requisitos.filter((r) => r.estado === 'por_confirmar').map((r) => r.campo) };
+  const statuses = new Set(requirements.map((r) => r.status));
+  const overall_result = statuses.has('not_met') ? 'not_met' : statuses.has('unknown') ? 'unknown' : 'met';
+  const { requirements: _defs, ...aid } = asBackendAid(def);
+  return { ...aid, overall_result, requirements };
 }
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -88,33 +112,33 @@ export async function mockSendChat(payload) {
     const q = [];
     if (!p.tipo_ganado) q.push('¿Qué tipo de ganado o cultivo tienes?');
     if (!p.comunidad) q.push('¿En qué comunidad autónoma está tu explotación?');
-    return normalizeChatResponse({ answer: `Con dos datos más puedo buscar ayudas que encajen contigo.\n\n${q.map((x, i) => `${i + 1}. ${x}`).join('\n')}\n\nPor qué te lo pregunto: las ayudas cambian según la actividad y la comunidad.`, aids: [], sources: [], trace: [] });
+    return normalizeChatResponse({ coverage_notes: [], answer: `Con dos datos más puedo buscar ayudas que encajen contigo.\n\n${q.map((x, i) => `${i + 1}. ${x}`).join('\n')}\n\nPor qué te lo pregunto: las ayudas cambian según la actividad y la comunidad.`, aids: [], sources: [], trace: [] });
   }
 
   const evaluated = Object.values(AIDS).map((d) => evaluate(d, p));
   const trace = [
-    { tool: 'search_aids', arguments: { comunidad: p.comunidad, tipo_ganado: p.tipo_ganado, solo_abiertas: true }, ok: true },
-    { tool: 'check_eligibility', arguments: { aid_id: 'ej-ovino-asociada', profile: p }, ok: true },
-    { tool: 'check_eligibility', arguments: { aid_id: 'ej-jovenes', profile: p }, ok: true },
+    { tool: 'search_aids', input: { region: p.comunidad, livestock_type: payload.profile?.livestock_type ?? ['sheep'], only_open: true }, ok: true },
+    { tool: 'check_eligibility', input: { aid_id: 'ej-ovino-asociada', profile: {} }, ok: true },
+    { tool: 'check_eligibility', input: { aid_id: 'ej-jovenes', profile: {} }, ok: true },
   ];
-  const sources = [{ url: 'https://www.fega.gob.es/es', nombre: 'FEGA · PEPAC 2023-2027', fecha_verificacion: '2026-11-10' }];
+  const sources = [{ url: 'https://www.fega.gob.es/es', name: 'FEGA · PEPAC 2023-2027', verified_on: '2026-11-10', reliability: 'verified' }];
 
   if (/solicit|pedirla|c[oó]mo la pido/.test(last)) {
-    trace.push({ tool: 'get_application_guide', arguments: { aid_id: 'ej-ovino-asociada' }, ok: true });
+    trace.push({ tool: 'get_application_guide', input: { aid_id: 'ej-ovino-asociada' }, ok: true });
     return normalizeChatResponse({
       answer: 'Para la **ayuda de ejemplo A** los pasos son:\n\n1. Reúne la documentación de tu explotación (REGA y censo).\n2. Presenta la solicitud única de la PAC en la sede electrónica de tu comunidad o en una entidad colaboradora.\n3. Marca la línea de ayuda asociada al ovino.\n\nEl plazo no está verificado: confírmalo en https://www.fega.gob.es/es o en tu oficina comarcal antes de presentar nada.',
       aids: evaluated, sources, trace,
     });
   }
   if (/alternativ/.test(last)) {
-    trace.push({ tool: 'find_alternatives', arguments: { aid_id: 'ej-modernizacion', max_resultados: 3 }, ok: true });
+    trace.push({ tool: 'find_alternatives', input: { aid_id: 'ej-modernizacion', max_results: 3 }, ok: true });
     return normalizeChatResponse({ answer: 'La **ayuda de ejemplo C** pide un mínimo de 500 cabezas y, según tus datos, no se cumple. Como alternativa, la ayuda de ejemplo A encaja con tu actividad y ubicación.', aids: evaluated, sources, trace });
   }
 
   const best = evaluated[0];
   const ask = p.agricultor_activo == null ? '\n\n¿Estás dado de alta como agricultor activo?\n\nPor qué te lo pregunto: es un requisito para cobrar los pagos directos de la PAC.' : '';
   return normalizeChatResponse({
-    answer: `Con lo que me has contado he encontrado ${evaluated.length} ayudas de ejemplo. La que mejor encaja es la **${best.nombre}**: ${best.resultado === 'elegible' ? 'cumples lo que sé hasta ahora.' : 'cumples parte de los requisitos y faltan datos por confirmar.'}${ask}`,
+    answer: `Con lo que me has contado he encontrado ${evaluated.length} ayudas de ejemplo. La que mejor encaja es la **${best.name}**: ${best.overall_result === 'met' ? 'cumples lo que sé hasta ahora.' : 'cumples parte de los requisitos y faltan datos por confirmar.'}${ask}`,
     aids: evaluated, sources, trace,
   });
 }
@@ -123,8 +147,7 @@ export async function mockGetAid(id) {
   await wait(300);
   const def = AIDS[id];
   if (!def) throw new ApiError('not_found', 'No hemos encontrado esa ayuda.', 404);
-  const { reqs, ...rest } = def;
-  return normalizeAid({ ...rest, requisitos: reqs.map((r) => ({ descripcion: r.descripcion, campo: r.campo })) });
+  return normalizeAid(asBackendAid(def));
 }
 
 export async function mockGetHealth() {

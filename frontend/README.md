@@ -22,6 +22,15 @@ The proxy target can be changed with `VITE_PROXY_TARGET=http://host:port npm run
 - Client timeout for `/api/chat`: 90 s. On error the user's message goes back to the input with «Volver a intentarlo».
 - Profile and conversation live only in `localStorage` («Borrar mis datos» wipes them). No DNI or bank data is ever asked for.
 
+## Layout
+
+- **Desktop:** collapsible left sidebar (`Sidebar.jsx`: Conversación · Mi explotación · Ayudas · Historial de chats, plus
+  «Nueva conversación»), main area with the active section, and «Ayudas encontradas» on the right only next to the chat.
+  Collapsed state is kept in `localStorage` (`evqs.ui.v1`).
+- **Mobile:** bottom nav with the same four sections and the farm summary strip.
+- **Historial de chats:** up to 20 conversations in `localStorage` (`evqs.conversations.v1`, logic in `src/lib/conversations.js`).
+  The first-version single chat is migrated automatically. «Borrar mis datos» wipes everything.
+
 ## Voice chat (Chat por voz V1–V6)
 
 Mic button (56 px) next to «Enviar» → permission sheet (first time) → «Te escucho…» → «¿He entendido bien?» (editable, with

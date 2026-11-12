@@ -33,7 +33,9 @@ export function quickRepliesFor(answer) {
   ];
 }
 
+// Starter prompts on the empty chat. The first one goes straight to the demo case.
 export const STARTER_PROMPTS = [
+  'Tengo 20 ovejas en extensivo en Teruel y soy agricultor activo.',
   'Tengo una explotación de ovejas.',
   'Busco ayudas para jóvenes agricultores.',
   'Quiero modernizar mi explotación.',

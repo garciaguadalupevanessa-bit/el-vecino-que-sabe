@@ -15,7 +15,7 @@
   --warning: #6B4A00; --warning-bg: #F7E6BC;
   --error: #9A3324;   --error-bg: #F6DFD6;
   --info: #2E5869;    --info-bg: #E1EBEF;
-  --focus: #2E5869;
+  --focus: var(--primary); /* 3px focus ring in --primary across the app */
 
   --font: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --fs-display: 32px; --fs-title: 24px; --fs-section: 20px;
@@ -45,7 +45,7 @@
     --warning: #F1CF7A; --warning-bg: #3A2E10;
     --error: #F2A898;   --error-bg: #3E1F18;
     --info: #A8CCDB;    --info-bg: #1C2E36;
-    --focus: #A8CCDB;
+    --focus: var(--primary);
     --shadow: 0 1px 2px rgba(0, 0, 0, .4);
   }
 }

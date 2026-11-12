@@ -22,12 +22,13 @@ test('payload ends with the user message and respects the 30 limit', () => {
 test('payload drops empty/invalid messages and trailing assistant replies; omits empty profile', () => {
   const p = buildChatPayload([{ role: 'system', content: 'x' }, { role: 'user', content: '  hola ' }, { role: 'assistant', content: 'ok' }, { role: 'user', content: '' }], {});
   assert.deepEqual(p, { messages: [{ role: 'user', content: 'hola' }] });
-  assert.deepEqual(buildChatPayload([{ role: 'user', content: 'a' }], { comunidad: 'Aragón' }).profile, { comunidad: 'Aragón' });
+  assert.deepEqual(buildChatPayload([{ role: 'user', content: 'a' }], { comunidad: 'Aragón' }).profile, { region: 'Aragón' });
 });
 
 test('validateUserText', () => {
   assert.ok(validateUserText('   '));
-  assert.ok(validateUserText('x'.repeat(2001)));
+  assert.ok(validateUserText('x'.repeat(4001)));
+  assert.equal(validateUserText('x'.repeat(4000)), null);
   assert.equal(validateUserText('¿Qué ayudas hay?'), null);
 });
 

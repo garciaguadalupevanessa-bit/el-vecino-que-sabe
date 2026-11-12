@@ -4,14 +4,21 @@ import ProfileForm from './components/ProfileForm.jsx';
 import AidsPanel from './components/AidsPanel.jsx';
 import { AidDetail, ApplicationGuide, Alternatives } from './components/AidViews.jsx';
 import { useSpeaker, VoiceSettings } from './components/Voice.jsx';
+import Sidebar from './components/Sidebar.jsx';
+import HistoryView from './components/HistoryView.jsx';
 import * as realApi from './lib/api.js';
 import { mockSendChat, mockGetAid, mockGetHealth, mockTranscribe } from './lib/mockApi.js';
 import { normalizeVoiceSettings, parseYesNo } from './lib/voice.js';
 import { quickRepliesFor } from './lib/quickReplies.js';
 import { buildChatPayload, validateUserText } from './lib/history.js';
-import { loadState, saveProfile, saveMessages, saveResults, clearAll, loadVoiceSettings, saveVoiceSettings } from './lib/storage.js';
+import {
+  loadState, saveProfile, clearAll, loadVoiceSettings, saveVoiceSettings,
+  loadConversations, saveConversations, dropLegacyChat, loadUi, saveUi,
+} from './lib/storage.js';
+import * as conv from './lib/conversations.js';
 import { profileSummary, boolLabel } from './lib/profile.js';
 import { mergeAid } from './lib/aids.js';
+import { APP_NAME } from './lib/brand.js';
 
 // `npm run dev:mock` (vite --mode mock) or VITE_USE_MOCK=true: fake answers, no backend needed.
 export const USE_MOCK = import.meta.env.MODE === 'mock' || import.meta.env.VITE_USE_MOCK === 'true';
@@ -26,18 +33,23 @@ const newId = () => `m${Date.now().toString(36)}${(seq++).toString(36)}`;
 const FIELD_NAMES = { agricultor_activo: 'agricultor activo', inscrita_rega: 'REGA' };
 
 export default function App() {
-  const initial = useMemo(() => loadState(storage), []);
+  const initial = useMemo(() => {
+    const legacy = loadState(storage);
+    const conversations = conv.restoreConversations(loadConversations(storage), legacy);
+    return { profile: legacy.profile, conversations, current: conv.getCurrent(conversations) };
+  }, []);
   const [profile, setProfile] = useState(initial.profile);
-  const [messages, setMessages] = useState(() => initial.messages.map((m) => ({ ...m, id: m.id ?? newId() })));
-  const [results, setResults] = useState(initial.results);
+  const [convState, setConvState] = useState(initial.conversations);
+  const [messages, setMessages] = useState(() => initial.current.messages.map((m) => ({ ...m, id: m.id ?? newId() })));
+  const [results, setResults] = useState(initial.current.results);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const [draft, setDraft] = useState('');
-  const [view, setView] = useState('chat');
+  const [section, setSection] = useState('chat'); // chat | explotacion | ayudas | historial
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => loadUi(storage).sidebarCollapsed === true);
   const [route, setRoute] = useState(null); // { name: 'detail'|'guide'|'alternatives', id, from }
   const [details, setDetails] = useState({}); // id -> normalized aid from GET /api/aids/{id}
   const [detailStatus, setDetailStatus] = useState({});
-  const [profileCollapsed, setProfileCollapsed] = useState(false);
   const [coverageOpen, setCoverageOpen] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
   const [health, setHealth] = useState(null);
@@ -49,12 +61,17 @@ export default function App() {
   const speakerRef = useRef(speaker);
   speakerRef.current = speaker;
   const inFlight = useRef(null);
+  const generation = useRef(0); // bumps when switching conversation: late answers are ignored
   const messagesRef = useRef(messages);
   messagesRef.current = messages;
 
   useEffect(() => { saveProfile(storage, profile); }, [profile]);
-  useEffect(() => { saveMessages(storage, messages.filter((m) => m.role !== 'note')); }, [messages]);
-  useEffect(() => { saveResults(storage, results); }, [results]);
+  // The active conversation is written back into the history on every change.
+  useEffect(() => {
+    setConvState((st) => conv.updateCurrent(st, { messages: messages.filter((m) => m.role !== 'note'), results }));
+  }, [messages, results]);
+  useEffect(() => { if (saveConversations(storage, convState)) dropLegacyChat(storage); }, [convState]);
+  useEffect(() => { saveUi(storage, { sidebarCollapsed }); }, [sidebarCollapsed]);
   useEffect(() => { saveVoiceSettings(storage, voiceSettings); }, [voiceSettings]);
   useEffect(() => {
     api.getHealth().then(setHealth).catch(() => setHealth({ status: 'error' }));
@@ -75,13 +92,15 @@ export default function App() {
     setDraft('');
     setError(null);
     setPending(true);
-    setView('chat');
+    setSection('chat');
     setRoute(null);
 
     const controller = new AbortController();
     inFlight.current = controller;
+    const gen = generation.current;
     api.sendChat(buildChatPayload(nextHistory, effectiveProfile), { signal: controller.signal })
       .then((res) => {
+        if (gen !== generation.current) return;
         const assistantId = newId();
         setMessages((prev) => [...prev, { id: assistantId, role: 'assistant', content: res.answer, aidsCount: res.aids.length }]);
         // Spoken question -> spoken answer (V5), if the person keeps that preference on.
@@ -91,12 +110,13 @@ export default function App() {
         if (res.aids.length) setDetails({});
       })
       .catch((err) => {
+        if (gen !== generation.current) return;
         // Spec: the user's text stays in the input so they can retry.
         setMessages((prev) => prev.filter((m) => m.id !== userMsg.id));
         setDraft(userMsg.content);
         setError(err);
       })
-      .finally(() => { setPending(false); inFlight.current = null; });
+      .finally(() => { if (gen === generation.current) { setPending(false); inFlight.current = null; } });
     return {};
   }, [profile]);
 
@@ -156,44 +176,108 @@ export default function App() {
 
   const ask = (text) => { setRoute(null); send(text); };
 
-  const doClear = () => {
+  // Loads another conversation into the chat (history, new conversation, delete).
+  const loadConversation = (state) => {
     inFlight.current?.abort();
+    inFlight.current = null;
+    generation.current += 1;
     speaker.stop();
+    const c = conv.getCurrent(state);
+    setConvState(state);
+    setMessages(c.messages.map((m) => ({ ...m, id: m.id ?? newId() })));
+    setResults(c.results);
+    setPending(false); setError(null); setDraft(''); setDetails({}); setRoute(null);
+    setSection('chat');
+  };
+  const newConversation = () => loadConversation(conv.startNew(convState));
+  const openConversation = (id) => loadConversation(conv.select(convState, id));
+  const deleteConversation = (id) => {
+    const next = conv.remove(convState, id);
+    if (id === convState.currentId) { loadConversation(next); setSection('historial'); } else setConvState(next);
+  };
+
+  const goTo = (key) => { setRoute(null); setSection(key); window.scrollTo?.(0, 0); };
+
+  const doClear = () => {
     clearAll(storage);
     setVoiceSettings(normalizeVoiceSettings(null));
-    setProfile({}); setMessages([]); setResults(null); setDetails({}); setError(null); setDraft(''); setRoute(null); setView('chat');
+    setProfile({});
+    loadConversation(conv.restoreConversations(null, {}));
     setConfirmClear(false);
   };
 
   const hasRealConversation = messages.some((m) => m.role === 'user');
-  const workspaceView = route ? 'detail' : view;
+  const history = conv.historyEntries(convState);
+  const aidsCount = results?.aids.length ?? 0;
 
-  const profileColumn = (
-    <aside className="column col-profile" aria-label="Mi explotación">
-      {profileCollapsed ? (
-        <button type="button" className="btn btn-secondary profile-collapsed-btn" onClick={() => setProfileCollapsed(false)} aria-expanded="false">
-          Mi explotación »
-        </button>
-      ) : (
+  const aidsPanel = (
+    <AidsPanel
+      results={results} profileSummary={summary}
+      onOpen={(id) => open('detail', id)} onAlternatives={(id) => open('alternatives', id)}
+      onAnswerMissing={(aid) => send(`Para la ayuda «${aid.nombre}», ¿qué datos me faltan?`)}
+      onAskAbout={() => { goTo('chat'); setTimeout(() => document.getElementById('composer-input')?.focus(), 0); }}
+      onStateOnly={() => send('Muéstrame solo las ayudas estatales.')}
+    />
+  );
+
+  let mainContent;
+  if (route) {
+    mainContent = (
+      <div className="col-main">
+        {route.name === 'detail' && (
+          <AidDetail aid={currentAid} status={detailStatus[route.id]} trace={results?.trace}
+            onBack={back} onGuide={(id) => open('guide', id)} onAlternatives={(id) => open('alternatives', id)} onAsk={ask}
+            onQuickReply={quickReply} />
+        )}
+        {route.name === 'guide' && <ApplicationGuide aid={currentAid} status={detailStatus[route.id]} trace={results?.trace} onBack={back} onAsk={ask} />}
+        {route.name === 'alternatives' && (
+          <Alternatives aid={currentAid} alternatives={alternatives} status={altLoading ? 'loading' : 'ok'} onBack={back} onOpen={(id) => open('detail', id)} onAsk={ask} />
+        )}
+      </div>
+    );
+  } else if (section === 'explotacion') {
+    mainContent = (
+      <div className="col-main col-narrow">
         <ProfileForm
           profile={profile}
           onSave={(p) => setProfile(p)}
           onClear={() => setConfirmClear(true)}
           canRecheck={hasRealConversation}
           onRecheck={() => send('He actualizado los datos de mi explotación. ¿Puedes volver a revisar qué ayudas encajan?')}
-          onCollapse={() => setProfileCollapsed(true)}
         />
-      )}
-    </aside>
-  );
+      </div>
+    );
+  } else if (section === 'ayudas') {
+    mainContent = <div className="col-main col-narrow">{aidsPanel}</div>;
+  } else if (section === 'historial') {
+    mainContent = (
+      <div className="col-main col-narrow">
+        <HistoryView entries={history} onOpen={openConversation} onDelete={deleteConversation} onNew={newConversation} />
+      </div>
+    );
+  } else {
+    mainContent = (
+      <>
+        <div className="col-main">
+          <Chat
+            messages={messages} pending={pending} error={error} draft={draft} setDraft={setDraft}
+            onSend={(t) => send(t)} onRetry={retry} onQuickReply={(c) => quickReply(c)} onShowAids={() => goTo('ayudas')} profile={profile}
+            voiceSettings={voiceSettings} setVoiceSettings={setVoiceSettings} transcribe={api.transcribe}
+            onVoiceSubmit={sendFromVoice} speaker={speaker}
+          />
+        </div>
+        <aside className="col-aids" aria-label="Ayudas encontradas">{aidsPanel}</aside>
+      </>
+    );
+  }
 
   return (
     <div className="app">
       <a className="skip-link" href="#main">Saltar al contenido</a>
       <header className="header">
-        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); setRoute(null); setView('chat'); }}>
+        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); goTo('chat'); }}>
           <img className="brand-mark" src="/favicon.svg" alt="" width="32" height="32" />
-          El vecino que sabe
+          {APP_NAME}
         </a>
         <button type="button" className="btn btn-ghost header-coverage" aria-expanded={voiceOpen} aria-controls="voice-settings" onClick={() => { setVoiceOpen((o) => !o); setCoverageOpen(false); }}>
           Voz
@@ -228,7 +312,7 @@ export default function App() {
       {confirmClear && (
         <div className="coverage-panel notice-error" role="alertdialog" aria-labelledby="clear-title" aria-describedby="clear-desc">
           <p id="clear-title"><strong>¿Borrar tus datos de este dispositivo?</strong></p>
-          <p id="clear-desc">Se borran tu explotación, la conversación y las ayudas encontradas. No se puede deshacer.</p>
+          <p id="clear-desc">Se borran tu explotación, todas tus conversaciones y las ayudas encontradas. No se puede deshacer.</p>
           <div className="btn-row">
             <button type="button" className="btn btn-danger" onClick={doClear} autoFocus>Sí, borrar mis datos</button>
             <button type="button" className="btn btn-secondary" onClick={() => setConfirmClear(false)}>Cancelar</button>
@@ -236,60 +320,34 @@ export default function App() {
         </div>
       )}
 
-      {!route && view !== 'explotacion' && (
+      {!route && section !== 'explotacion' && (
         <div className="farm-strip">
           <span>Tu explotación: {summary}</span>
-          <button type="button" className="btn btn-ghost" onClick={() => setView('explotacion')}>Editar</button>
+          <button type="button" className="btn btn-ghost" onClick={() => goTo('explotacion')}>Editar</button>
         </div>
       )}
 
-      <main id="main" className={`workspace${route ? ' detail-open' : ''}`} data-view={workspaceView} data-profile={profileCollapsed ? 'collapsed' : 'open'}>
-        {profileColumn}
-        {route ? (
-          <div className="column col-detail">
-            {route.name === 'detail' && (
-              <AidDetail aid={currentAid} status={detailStatus[route.id]} trace={results?.trace}
-                onBack={back} onGuide={(id) => open('guide', id)} onAlternatives={(id) => open('alternatives', id)} onAsk={ask}
-                onQuickReply={quickReply} />
-            )}
-            {route.name === 'guide' && <ApplicationGuide aid={currentAid} status={detailStatus[route.id]} trace={results?.trace} onBack={back} onAsk={ask} />}
-            {route.name === 'alternatives' && (
-              <Alternatives aid={currentAid} alternatives={alternatives} status={altLoading ? 'loading' : 'ok'} onBack={back} onOpen={(id) => open('detail', id)} onAsk={ask} />
-            )}
-          </div>
-        ) : (
-          <>
-            <div className="column col-chat">
-              <Chat
-                messages={messages} pending={pending} error={error} draft={draft} setDraft={setDraft}
-                onSend={(t) => send(t)} onRetry={retry} onQuickReply={(c) => quickReply(c)} onShowAids={() => setView('ayudas')} profile={profile}
-                voiceSettings={voiceSettings} setVoiceSettings={setVoiceSettings} transcribe={api.transcribe}
-                onVoiceSubmit={sendFromVoice} speaker={speaker}
-              />
-            </div>
-            <aside className="column col-aids" aria-label="Ayudas encontradas">
-              <AidsPanel
-                results={results} profileSummary={summary}
-                onOpen={(id) => open('detail', id)} onAlternatives={(id) => open('alternatives', id)}
-                onAnswerMissing={(aid) => send(`Para la ayuda «${aid.nombre}», ¿qué datos me faltan?`)}
-                onAskAbout={() => { setView('chat'); document.getElementById('composer-input')?.focus(); }}
-                onStateOnly={() => send('Muéstrame solo las ayudas estatales.')}
-              />
-            </aside>
-          </>
-        )}
-      </main>
+      <div className="shell" data-sidebar={sidebarCollapsed ? 'collapsed' : 'open'}>
+        <Sidebar
+          section={route ? null : section} onSelect={goTo}
+          collapsed={sidebarCollapsed} onToggle={() => setSidebarCollapsed((c) => !c)}
+          onNew={newConversation} summary={summary} aidsCount={aidsCount} historyCount={history.length}
+        />
+        <main id="main" className="workspace" data-section={route ? 'detail' : section}>
+          {mainContent}
+        </main>
+      </div>
 
       <footer className="footer">
-        Información orientativa sobre ayudas públicas. No sustituye a la resolución de la administración ni al asesoramiento profesional.
+        {APP_NAME}: información orientativa sobre ayudas públicas. No sustituye a la resolución de la administración ni al asesoramiento profesional.
         <br />Tech for Inclusion Challenge · Ebury × Somos F5
       </footer>
 
       <nav className="bottom-nav" aria-label="Secciones">
-        {[['chat', 'Inicio / Chat', '💬'], ['ayudas', 'Ayudas', '📋'], ['explotacion', 'Mi explotación', '🌾']].map(([key, label, icon]) => (
-          <button key={key} type="button" aria-current={!route && view === key ? 'page' : undefined} onClick={() => { setRoute(null); setView(key); }}>
+        {[['chat', 'Chat', '💬'], ['ayudas', 'Ayudas', '📋'], ['explotacion', 'Mi explotación', '🌾'], ['historial', 'Historial', '🕘']].map(([key, label, icon]) => (
+          <button key={key} type="button" aria-current={!route && section === key ? 'page' : undefined} onClick={() => goTo(key)}>
             <span className="nav-icon" aria-hidden="true">{icon}</span>
-            <span>{label}{key === 'ayudas' && results?.aids.length ? <span className="nav-count">{results.aids.length}</span> : null}</span>
+            <span>{label}{key === 'ayudas' && aidsCount ? <span className="nav-count">{aidsCount}</span> : null}</span>
           </button>
         ))}
       </nav>
