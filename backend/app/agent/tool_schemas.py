@@ -52,8 +52,10 @@ TOOL_SCHEMAS = [
             "type": "object",
             "properties": {
                 "profile": PROFILE_SCHEMA,
-                "free_text": {"type": "string",
-                              "description": "Keywords for the goal, e.g. 'milking machinery'."},
+                # Nullable: models sometimes send null when there are no keywords, and
+                # Groq rejects the whole call (HTTP 400) if the schema does not allow it.
+                "free_text": {"type": ["string", "null"],
+                              "description": "Keywords for the goal, e.g. 'milking machinery'. Omit if none."},
                 "only_open": {"type": "boolean",
                               "description": "If true, discards aids whose application window is closed."},
                 "max_results": {"type": "integer", "minimum": 1, "maximum": 10},

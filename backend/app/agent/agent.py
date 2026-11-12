@@ -66,13 +66,15 @@ def build_system_prompt(profile: dict) -> str:
 
 def _create(client, **kwargs):
     """Calls the LLM. Open models sometimes produce a malformed tool call
-    (HTTP 400 'tool_use_failed'): in that case it retries."""
+    (HTTP 400 'tool_use_failed' or 'Tool call validation failed'): in that case it retries."""
     last: Exception | None = None
     for _ in range(3):
         try:
             return client.chat.completions.create(**kwargs)
         except BadRequestError as e:
-            if "tool_use_failed" in str(e) or "Failed to call a function" in str(e):
+            text = str(e)
+            if ("tool_use_failed" in text or "Failed to call a function" in text
+                    or "Tool call validation failed" in text):
                 log.warning("Malformed tool call; retrying.")
                 last = e
                 continue

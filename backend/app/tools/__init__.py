@@ -24,7 +24,8 @@ def run_tool(name: str, args: dict, base_profile: dict) -> dict:
     fn = TOOLS.get(name)
     if fn is None:
         return {"error": f"Unknown tool: {name}"}
-    args = dict(args)
+    # A null argument means "not given": let the tool use its default.
+    args = {k: v for k, v in dict(args).items() if v is not None}
     try:
         if "profile" in args:
             from_llm = FarmProfile(**(args.get("profile") or {})).model_dump(exclude_none=True)
