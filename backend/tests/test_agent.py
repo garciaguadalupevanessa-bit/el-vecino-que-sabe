@@ -54,7 +54,8 @@ def test_chains_tools_and_collects_sources(fake):
     assert r["answer"] == "Final answer"
     assert [t["tool"] for t in r["trace"]] == ["search_aids", "check_eligibility"]
     assert all(t["ok"] for t in r["trace"])
-    assert r["sources"] and r["aids"][0]["overall_result"] == "unknown"
+    checked = next(a for a in r["aids"] if a["id"] == "cap_basic_income_support")
+    assert r["sources"] and checked["overall_result"] == "unknown"
     # the tool result goes back to the model with role=tool and the same id
     last = c.calls[-1]["messages"]
     assert last[-1]["role"] == "tool" and last[-1]["tool_call_id"] == "c2"
@@ -134,3 +135,13 @@ def test_provider_auth_error_does_not_expose_provider_details(monkeypatch):
         agent.run_agent(MSGS, {})
     assert str(error.value) == agent.MSG_BAD_KEY
     assert provider_secret not in str(error.value)
+
+
+def test_polish_fixes_fega_gender_and_internal_values():
+    text = agent.polish_answer("Lo gestiona la FEGA. Datos de la FEGA, `unknown`, metadata only.")
+    assert "el FEGA" in text and "del FEGA" in text
+    assert "la FEGA" not in text and "metadata" not in text and "unknown" not in text
+
+
+def test_polish_translates_reliability_label():
+    assert agent.polish_answer("Reliability: Verificada.") == "Fiabilidad: Verificada."

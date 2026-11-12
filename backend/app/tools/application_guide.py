@@ -1,4 +1,5 @@
 from app.data.loader import AIDS_BY_ID
+from app.tools.labels import reliability_label_es
 
 PLACEHOLDER = "TO_BE_COMPLETED"  # marks documents the team has not filled in yet
 
@@ -27,7 +28,8 @@ def get_application_guide(aid_id: str) -> dict:
             "source_documents": [], "campaigns": campaigns, "territories": territories,
             "incomplete_data": True, "guide_available": False,
             "note": "Application details have not been verified against the official rules.",
-            "reliability": aid["reliability"], "source_url": aid["source_url"],
+            "reliability": aid["reliability"], "reliability_label_es": reliability_label_es(aid),
+            "source_url": aid["source_url"],
             "verification_method": aid.get("verification_method", "human"),
             "verified_on": aid["verified_on"],
             "last_checked_on": aid["verified_on"],
@@ -46,6 +48,7 @@ def get_application_guide(aid_id: str) -> dict:
         "incomplete_data": incomplete,
         "guide_available": not incomplete,
         "reliability": aid["reliability"],
+        "reliability_label_es": reliability_label_es(aid),
         "verification_method": aid.get("verification_method", "human"),
         "source_url": aid["source_url"],
         "verified_on": aid["verified_on"],

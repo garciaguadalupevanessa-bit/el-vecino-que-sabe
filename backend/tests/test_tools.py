@@ -183,3 +183,20 @@ def test_alternatives_do_not_infer_changes_from_unverified_rules():
 def test_alternatives_exclude_the_original_aid():
     out = run_tool("find_alternatives", {"profile": {"region": "Aragón"}, "aid_id": "cap_basic_income_support"}, {})
     assert all(a["id"] != "cap_basic_income_support" for a in out["alternatives"])
+
+
+def test_reliability_labels_are_ready_to_show_in_spanish():
+    from app.tools.labels import reliability_label_es
+    assert "no revisada por una persona" in reliability_label_es(
+        {"reliability": "verified", "verification_method": "agent", "verified_on": "2026-11-12"})
+    assert "12/11/2026" in reliability_label_es({"reliability": "verified", "verified_on": "2026-11-12"})
+    assert "metadata" not in reliability_label_es({"reliability": "metadata_only", "verified_on": "2026-11-06"})
+
+
+def test_not_met_aid_tells_the_agent_not_to_recommend_applying():
+    from app.tools.check_eligibility import check_eligibility
+    r = check_eligibility("cap_coupled_sheep_goat_meat",
+                          {"livestock_type": ["sheep"], "head_count": 20, "active_farmer": True})
+    assert r["overall_result"] == "not_met"
+    assert "No recomiendes solicitarla" in r["recommendation_es"]
+    assert "automáticamente" in r["reliability_label_es"]

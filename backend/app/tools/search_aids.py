@@ -3,6 +3,7 @@ import unicodedata
 from datetime import date
 
 from app.data.loader import AIDS
+from app.tools.labels import reliability_label_es
 
 
 def _as_list(v) -> list:
@@ -98,6 +99,7 @@ def summary(aid: dict, fit: float | None = None) -> dict:
     out = {
         "id": aid["id"], "name": aid["name"], "agency": aid["agency"], "scope": aid["scope"],
         "reliability": reliability,
+        "reliability_label_es": reliability_label_es(aid),
         "verification_method": aid.get("verification_method", "human"),
         "source_url": aid["source_url"], "verified_on": aid["verified_on"],
         "last_checked_on": aid["verified_on"],

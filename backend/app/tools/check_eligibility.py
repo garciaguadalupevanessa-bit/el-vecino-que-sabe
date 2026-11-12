@@ -1,4 +1,5 @@
 from app.data.loader import AIDS_BY_ID, BLOCKS
+from app.tools.labels import RECOMMENDATION_ES, reliability_label_es
 from app.tools.requirements_engine import evaluate_requirement, expand_requirements
 
 
@@ -41,6 +42,8 @@ def check_eligibility(aid_id: str, profile: dict) -> dict:
         "name": aid["name"],
         "overall_result": overall,
         "eligibility_status": overall,
+        "recommendation_es": RECOMMENDATION_ES[overall],
+        "reliability_label_es": reliability_label_es(aid),
         "requirements": reqs,
         "missing_fields": sorted({r["missing_field"] for r in reqs if r["missing_field"]}),
         "reliability": aid["reliability"],

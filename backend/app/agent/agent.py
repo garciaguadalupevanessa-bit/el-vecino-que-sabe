@@ -2,6 +2,7 @@
 LLM with function calling -> run tools -> final answer with sources."""
 import json
 import logging
+import re
 from datetime import date
 from pathlib import Path
 
@@ -141,8 +142,28 @@ def _collect(obj, sources: dict, aids: dict, coverage_notes: dict | None = None,
             _collect(v, sources, aids, coverage_notes, context)
 
 
+# Last safety net: fixes wording the model sometimes gets wrong, before the user sees it.
+_POLISH = [
+    (re.compile(r"\bde la FEGA\b"), "del FEGA"),
+    (re.compile(r"\ba la FEGA\b"), "al FEGA"),
+    (re.compile(r"\bla FEGA\b"), "el FEGA"),
+    (re.compile(r"\bLa FEGA\b"), "El FEGA"),
+    (re.compile(r"`?metadata[ _]only`?", re.IGNORECASE), "solo datos básicos, sin verificar"),
+    (re.compile(r"\b[Rr]eliability\s*:"), "Fiabilidad:"),
+    (re.compile(r"`(unknown|not_met|met|extracted|verified)`"), lambda m: {
+        "unknown": "sin confirmar", "not_met": "no cumple", "met": "cumple",
+        "extracted": "sin verificar", "verified": "verificada"}[m.group(1)]),
+]
+
+
+def polish_answer(text: str) -> str:
+    for pattern, repl in _POLISH:
+        text = pattern.sub(repl, text)
+    return text
+
+
 def _result(msg, trace, sources, aids, coverage_notes) -> dict:
-    text = (msg.content or "").strip() or MSG_EMPTY_ANSWER
+    text = polish_answer((msg.content or "").strip()) or MSG_EMPTY_ANSWER
     return {
         "answer": text, "aids": list(aids.values()), "sources": list(sources.values()),
         "trace": trace, "coverage_notes": list(coverage_notes.values()),
