@@ -42,7 +42,7 @@ export async function sendChat(messages, profile, { timeoutMs = 90_000 } = {}) {
   }
 
   if (resp.status === 422) {
-    throw new ApiError("Los datos no son válidos. Revisa el perfil y que el mensaje no supere los 2000 caracteres.");
+    throw new ApiError("Los datos no son válidos. Revisa el perfil y que el mensaje no supere los 4000 caracteres.");
   }
   if (!resp.ok) {
     const detail = await errorDetail(resp);

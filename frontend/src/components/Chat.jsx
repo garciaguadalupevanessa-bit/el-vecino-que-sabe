@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { APP_NAME } from "../lib/brand.js";
 import Message from "./Message.jsx";
 
-const MAX_CHARS = 2000;
+const MAX_CHARS = 4000; // keep in sync with MAX_USER_CHARS in backend/app/models/api.py
 // [chip label, question sent] - user-facing, so Spanish
 const SUGGESTIONS = [
   ["¿A qué ayudas puedo optar?", "¿A qué ayudas puedo optar con mi explotación?"],

@@ -1,13 +1,19 @@
 from typing import Any, Literal, Optional
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from app.models.profile import FarmProfile
 
 
+# User messages are what people type; assistant messages are earlier agent answers
+# that the frontend sends back as history, so they need a higher limit.
+MAX_USER_CHARS = 4000
+MAX_ASSISTANT_CHARS = 8000
+
+
 class Message(BaseModel):
     role: Literal["user", "assistant"]
-    content: str = Field(min_length=1, max_length=2000)
+    content: str = Field(min_length=1, max_length=MAX_ASSISTANT_CHARS)
 
     @field_validator("content")
     @classmethod
@@ -16,6 +22,12 @@ class Message(BaseModel):
         if not v:
             raise ValueError("The message cannot be empty.")
         return v
+
+    @model_validator(mode="after")
+    def user_length(self) -> "Message":
+        if self.role == "user" and len(self.content) > MAX_USER_CHARS:
+            raise ValueError(f"User messages cannot exceed {MAX_USER_CHARS} characters.")
+        return self
 
 
 class ChatRequest(BaseModel):

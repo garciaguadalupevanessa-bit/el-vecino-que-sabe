@@ -19,8 +19,27 @@ def test_chat_last_message_must_be_from_the_user():
     assert client.post("/api/chat", json=body).status_code == 422
 
 
-def test_chat_message_too_long_is_422():
-    body = {"messages": [{"role": "user", "content": "a" * 2001}]}
+def test_chat_user_message_too_long_is_422():
+    body = {"messages": [{"role": "user", "content": "a" * 4001}]}
+    assert client.post("/api/chat", json=body).status_code == 422
+
+
+def test_chat_accepts_long_assistant_answers_in_history():
+    from app.models.api import ChatRequest
+    req = ChatRequest(messages=[
+        {"role": "user", "content": "¿Qué ayudas hay?"},
+        {"role": "assistant", "content": "a" * 6000},
+        {"role": "user", "content": "¿Y cómo la pido?"},
+    ])
+    assert len(req.messages) == 3
+
+
+def test_chat_assistant_message_too_long_is_422():
+    body = {"messages": [
+        {"role": "user", "content": "hola"},
+        {"role": "assistant", "content": "a" * 8001},
+        {"role": "user", "content": "hola"},
+    ]}
     assert client.post("/api/chat", json=body).status_code == 422
 
 
