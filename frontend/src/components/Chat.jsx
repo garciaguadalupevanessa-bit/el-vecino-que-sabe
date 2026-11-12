@@ -143,7 +143,7 @@ export default function Chat({
       <h2 id="chat-title" className="visually-hidden">Conversación</h2>
       <Disclaimer />
       {messages.length > 0 && progress < 3 && (
-        <p className="support">Para empezar · {progress} de 3 datos (ubicación, actividad y tamaño)</p>
+        <p className="support">Afina la búsqueda en «Mi explotación»: {progress} de 3 datos (ubicación, actividad y tamaño)</p>
       )}
       <div className="chat-log" ref={logRef} role="log" aria-live="polite" aria-relevant="additions" tabIndex={0} aria-label="Mensajes de la conversación">
         {messages.length === 0 && !pending && <Welcome onPrompt={(p) => onSend(p)} voiceOn={voiceOn} />}
