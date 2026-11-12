@@ -1,0 +1,86 @@
+[
+  {
+    "descripcion": "ACCESO A LA VIVIENDA Y FOMENTO DE LA EDIFICACIÓN",
+    "id": 8
+  },
+  {
+    "descripcion": "AGRICULTURA, PESCA Y ALIMENTACIÓN",
+    "id": 12
+  },
+  {
+    "descripcion": "COMERCIO, TURISMO Y PYMES",
+    "id": 14
+  },
+  {
+    "descripcion": "COOPERACIÓN INTERNACIONAL PARA EL DESARROLLO Y CULTURAL",
+    "id": 20
+  },
+  {
+    "descripcion": "CULTURA",
+    "id": 11
+  },
+  {
+    "descripcion": "DEFENSA",
+    "id": 2
+  },
+  {
+    "descripcion": "DESEMPLEO",
+    "id": 7
+  },
+  {
+    "descripcion": "EDUCACIÓN",
+    "id": 10
+  },
+  {
+    "descripcion": "FOMENTO DEL EMPLEO",
+    "id": 6
+  },
+  {
+    "descripcion": "INDUSTRIA Y ENERGÍA",
+    "id": 13
+  },
+  {
+    "descripcion": "INFORMACIÓN NO DISPONIBLE",
+    "id": 21
+  },
+  {
+    "descripcion": "INFRAESTRUCTURAS",
+    "id": 16
+  },
+  {
+    "descripcion": "INVESTIGACIÓN, DESARROLLO E INNOVACIÓN",
+    "id": 17
+  },
+  {
+    "descripcion": "JUSTICIA",
+    "id": 1
+  },
+  {
+    "descripcion": "OTRAS ACTUACIONES DE CARÁCTER ECONÓMICO",
+    "id": 18
+  },
+  {
+    "descripcion": "OTRAS PRESTACIONES ECONÓMICAS",
+    "id": 4
+  },
+  {
+    "descripcion": "SANIDAD",
+    "id": 9
+  },
+  {
+    "descripcion": "SEGURIDAD CIUDADANA E INSTITUCIONES PENITENCIARIAS",
+    "id": 3
+  },
+  {
+    "descripcion": "SERVICIOS SOCIALES Y PROMOCIÓN SOCIAL",
+    "id": 5
+  },
+  {
+    "descripcion": "SIN INFORMACION ESPECIFICA",
+    "id": 19
+  },
+  {
+    "descripcion": "SUBVENCIONES AL TRANSPORTE",
+    "id": 15
+  }
+]

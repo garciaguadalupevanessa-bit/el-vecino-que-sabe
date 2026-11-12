@@ -1,0 +1,51 @@
+/* Design tokens · UX/UI v2. No inline styles anywhere: the nginx CSP is style-src 'self'. */
+:root {
+  --bg-wheat: #F1EFEA;
+  --surface: #FFFDFA;
+  --primary: #485426;
+  --primary-hover: #3A441E;
+  --primary-strong: #34491F;
+  --on-primary: #FFFFFF;
+  --sage: #EFEDDA;
+  --ink: #222910;
+  --ink-muted: #555D4C;
+  --line: #DCD4BF;
+
+  --success: #2F5A1E; --success-bg: #E3EDD3;
+  --warning: #6B4A00; --warning-bg: #F7E6BC;
+  --error: #9A3324;   --error-bg: #F6DFD6;
+  --info: #2E5869;    --info-bg: #E1EBEF;
+  --focus: var(--primary); /* 3px focus ring in --primary across the app */
+
+  --font: 'Atkinson Hyperlegible', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-display: 32px; --fs-title: 24px; --fs-section: 20px;
+  --fs-body: 17px; --fs-label: 16px; --fs-support: 15px;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --r-badge: 6px; --r-field: 10px; --r-button: 12px; --r-card: 14px; --r-chip: 999px;
+  --shadow: 0 1px 2px rgba(34, 41, 28, .08);
+  --touch: 44px;
+  --header-h: 60px;
+  --nav-h: 64px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-wheat: #16180F;
+    --surface: #20231A;
+    --primary: #A9C47F;
+    --primary-hover: #BDD596;
+    --primary-strong: #CFE0B0;
+    --on-primary: #16180F;
+    --sage: #2C3222;
+    --ink: #EDEADF;
+    --ink-muted: #C2C0B2;
+    --line: #3D4232;
+    --success: #B9DA9A; --success-bg: #24331A;
+    --warning: #F1CF7A; --warning-bg: #3A2E10;
+    --error: #F2A898;   --error-bg: #3E1F18;
+    --info: #A8CCDB;    --info-bg: #1C2E36;
+    --focus: var(--primary);
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4);
+  }
+}
