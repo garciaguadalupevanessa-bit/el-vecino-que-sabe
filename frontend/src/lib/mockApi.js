@@ -3,6 +3,7 @@
 
 import { normalizeChatResponse, normalizeAid } from './aids.js';
 import { ApiError } from './api.js';
+import { extractNumber } from './voice.js';
 
 const AIDS = {
   'ej-ovino-asociada': {
@@ -57,8 +58,8 @@ function extract(messages, profile) {
   if (!p.tipo_ganado && /cabra|caprino/.test(text)) p.tipo_ganado = ['caprino'];
   if (!p.tipo_ganado && /vaca|bovino/.test(text)) p.tipo_ganado = ['bovino'];
   if (!p.comunidad && /teruel|arag[oó]n|huesca|zaragoza/.test(text)) p.comunidad = 'Aragón';
-  const n = /(\d[\d.]*)\s*(ovejas|cabezas|cabras|vacas|animales)/.exec(text);
-  if (p.num_cabezas == null && n) p.num_cabezas = Number(n[1].replace(/\./g, ''));
+  const n = /((?:\S+\s+){0,3})(ovejas|cabezas|cabras|vacas|animales)/.exec(text);
+  if (p.num_cabezas == null && n && extractNumber(n[1])) p.num_cabezas = extractNumber(n[1]);
   if (p.agricultor_activo == null && /soy agricultor activo|s[ií], lo soy/.test(text)) p.agricultor_activo = true;
   return p;
 }
@@ -128,4 +129,9 @@ export async function mockGetAid(id) {
 
 export async function mockGetHealth() {
   return { status: 'ok', aids_loaded: Object.keys(AIDS).length, data_source: 'demo', llm_configured: false };
+}
+
+export async function mockTranscribe() {
+  await wait(1200);
+  return 'Tengo unas trescientas ovejas en Teruel y quería saber qué ayudas hay para mí.';
 }

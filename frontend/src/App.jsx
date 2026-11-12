@@ -3,18 +3,21 @@ import Chat from './components/Chat.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
 import AidsPanel from './components/AidsPanel.jsx';
 import { AidDetail, ApplicationGuide, Alternatives } from './components/AidViews.jsx';
+import { useSpeaker, VoiceSettings } from './components/Voice.jsx';
 import * as realApi from './lib/api.js';
-import { mockSendChat, mockGetAid, mockGetHealth } from './lib/mockApi.js';
+import { mockSendChat, mockGetAid, mockGetHealth, mockTranscribe } from './lib/mockApi.js';
+import { normalizeVoiceSettings, parseYesNo } from './lib/voice.js';
+import { quickRepliesFor } from './lib/quickReplies.js';
 import { buildChatPayload, validateUserText } from './lib/history.js';
-import { loadState, saveProfile, saveMessages, saveResults, clearAll } from './lib/storage.js';
+import { loadState, saveProfile, saveMessages, saveResults, clearAll, loadVoiceSettings, saveVoiceSettings } from './lib/storage.js';
 import { profileSummary, boolLabel } from './lib/profile.js';
 import { mergeAid } from './lib/aids.js';
 
 // `npm run dev:mock` (vite --mode mock) or VITE_USE_MOCK=true: fake answers, no backend needed.
 export const USE_MOCK = import.meta.env.MODE === 'mock' || import.meta.env.VITE_USE_MOCK === 'true';
 const api = USE_MOCK
-  ? { sendChat: mockSendChat, getAid: mockGetAid, getHealth: mockGetHealth }
-  : { sendChat: realApi.sendChat, getAid: realApi.getAid, getHealth: realApi.getHealth };
+  ? { sendChat: mockSendChat, getAid: mockGetAid, getHealth: mockGetHealth, transcribe: mockTranscribe }
+  : { sendChat: realApi.sendChat, getAid: realApi.getAid, getHealth: realApi.getHealth, transcribe: (blob) => realApi.transcribeAudio(blob) };
 
 const storage = (() => { try { return window.localStorage; } catch { return null; } })();
 let seq = 0;
@@ -38,6 +41,13 @@ export default function App() {
   const [coverageOpen, setCoverageOpen] = useState(false);
   const [confirmClear, setConfirmClear] = useState(false);
   const [health, setHealth] = useState(null);
+  const [voiceSettings, setVoiceSettings] = useState(() => normalizeVoiceSettings(loadVoiceSettings(storage)));
+  const [voiceOpen, setVoiceOpen] = useState(false);
+  const speaker = useSpeaker(voiceSettings);
+  const voiceRef = useRef(voiceSettings);
+  voiceRef.current = voiceSettings;
+  const speakerRef = useRef(speaker);
+  speakerRef.current = speaker;
   const inFlight = useRef(null);
   const messagesRef = useRef(messages);
   messagesRef.current = messages;
@@ -45,18 +55,19 @@ export default function App() {
   useEffect(() => { saveProfile(storage, profile); }, [profile]);
   useEffect(() => { saveMessages(storage, messages.filter((m) => m.role !== 'note')); }, [messages]);
   useEffect(() => { saveResults(storage, results); }, [results]);
+  useEffect(() => { saveVoiceSettings(storage, voiceSettings); }, [voiceSettings]);
   useEffect(() => {
     api.getHealth().then(setHealth).catch(() => setHealth({ status: 'error' }));
   }, []);
 
   const summary = profileSummary(profile);
 
-  const send = useCallback((text, extraProfile) => {
+  const send = useCallback((text, extraProfile, meta) => {
     const problem = validateUserText(text);
     if (problem) return { error: problem };
     if (inFlight.current) return { error: 'Espera a que termine la búsqueda en curso.' };
 
-    const userMsg = { id: newId(), role: 'user', content: text.trim() };
+    const userMsg = { id: newId(), role: 'user', content: text.trim(), ...(meta?.via ? { via: meta.via, duration: meta.duration } : {}) };
     // Read the latest history from a ref: quick replies add a note right before sending.
     const nextHistory = [...messagesRef.current, userMsg];
     const effectiveProfile = extraProfile ?? profile;
@@ -71,7 +82,10 @@ export default function App() {
     inFlight.current = controller;
     api.sendChat(buildChatPayload(nextHistory, effectiveProfile), { signal: controller.signal })
       .then((res) => {
-        setMessages((prev) => [...prev, { id: newId(), role: 'assistant', content: res.answer, aidsCount: res.aids.length }]);
+        const assistantId = newId();
+        setMessages((prev) => [...prev, { id: assistantId, role: 'assistant', content: res.answer, aidsCount: res.aids.length }]);
+        // Spoken question -> spoken answer (V5), if the person keeps that preference on.
+        if (meta?.via === 'voz' && voiceRef.current.readAloud) speakerRef.current.play(assistantId, res.answer);
         // Keep the last list of aids if this answer has none (e.g. "Explícamelo"), but refresh the trace.
         setResults((prev) => (res.aids.length || !prev ? res : { ...prev, trace: res.trace, sources: res.sources.length ? res.sources : prev.sources }));
         if (res.aids.length) setDetails({});
@@ -96,7 +110,7 @@ export default function App() {
     return next;
   };
 
-  const quickReply = (chip, questionContext) => {
+  const quickReply = (chip, questionContext, meta) => {
     let nextProfile;
     if (chip.field && 'value' in chip) {
       nextProfile = updateProfileField(chip.field, chip.value);
@@ -105,7 +119,16 @@ export default function App() {
       setMessages((prev) => [...prev, note]);
     }
     const text = questionContext && chip.field ? `${questionContext} ${chip.text}` : chip.text;
-    send(text, nextProfile);
+    send(text, nextProfile, meta);
+  };
+
+  // A spoken "sí / no / no lo sé" answers the quick-reply question like tapping the chip.
+  const sendFromVoice = (text, meta) => {
+    const lastAssistant = [...messagesRef.current].reverse().find((m) => m.role === 'assistant');
+    const label = parseYesNo(text);
+    const chip = label && lastAssistant ? quickRepliesFor(lastAssistant.content).find((c) => c.label === label) : null;
+    if (chip) quickReply(chip, undefined, meta);
+    else send(text, undefined, meta);
   };
 
   const fetchDetail = useCallback((id) => {
@@ -135,7 +158,9 @@ export default function App() {
 
   const doClear = () => {
     inFlight.current?.abort();
+    speaker.stop();
     clearAll(storage);
+    setVoiceSettings(normalizeVoiceSettings(null));
     setProfile({}); setMessages([]); setResults(null); setDetails({}); setError(null); setDraft(''); setRoute(null); setView('chat');
     setConfirmClear(false);
   };
@@ -170,13 +195,22 @@ export default function App() {
           <img className="brand-mark" src="/favicon.svg" alt="" width="32" height="32" />
           El vecino que sabe
         </a>
-        <button type="button" className="btn btn-ghost header-coverage" aria-expanded={coverageOpen} aria-controls="coverage" onClick={() => setCoverageOpen((o) => !o)}>
+        <button type="button" className="btn btn-ghost header-coverage" aria-expanded={voiceOpen} aria-controls="voice-settings" onClick={() => { setVoiceOpen((o) => !o); setCoverageOpen(false); }}>
+          Voz
+        </button>
+        <button type="button" className="btn btn-ghost header-coverage" aria-expanded={coverageOpen} aria-controls="coverage" onClick={() => { setCoverageOpen((o) => !o); setVoiceOpen(false); }}>
           Cobertura
         </button>
         <button type="button" className="btn btn-danger desktop-only" onClick={() => setConfirmClear(true)}>Borrar mis datos</button>
       </header>
 
       {USE_MOCK && <p className="mock-banner">Modo demostración: respuestas y ayudas de ejemplo, sin conexión con el backend.</p>}
+
+      {voiceOpen && (
+        <div id="voice-settings">
+          <VoiceSettings settings={voiceSettings} setSettings={setVoiceSettings} speaker={speaker} onClose={() => setVoiceOpen(false)} />
+        </div>
+      )}
 
       {coverageOpen && (
         <div id="coverage" className="coverage-panel">
@@ -229,6 +263,8 @@ export default function App() {
               <Chat
                 messages={messages} pending={pending} error={error} draft={draft} setDraft={setDraft}
                 onSend={(t) => send(t)} onRetry={retry} onQuickReply={(c) => quickReply(c)} onShowAids={() => setView('ayudas')} profile={profile}
+                voiceSettings={voiceSettings} setVoiceSettings={setVoiceSettings} transcribe={api.transcribe}
+                onVoiceSubmit={sendFromVoice} speaker={speaker}
               />
             </div>
             <aside className="column col-aids" aria-label="Ayudas encontradas">

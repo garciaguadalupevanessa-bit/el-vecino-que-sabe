@@ -79,3 +79,35 @@ export async function getAid(id, opts = {}) {
 export async function getHealth(opts = {}) {
   return request('/api/health', { timeoutMs: 8_000, ...opts });
 }
+
+/**
+ * Voice option A: POST /api/transcribe (multipart, field "audio") -> { text }.
+ * The audio is not stored: the backend transcribes it with Groq Whisper and discards it.
+ */
+export async function transcribeAudio(blob, { fetchImpl = globalThis.fetch, timeoutMs = 45_000, signal } = {}) {
+  const form = new FormData();
+  const ext = (blob.type.split('/')[1] || 'webm').split(';')[0];
+  form.append('audio', blob, `mensaje.${ext}`);
+  form.append('language', 'es');
+  const controller = new AbortController();
+  let timedOut = false;
+  const timer = setTimeout(() => { timedOut = true; controller.abort(); }, timeoutMs);
+  signal?.addEventListener('abort', () => controller.abort());
+  let res;
+  try {
+    res = await fetchImpl('/api/transcribe', { method: 'POST', body: form, signal: controller.signal });
+  } catch {
+    throw new ApiError(timedOut ? 'timeout' : 'network', 'No he podido convertir tu voz en texto.');
+  } finally {
+    clearTimeout(timer);
+  }
+  if (res.status === 404 || res.status === 405 || res.status === 501) {
+    throw new ApiError('unavailable', 'El reconocimiento de voz del servidor todavía no está disponible.', res.status);
+  }
+  if (!res.ok) throw await errorFromResponse(res);
+  let data = null;
+  try { data = await res.json(); } catch { /* ignore */ }
+  const text = typeof data?.text === 'string' ? data.text.trim() : '';
+  if (!text) throw new ApiError('empty', 'No he captado ninguna palabra.');
+  return text;
+}

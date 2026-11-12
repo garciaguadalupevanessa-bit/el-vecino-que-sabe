@@ -3,6 +3,8 @@ import RichText from './RichText.jsx';
 import { STARTER_PROMPTS, quickRepliesFor } from '../lib/quickReplies.js';
 import { MAX_CHARS } from '../lib/history.js';
 import { starterProgress } from '../lib/profile.js';
+import { formatDuration } from '../lib/voice.js';
+import { useVoiceInput, voiceAvailable, MicButton, VoicePanel, ReadAloudBar, ListenButton } from './Voice.jsx';
 
 export function Disclaimer() {
   return (
@@ -13,7 +15,7 @@ export function Disclaimer() {
   );
 }
 
-function Welcome({ onPrompt }) {
+function Welcome({ onPrompt, voiceOn }) {
   return (
     <div className="welcome">
       <h2>Hola. Soy El vecino que sabe.</h2>
@@ -23,6 +25,12 @@ function Welcome({ onPrompt }) {
         <li>Decirte qué cumples y qué falta</li>
         <li>Explicarte cómo pedirlas</li>
       </ul>
+      {voiceOn && (
+        <div className="notice notice-info voice-intro">
+          <p><strong>Puedes escribir o hablar, como te resulte más cómodo.</strong> Para hablar, pulsa el botón verde del micrófono.</p>
+          <p className="support">Puedes decir, por ejemplo: «Tengo trescientas ovejas en Teruel», «¿Qué ayudas hay para jóvenes?» o «¿Cómo pido la ayuda?». Si me hablas, te leo las respuestas en voz alta.</p>
+        </div>
+      )}
       <p><strong>Puedes empezar por aquí:</strong></p>
       <div className="prompt-list">
         {STARTER_PROMPTS.map((p) => (
@@ -34,7 +42,7 @@ function Welcome({ onPrompt }) {
   );
 }
 
-function Message({ m, onShowAids, aidsCount }) {
+function Message({ m, onShowAids, speaker }) {
   if (m.role === 'note') return <p className="msg-note" role="status">✓ {m.content}</p>;
   const isUser = m.role === 'user';
   return (
@@ -43,6 +51,8 @@ function Message({ m, onShowAids, aidsCount }) {
       <div className="bubble">
         <span className="visually-hidden">{isUser ? 'Tú dijiste:' : 'El vecino que sabe responde:'}</span>
         {isUser ? <p>{m.content}</p> : <RichText text={m.content} />}
+        {isUser && m.via === 'voz' && <p className="bubble-voice">🎙️ Mensaje de voz · {formatDuration(m.duration)}</p>}
+        {!isUser && <ListenButton id={m.id} text={m.content} speaker={speaker} />}
         {!isUser && m.aidsCount > 0 && (
           <p className="bubble-meta">
             <button type="button" className="btn btn-secondary" onClick={onShowAids}>
@@ -92,11 +102,20 @@ function ErrorBox({ error, onRetry }) {
   );
 }
 
-export default function Chat({ messages, pending, error, draft, setDraft, onSend, onRetry, onQuickReply, onShowAids, profile }) {
+export default function Chat({
+  messages, pending, error, draft, setDraft, onSend, onRetry, onQuickReply, onShowAids, profile,
+  voiceSettings, setVoiceSettings, transcribe, onVoiceSubmit, speaker,
+}) {
   const logRef = useRef(null);
   const endRef = useRef(null);
   const inputRef = useRef(null);
   const [inputError, setInputError] = useState(null);
+  const voiceOn = voiceSettings.micEnabled && voiceAvailable(voiceSettings);
+  const voice = useVoiceInput({
+    settings: voiceSettings, setSettings: setVoiceSettings, transcribe,
+    onSubmit: onVoiceSubmit, onBeforeListen: speaker.stop,
+  });
+  const writeInstead = () => inputRef.current?.focus();
 
   useEffect(() => {
     // Desktop: the log scrolls inside; mobile: the page scrolls. scrollIntoView covers both.
@@ -126,8 +145,8 @@ export default function Chat({ messages, pending, error, draft, setDraft, onSend
         <p className="support">Para empezar · {progress} de 3 datos (ubicación, actividad y tamaño)</p>
       )}
       <div className="chat-log" ref={logRef} role="log" aria-live="polite" aria-relevant="additions" tabIndex={0} aria-label="Mensajes de la conversación">
-        {messages.length === 0 && !pending && <Welcome onPrompt={(p) => onSend(p)} />}
-        {messages.map((m) => <Message key={m.id} m={m} onShowAids={onShowAids} />)}
+        {messages.length === 0 && !pending && <Welcome onPrompt={(p) => onSend(p)} voiceOn={voiceOn} />}
+        {messages.map((m) => <Message key={m.id} m={m} onShowAids={onShowAids} speaker={speaker} />)}
         {pending && <Loading />}
         {error && <ErrorBox error={error} onRetry={onRetry} />}
         {chips.length > 0 && (
@@ -137,26 +156,32 @@ export default function Chat({ messages, pending, error, draft, setDraft, onSend
             ))}
           </div>
         )}
+        {chips.length > 0 && voiceOn && <p className="support">También puedes responder hablando: di «sí», «no» o «no lo sé».</p>}
         <div ref={endRef} className="chat-end" />
       </div>
 
+      <div className="composer-stack">
+      <ReadAloudBar speaker={speaker} settings={voiceSettings} setSettings={setVoiceSettings} />
+      <VoicePanel voice={voice} onWriteInstead={writeInstead} />
       <form className="composer" onSubmit={submit}>
         <label htmlFor="composer-input" className="visually-hidden">Tu mensaje</label>
         <div className="composer-row">
           <textarea
             id="composer-input" ref={inputRef} rows={2} value={draft}
-            placeholder={pending ? 'Escribe mientras busco…' : 'Escribe tu pregunta…'}
+            placeholder={pending ? 'Escribe mientras busco…' : voiceOn ? 'Escribe o habla…' : 'Escribe tu pregunta…'}
             onChange={(e) => { setDraft(e.target.value); setInputError(null); }}
             onKeyDown={onKeyDown}
             aria-invalid={inputError ? 'true' : undefined}
             aria-describedby={inputError ? 'composer-error' : 'composer-counter'}
           />
+          {voiceOn && <MicButton voice={voice} disabled={pending} />}
           <button type="submit" className="btn" disabled={pending}>Enviar</button>
         </div>
         {inputError
           ? <p className="field-error" id="composer-error" role="alert">{inputError}</p>
           : <p className="counter support" id="composer-counter">{draft.length > MAX_CHARS - 300 ? `${draft.length} / ${MAX_CHARS}` : 'Pulsa Intro para enviar · Mayús + Intro para salto de línea'}</p>}
       </form>
+      </div>
     </section>
   );
 }

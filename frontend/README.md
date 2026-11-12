@@ -22,6 +22,19 @@ The proxy target can be changed with `VITE_PROXY_TARGET=http://host:port npm run
 - Client timeout for `/api/chat`: 90 s. On error the user's message goes back to the input with «Volver a intentarlo».
 - Profile and conversation live only in `localStorage` («Borrar mis datos» wipes them). No DNI or bank data is ever asked for.
 
+## Voice chat (Chat por voz V1–V6)
+
+Mic button (56 px) next to «Enviar» → permission sheet (first time) → «Te escucho…» → «¿He entendido bien?» (editable, with
+hints like «Ovino ≈ 300 cabezas · Teruel») → sent through the same `/api/chat`. A spoken «sí / no / no lo sé» answers the
+quick-reply question. Answers to spoken messages are read aloud (`speechSynthesis`, es-ES) with Lenta/Normal/Rápida and Parar;
+every answer has «Escuchar». Preferences live under «Voz» in the header and in `localStorage`.
+
+Speech-to-text engines (`src/lib/speech.js`), chosen automatically:
+- **Browser** (Web Speech API: Chrome, Edge, Safari) → live text while speaking. No backend needed.
+- **Server** (`MediaRecorder` → `POST /api/transcribe`, Groq Whisper) → used when the browser has no recognizer (Firefox) or when chosen in «Voz».
+
+Both stop after 3 s of silence or 60 s. The microphone needs **https** (or localhost). Audio is never stored in the browser.
+
 ## API contract the frontend expects
 
 `POST /api/chat` with `{ messages: [{ role, content }], profile?: {...} }` (1–30 messages, last one from the user).
@@ -50,3 +63,10 @@ The eligibility result may also come nested as `evaluacion: { resultado, requisi
 Errors: `422` → «revisa tus datos»; `502` → the backend's `detail` text is shown to the user as is.
 
 `GET /api/aids/{id}` returns one aid (same fields). `GET /api/health` → `{ status, aids_loaded, data_source, llm_configured }`.
+
+### `POST /api/transcribe` (voice option A, to be added in the backend)
+
+`multipart/form-data` with `audio` (webm/opus, mp4 or ogg, ≤ 60 s) and `language=es`. Response: `{ "text": "..." }`.
+Suggested implementation: Groq `whisper-large-v3-turbo` via the openai SDK (`client.audio.transcriptions.create`), never
+storing the file. `404/501` → the UI says server voice is not available yet; `502` → its `detail` is shown.
+`nginx.conf` allows bodies up to 10 MB.

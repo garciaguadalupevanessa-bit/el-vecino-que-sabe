@@ -4,7 +4,8 @@
 const KEY_PROFILE = 'evqs.profile.v1';
 const KEY_MESSAGES = 'evqs.messages.v1';
 const KEY_RESULTS = 'evqs.results.v1';
-export const STORAGE_KEYS = [KEY_PROFILE, KEY_MESSAGES, KEY_RESULTS];
+const KEY_VOICE = 'evqs.voice.v1';
+export const STORAGE_KEYS = [KEY_PROFILE, KEY_MESSAGES, KEY_RESULTS, KEY_VOICE];
 
 const MAX_STORED_MESSAGES = 60;
 
@@ -44,6 +45,8 @@ export function loadState(storage) {
 export const saveProfile = (storage, profile) => write(storage, KEY_PROFILE, profile);
 export const saveMessages = (storage, messages) => write(storage, KEY_MESSAGES, messages.slice(-MAX_STORED_MESSAGES));
 export const saveResults = (storage, results) => write(storage, KEY_RESULTS, results);
+export const loadVoiceSettings = (storage) => read(storage, KEY_VOICE, null);
+export const saveVoiceSettings = (storage, settings) => write(storage, KEY_VOICE, settings);
 
 /** "Borrar mis datos" */
 export function clearAll(storage) {
