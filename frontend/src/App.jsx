@@ -21,6 +21,7 @@ import * as conv from './lib/conversations.js';
 import { profileSummary, boolLabel } from './lib/profile.js';
 import { mergeAid } from './lib/aids.js';
 import { APP_NAME } from './lib/brand.js';
+import { toHash, fromHash } from './lib/routes.js';
 
 // `npm run dev:mock` (vite --mode mock) or VITE_USE_MOCK=true: fake answers, no backend needed.
 export const USE_MOCK = import.meta.env.MODE === 'mock' || import.meta.env.VITE_USE_MOCK === 'true';
@@ -40,6 +41,8 @@ export default function App() {
     const conversations = conv.restoreConversations(loadConversations(storage), legacy);
     return { profile: legacy.profile, conversations, current: conv.getCurrent(conversations) };
   }, []);
+  // Page in the URL (#/ajustes/voz…) wins on load, so reloads and shared links open the same page.
+  const initialLoc = useMemo(() => fromHash(window.location.hash), []);
   const [profile, setProfile] = useState(initial.profile);
   const [convState, setConvState] = useState(initial.conversations);
   const [messages, setMessages] = useState(() => initial.current.messages.map((m) => ({ ...m, id: m.id ?? newId() })));
@@ -47,17 +50,18 @@ export default function App() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(null);
   const [draft, setDraft] = useState('');
-  const [section, setSection] = useState('chat'); // chat | explotacion | ayudas | historial
+  const [section, setSection] = useState(initialLoc?.section ?? 'chat'); // chat | explotacion | ayudas | historial | ajustes
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => loadUi(storage).sidebarCollapsed === true);
   const [bigText, setBigText] = useState(() => loadUi(storage).bigText === true);
   // landing | entrar | crear | app. First visit shows the landing page; returning users go to the app.
-  const [screen, setScreen] = useState(() => (loadUi(storage).started || initial.current.messages.some((m) => m.role === 'user') ? 'app' : 'landing'));
+  const [screen, setScreen] = useState(() => initialLoc?.screen
+    ?? (loadUi(storage).started || initial.current.messages.some((m) => m.role === 'user') ? 'app' : 'landing'));
   const [started, setStarted] = useState(() => loadUi(storage).started === true);
   const [demo, setDemo] = useState(() => loadDemo(storage)); // subscription preview, no real payments
-  const [route, setRoute] = useState(null); // { name: 'detail'|'guide'|'alternatives', id, from }
+  const [route, setRoute] = useState(initialLoc?.route ? { ...initialLoc.route, from: null } : null); // { name: 'detail'|'guide'|'alternatives', id, from }
   const [details, setDetails] = useState({}); // id -> normalized aid from GET /api/aids/{id}
   const [detailStatus, setDetailStatus] = useState({});
-  const [settingsPage, setSettingsPage] = useState(null); // null = Ajustes hub | voz | cobertura | ayuda | terminos | borrar
+  const [settingsPage, setSettingsPage] = useState(initialLoc?.settingsPage ?? null); // null = Ajustes hub | voz | cobertura | ayuda | terminos | borrar
   const [health, setHealth] = useState(null);
   const [voiceSettings, setVoiceSettings] = useState(() => normalizeVoiceSettings(loadVoiceSettings(storage)));
   const speaker = useSpeaker(voiceSettings);
@@ -206,6 +210,34 @@ export default function App() {
 
   const goTo = (key) => { setRoute(null); setSection(key); window.scrollTo?.(0, 0); };
   const openSettings = (page) => { setSettingsPage(page); goTo('ajustes'); };
+
+  // ---- Browser history: every page change is a history entry; Back/Forward restore it. ----
+  const currentHash = toHash({ screen, section, settingsPage, route });
+  const firstSync = useRef(true);
+  useEffect(() => {
+    // After Back/Forward the URL already matches the state, so nothing is pushed.
+    if (window.location.hash !== currentHash) {
+      if (firstSync.current) window.history.replaceState(null, '', currentHash);
+      else window.history.pushState(null, '', currentHash);
+    }
+    firstSync.current = false;
+  }, [currentHash]);
+  const fetchDetailRef = useRef(fetchDetail);
+  fetchDetailRef.current = fetchDetail;
+  useEffect(() => {
+    const onPop = () => {
+      const loc = fromHash(window.location.hash) ?? { screen: 'app', section: 'chat', settingsPage: null, route: null };
+      setScreen(loc.screen);
+      setSection(loc.section);
+      setSettingsPage(loc.settingsPage);
+      setRoute(loc.route ? { ...loc.route, from: null } : null);
+      if (loc.route) fetchDetailRef.current(loc.route.id);
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+  useEffect(() => { if (initialLoc?.route) fetchDetail(initialLoc.route.id); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (screen === 'app' && !started) setStarted(true); }, [screen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const doClear = () => {
     clearAll(storage);
