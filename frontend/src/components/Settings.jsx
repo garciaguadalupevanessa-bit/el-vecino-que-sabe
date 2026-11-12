@@ -174,7 +174,7 @@ function ClearData({ onBack, onConfirm }) {
 
 export default function Settings({
   page, setPage, summary, voiceSettings, setVoiceSettings, speaker, health, isMock, onGo, onAsk, onClear,
-  demo, setDemo, bigText, setBigText,
+  demo, setDemo, bigText, setBigText, onAuth,
 }) {
   const back = () => setPage(null);
   if (page === 'cuenta') return <AccountInfo onBack={back} bigText={bigText} setBigText={setBigText} onClearData={() => setPage('borrar')} />;
@@ -202,6 +202,7 @@ export default function Settings({
         <Row icon="map" title="Cobertura" subtitle="Qué ayudas buscamos hoy" onClick={() => setPage('cobertura')} />
       </Group>
       <Group label="Cuenta · vista previa">
+        <Row icon="user" title="Entrar o crear cuenta" subtitle="Opcional · hoy todo funciona sin cuenta" onClick={onAuth} />
         <Row icon="user" title="Información de la cuenta" subtitle="Nombre, correo, idioma, letra grande" onClick={() => setPage('cuenta')} />
         <Row icon="star" title="Suscripción" subtitle={demo.plan === 'pro' ? 'Plan Pro (demostración)' : 'Plan Gratis · Ver el plan Pro'} onClick={() => setPage('suscripcion')} />
         <Row icon="receipt" title="Facturación" subtitle="Método de pago y facturas" onClick={() => setPage('facturacion')} />

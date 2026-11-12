@@ -5,6 +5,7 @@ import AidsPanel from './components/AidsPanel.jsx';
 import { AidDetail, ApplicationGuide, Alternatives } from './components/AidViews.jsx';
 import { useSpeaker } from './components/Voice.jsx';
 import Settings from './components/Settings.jsx';
+import { Landing, Login, Signup } from './components/Landing.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import HistoryView from './components/HistoryView.jsx';
 import * as realApi from './lib/api.js';
@@ -49,6 +50,9 @@ export default function App() {
   const [section, setSection] = useState('chat'); // chat | explotacion | ayudas | historial
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => loadUi(storage).sidebarCollapsed === true);
   const [bigText, setBigText] = useState(() => loadUi(storage).bigText === true);
+  // landing | entrar | crear | app. First visit shows the landing page; returning users go to the app.
+  const [screen, setScreen] = useState(() => (loadUi(storage).started || initial.current.messages.some((m) => m.role === 'user') ? 'app' : 'landing'));
+  const [started, setStarted] = useState(() => loadUi(storage).started === true);
   const [demo, setDemo] = useState(() => loadDemo(storage)); // subscription preview, no real payments
   const [route, setRoute] = useState(null); // { name: 'detail'|'guide'|'alternatives', id, from }
   const [details, setDetails] = useState({}); // id -> normalized aid from GET /api/aids/{id}
@@ -72,7 +76,8 @@ export default function App() {
     setConvState((st) => conv.updateCurrent(st, { messages: messages.filter((m) => m.role !== 'note'), results }));
   }, [messages, results]);
   useEffect(() => { if (saveConversations(storage, convState)) dropLegacyChat(storage); }, [convState]);
-  useEffect(() => { saveUi(storage, { sidebarCollapsed, bigText }); }, [sidebarCollapsed, bigText]);
+  useEffect(() => { saveUi(storage, { sidebarCollapsed, bigText, started }); }, [sidebarCollapsed, bigText, started]);
+  useEffect(() => { window.scrollTo?.(0, 0); }, [screen]);
   useEffect(() => { saveDemo(storage, demo); }, [demo]);
   useEffect(() => { document.documentElement.dataset.text = bigText ? 'large' : 'normal'; }, [bigText]);
   useEffect(() => { saveVoiceSettings(storage, voiceSettings); }, [voiceSettings]);
@@ -207,6 +212,8 @@ export default function App() {
     setVoiceSettings(normalizeVoiceSettings(null));
     setDemo({ plan: 'gratis' });
     setBigText(false);
+    setStarted(false);
+    setScreen('landing');
     setProfile({});
     loadConversation(conv.restoreConversations(null, {}));
     setSettingsPage(null);
@@ -262,7 +269,7 @@ export default function App() {
           page={settingsPage} setPage={setSettingsPage} summary={summary}
           voiceSettings={voiceSettings} setVoiceSettings={setVoiceSettings} speaker={speaker}
           health={health} isMock={USE_MOCK} onGo={goTo} onClear={doClear}
-          demo={demo} setDemo={setDemo} bigText={bigText} setBigText={setBigText}
+          demo={demo} setDemo={setDemo} bigText={bigText} setBigText={setBigText} onAuth={() => setScreen('entrar')}
           onAsk={(text) => { if (text) send(text); else { goTo('chat'); setTimeout(() => document.getElementById('composer-input')?.focus(), 0); } }}
         />
       </div>
@@ -289,11 +296,16 @@ export default function App() {
     );
   }
 
+  const enterApp = () => { setStarted(true); setScreen('app'); goTo('chat'); };
+  if (screen === 'landing') return <Landing onStart={enterApp} onLogin={() => setScreen('entrar')} />;
+  if (screen === 'entrar') return <Login onBack={() => setScreen(started ? 'app' : 'landing')} onContinue={enterApp} onSignup={() => setScreen('crear')} />;
+  if (screen === 'crear') return <Signup onBack={() => setScreen(started ? 'app' : 'landing')} onContinue={enterApp} onLogin={() => setScreen('entrar')} />;
+
   return (
     <div className="app">
       <a className="skip-link" href="#main">Saltar al contenido</a>
       <header className="header">
-        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); goTo('chat'); }}>
+        <a className="brand" href="/" onClick={(e) => { e.preventDefault(); setScreen('landing'); }}>
           <img className="brand-mark" src="/favicon.svg" alt="" width="32" height="32" />
           {APP_NAME}
         </a>
