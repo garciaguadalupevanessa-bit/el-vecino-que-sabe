@@ -96,3 +96,10 @@ def test_results_message_stays_small():
     msg = single.results_message("search", {}, calls)
     assert len(msg) < 9000, len(msg)  # ~2300 tokens: one call fits Groq's free 8000 tokens/minute
     json.loads(msg[msg.index("["):])
+
+
+def test_without_guide_the_model_is_told_not_to_describe_applying():
+    _, calls = single.plan_and_run([user("Tengo 20 ovejas en Teruel")], {})
+    assert "do NOT describe how to apply" in single.results_message("search", {}, calls)
+    _, calls = single.plan_and_run([user("Tengo 300 ovejas en Teruel"), user("¿Cómo la pido?")], {})
+    assert "do NOT describe how to apply" not in single.results_message("guide", {}, calls)

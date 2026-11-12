@@ -137,7 +137,12 @@ def results_message(intent: str, profile: dict, calls: list[tuple[str, dict, dic
         "The system has already run the tools for the user's last message. You cannot call tools now: "
         "answer only from these results, following all the rules above. "
         "If a result needs data the user has not given, ask for it (one question).\n"
-        f"Question type: {intent}\n"
+        + ("" if any(tool == "get_application_guide" for tool, _, _ in calls) else
+           "No application guide was retrieved this turn: do NOT describe how to apply, documents, deadlines or "
+           "where to submit, not even 'usual' ones. Instead offer to explain how to apply for a specific aid.\n")
+        + ("" if any(tool == "find_alternatives" for tool, _, _ in calls) else
+           "No alternatives were retrieved this turn: do not suggest other aids by name or type.\n")
+        + f"Question type: {intent}\n"
         f"Profile used: {json.dumps(profile, ensure_ascii=False)}\n"
         + json.dumps(compact, ensure_ascii=False, default=str)
     )
