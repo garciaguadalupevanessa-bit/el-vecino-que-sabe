@@ -3,7 +3,8 @@ import Chat from './components/Chat.jsx';
 import ProfileForm from './components/ProfileForm.jsx';
 import AidsPanel from './components/AidsPanel.jsx';
 import { AidDetail, ApplicationGuide, Alternatives } from './components/AidViews.jsx';
-import { useSpeaker, VoiceSettings } from './components/Voice.jsx';
+import { useSpeaker } from './components/Voice.jsx';
+import Settings from './components/Settings.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import HistoryView from './components/HistoryView.jsx';
 import * as realApi from './lib/api.js';
@@ -50,11 +51,9 @@ export default function App() {
   const [route, setRoute] = useState(null); // { name: 'detail'|'guide'|'alternatives', id, from }
   const [details, setDetails] = useState({}); // id -> normalized aid from GET /api/aids/{id}
   const [detailStatus, setDetailStatus] = useState({});
-  const [coverageOpen, setCoverageOpen] = useState(false);
-  const [confirmClear, setConfirmClear] = useState(false);
+  const [settingsPage, setSettingsPage] = useState(null); // null = Ajustes hub | voz | cobertura | ayuda | terminos | borrar
   const [health, setHealth] = useState(null);
   const [voiceSettings, setVoiceSettings] = useState(() => normalizeVoiceSettings(loadVoiceSettings(storage)));
-  const [voiceOpen, setVoiceOpen] = useState(false);
   const speaker = useSpeaker(voiceSettings);
   const voiceRef = useRef(voiceSettings);
   voiceRef.current = voiceSettings;
@@ -197,13 +196,14 @@ export default function App() {
   };
 
   const goTo = (key) => { setRoute(null); setSection(key); window.scrollTo?.(0, 0); };
+  const openSettings = (page) => { setSettingsPage(page); goTo('ajustes'); };
 
   const doClear = () => {
     clearAll(storage);
     setVoiceSettings(normalizeVoiceSettings(null));
     setProfile({});
     loadConversation(conv.restoreConversations(null, {}));
-    setConfirmClear(false);
+    setSettingsPage(null);
   };
 
   const hasRealConversation = messages.some((m) => m.role === 'user');
@@ -241,7 +241,7 @@ export default function App() {
         <ProfileForm
           profile={profile}
           onSave={(p) => setProfile(p)}
-          onClear={() => setConfirmClear(true)}
+          onClear={() => openSettings('borrar')}
           canRecheck={hasRealConversation}
           onRecheck={() => send('He actualizado los datos de mi explotación. ¿Puedes volver a revisar qué ayudas encajan?')}
         />
@@ -249,6 +249,17 @@ export default function App() {
     );
   } else if (section === 'ayudas') {
     mainContent = <div className="col-main col-narrow">{aidsPanel}</div>;
+  } else if (section === 'ajustes') {
+    mainContent = (
+      <div className="col-main col-narrow">
+        <Settings
+          page={settingsPage} setPage={setSettingsPage} summary={summary}
+          voiceSettings={voiceSettings} setVoiceSettings={setVoiceSettings} speaker={speaker}
+          health={health} isMock={USE_MOCK} onGo={goTo} onClear={doClear}
+          onAsk={(text) => { if (text) send(text); else { goTo('chat'); setTimeout(() => document.getElementById('composer-input')?.focus(), 0); } }}
+        />
+      </div>
+    );
   } else if (section === 'historial') {
     mainContent = (
       <div className="col-main col-narrow">
@@ -279,46 +290,13 @@ export default function App() {
           <img className="brand-mark" src="/favicon.svg" alt="" width="32" height="32" />
           {APP_NAME}
         </a>
-        <button type="button" className="btn btn-ghost header-coverage" aria-expanded={voiceOpen} aria-controls="voice-settings" onClick={() => { setVoiceOpen((o) => !o); setCoverageOpen(false); }}>
-          Voz
+        <button type="button" className="btn btn-ghost header-settings" aria-current={section === 'ajustes' && !route ? 'page' : undefined} onClick={() => openSettings(null)}>
+          <svg className="settings-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.3 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1c.5.4 1.1.7 1.7 1L11 21h4l.3-2.9c.6-.3 1.2-.6 1.7-1l2.5 1 2-3.5-2.1-1.6ZM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z" transform="translate(-1 0)" /></svg>
+          Ajustes
         </button>
-        <button type="button" className="btn btn-ghost header-coverage" aria-expanded={coverageOpen} aria-controls="coverage" onClick={() => { setCoverageOpen((o) => !o); setVoiceOpen(false); }}>
-          Cobertura
-        </button>
-        <button type="button" className="btn btn-danger desktop-only" onClick={() => setConfirmClear(true)}>Borrar mis datos</button>
       </header>
 
       {USE_MOCK && <p className="mock-banner">Modo demostración: respuestas y ayudas de ejemplo, sin conexión con el backend.</p>}
-
-      {voiceOpen && (
-        <div id="voice-settings">
-          <VoiceSettings settings={voiceSettings} setSettings={setVoiceSettings} speaker={speaker} onClose={() => setVoiceOpen(false)} />
-        </div>
-      )}
-
-      {coverageOpen && (
-        <div id="coverage" className="coverage-panel">
-          <p><strong>Qué cubrimos hoy:</strong> ayudas estatales de la PAC y las de la comunidad autónoma que tenemos cargada. Resto de comunidades y ayudas locales: todavía no.</p>
-          <p>
-            {health?.status === 'error' && 'No hemos podido conectar con el servicio ahora mismo.'}
-            {health && health.status !== 'error' && (
-              <>Ayudas en nuestra base: {health.aids_loaded ?? health.aids_count ?? health.ayudas ?? '—'}{health.data_source ? ` · origen: ${health.data_source}` : ''}{health.llm_configured === false && !USE_MOCK ? ' · asistente sin configurar' : ''}</>
-            )}
-            {!health && 'Comprobando el servicio…'}
-          </p>
-        </div>
-      )}
-
-      {confirmClear && (
-        <div className="coverage-panel notice-error" role="alertdialog" aria-labelledby="clear-title" aria-describedby="clear-desc">
-          <p id="clear-title"><strong>¿Borrar tus datos de este dispositivo?</strong></p>
-          <p id="clear-desc">Se borran tu explotación, todas tus conversaciones y las ayudas encontradas. No se puede deshacer.</p>
-          <div className="btn-row">
-            <button type="button" className="btn btn-danger" onClick={doClear} autoFocus>Sí, borrar mis datos</button>
-            <button type="button" className="btn btn-secondary" onClick={() => setConfirmClear(false)}>Cancelar</button>
-          </div>
-        </div>
-      )}
 
       {!route && section !== 'explotacion' && (
         <div className="farm-strip">

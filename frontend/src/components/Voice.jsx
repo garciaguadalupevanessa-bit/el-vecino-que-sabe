@@ -281,15 +281,12 @@ function Toggle({ id, label, hint, checked, onChange }) {
   );
 }
 
-export function VoiceSettings({ settings, setSettings, speaker, onClose }) {
+export function VoiceSettings({ settings, setSettings, speaker }) {
   const set = (k) => (v) => setSettings((s) => ({ ...s, [k]: v }));
   const engine = pickEngine(settings.engine, support);
   return (
-    <section className="coverage-panel voice-settings" aria-labelledby="voice-settings-title">
-      <div className="profile-head">
-        <h2 id="voice-settings-title">Preferencias de voz</h2>
-        <button type="button" className="btn btn-ghost" onClick={onClose}>Cerrar</button>
-      </div>
+    <section className="card voice-settings" aria-labelledby="voice-settings-title">
+      <h3 id="voice-settings-title">Preferencias de voz</h3>
       {!support.secure && <p className="notice notice-warning">La voz solo funciona en páginas seguras (https).</p>}
       {!engine && support.secure && <p className="notice notice-warning">Este navegador no permite hablar con la opción elegida. Prueba otra opción o usa Chrome, Edge o Safari.</p>}
       <Toggle id="vs-mic" label="Hablar en vez de escribir" hint="Muestra el botón del micrófono." checked={settings.micEnabled} onChange={set('micEnabled')} />

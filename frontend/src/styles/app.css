@@ -360,3 +360,38 @@ input[aria-invalid='true'], select[aria-invalid='true'] { border: 2px solid var(
 .history-open:hover .history-title { text-decoration: underline; text-underline-offset: 3px; }
 .history-item .support { margin-bottom: var(--s1); }
 .history-item .btn-row { margin-top: var(--s1); }
+
+/* ---------- Ajustes (wireframes Paso 13, 19, 20) ---------- */
+.header-settings { gap: var(--s2); }
+.header-settings .settings-icon { width: 22px; height: 22px; fill: currentColor; }
+.header-settings[aria-current='page'] { background: var(--sage); color: var(--primary-strong); }
+.settings h2 { margin-bottom: var(--s4); }
+.settings .back { margin-bottom: var(--s2); }
+.back-icon { width: 20px; height: 20px; fill: currentColor; }
+.settings-group { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); margin-bottom: var(--s4); overflow: hidden; }
+.settings-group ul { list-style: none; margin: 0; padding: 0; }
+.settings-group li + li { border-top: 1px solid var(--line); }
+.settings-group-label {
+  margin: 0; padding: var(--s3) var(--s4); border-bottom: 1px solid var(--line);
+  font-size: var(--fs-support); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-muted);
+}
+.settings-row {
+  width: 100%; min-height: 64px; display: flex; align-items: center; gap: var(--s3);
+  padding: var(--s3) var(--s4); background: transparent; border: 0; font: inherit; color: var(--ink);
+  text-align: left; cursor: pointer;
+}
+.settings-row:hover { background: var(--bg-wheat); }
+.settings-tile { flex: none; width: 44px; height: 44px; border-radius: var(--r-field); background: var(--sage); color: var(--primary-strong); display: grid; place-items: center; }
+.settings-icon { width: 22px; height: 22px; fill: currentColor; }
+.settings-text { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.settings-text span { font-size: var(--fs-support); color: var(--ink-muted); overflow-wrap: anywhere; }
+.settings-chevron { flex: none; width: 22px; height: 22px; fill: var(--ink-muted); }
+.settings-row-danger strong { color: var(--error); }
+.settings-row-danger .settings-tile { background: var(--error-bg); color: var(--error); }
+.settings-version { text-align: center; }
+.settings-sub { font-size: var(--fs-section); margin: var(--s5) 0 var(--s3); }
+.card .settings-sub { margin-top: 0; }
+.settings > .btn-block { margin-bottom: var(--s2); }
+.faq > summary { gap: var(--s2); }
+.faq-icon { width: 20px; height: 20px; flex: none; fill: var(--primary); }
+.voice-settings { padding: var(--s4); }
