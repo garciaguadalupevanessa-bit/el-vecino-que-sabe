@@ -1,0 +1,59 @@
+[
+  {
+    "id": "cap_basic_income_support",
+    "name": "Ayuda básica a la renta para la sostenibilidad",
+    "agency": "FEGA / organismo pagador de la comunidad autónoma",
+    "scope": "national",
+    "aid_type": "cap_direct",
+    "short_description": "Pago directo por hectárea admisible vinculado a derechos de ayuda, dentro del PEPAC 2023-2027.",
+    "livestock_type": ["all"],
+    "production_system": ["all"],
+    "goals": ["income"],
+    "requirements": [
+      {"ref": "active_farmer"},
+      {"ref": "conditionality"},
+      {"description": "Disponer de una hectárea admisible por cada derecho de ayuda.", "field": null, "needs_verification": true}
+    ],
+    "how_to_apply": [
+      "Presentar la solicitud única en el periodo anual de la campaña, ante el organismo pagador de tu comunidad.",
+      "Declarar las parcelas y, en su caso, los animales de la explotación."
+    ],
+    "documents": ["TO_BE_COMPLETED según la convocatoria autonómica de la campaña"],
+    "deadline": "Periodo de solicitud única anual (confirmar fechas de la campaña vigente)",
+    "open": null,
+    "amount": null,
+    "alternatives": ["cap_complementary_redistributive_support"],
+    "reliability": "extracted",
+    "source_url": "https://www.fega.gob.es/es/pepac-2023-2027/ayudas-directas/ayudas-directas-a-la-renta/ayuda-basica-renta-sostenibilidad",
+    "verified_on": "2026-11-06",
+    "verified_by": null,
+    "notes": "URL found in a third-party guide; check that it is still valid on the FEGA site."
+  },
+  {
+    "id": "cap_complementary_redistributive_support",
+    "name": "Ayuda redistributiva complementaria a la renta para la sostenibilidad",
+    "agency": "FEGA / organismo pagador de la comunidad autónoma",
+    "scope": "national",
+    "aid_type": "cap_direct",
+    "short_description": "Pago directo complementario para explotaciones pequeñas y medianas, dentro del PEPAC 2023-2027.",
+    "livestock_type": ["all"],
+    "production_system": ["all"],
+    "goals": ["income"],
+    "requirements": [
+      {"ref": "active_farmer"},
+      {"ref": "conditionality"},
+      {"description": "Los requisitos específicos de esta ayuda (límites de hectáreas y otros) deben consultarse en su ficha oficial.", "field": null, "needs_verification": true}
+    ],
+    "how_to_apply": ["Se solicita en la misma solicitud única que la ayuda básica."],
+    "documents": ["TO_BE_COMPLETED"],
+    "deadline": "Periodo de solicitud única anual (confirmar fechas de la campaña vigente)",
+    "open": null,
+    "amount": null,
+    "alternatives": ["cap_basic_income_support"],
+    "reliability": "metadata_only",
+    "source_url": "https://www.fega.gob.es/es/pepac-2023-2027/ayudas-directas/ayudas-directas-a-la-renta/ayuda-redistributiva-complementaria-renta-sostenibilidad",
+    "verified_on": "2026-11-06",
+    "verified_by": null,
+    "notes": "Official page not read in full yet."
+  }
+]
