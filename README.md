@@ -1,248 +1,322 @@
-# El Vecino que Sabe (ELVECINOQUESABE)
+# El Vecino que Sabe
 
-An AI agent that helps agricultural, livestock and mixed farms in Spain find out **which public aid they can apply for**, which requirements they meet and which they are missing, **how to apply**, and what **alternatives** they have.
+<p align="center">
+  <img src="docs/assets/rafael.png" alt="Ilustración de Rafael, un ganadero con gorro de paja, camisa de cuadros y una cesta de verduras, acariciando una oveja de cara negra" width="260">
+</p>
 
-Project for the *Tech for Inclusion Challenge* (Ebury × Somos F5).
+> **Se ha leído el BOE para que tú no tengas que hacerlo.**
 
-> **Language convention:** code, comments, documentation, issues, commits and PRs are in English. The application itself (UI and agent answers) is in Spanish.
+Asistente de inteligencia artificial que ayuda a agricultores y ganaderos de España a saber **a qué ayudas públicas pueden optar**, **qué requisitos cumplen y cuáles les faltan**, **cómo solicitarlas** y **qué alternativas tienen**. Siempre con la fuente oficial de cada dato.
 
-> Status: BDNS discovery, source-record ingestion, document preservation, change tracking, private source review and bounded-import coverage reporting are implemented. Nationwide collection and automatic extraction/verification remain pending (see the [roadmap](docs/national-roadmap.md)).
+Proyecto del **Tech for Inclusion Challenge**, en colaboración con **Ebury** y **Fundación Somos F5**.
 
-## Problem and SDGs
+**Demo desplegada:** _por añadir_
 
-Agricultural and livestock farms manage aid worth thousands of euros with tools designed for the administration, not for them. Deadlines, requirements and digital procedures make them lose aid they are entitled to, or depend on intermediaries.
+---
 
-| SDG | How the agent contributes |
+## Índice
+
+- [La historia de Rafael](#la-historia-de-rafael)
+- [El problema](#el-problema)
+- [La solución](#la-solución)
+- [Qué nos diferencia](#qué-nos-diferencia)
+- [ODS a los que contribuye](#ods-a-los-que-contribuye)
+- [Cómo funciona](#cómo-funciona)
+- [Herramientas del agente](#herramientas-del-agente)
+- [Ejemplos de interacción](#ejemplos-de-interacción)
+- [Fiabilidad de los datos](#fiabilidad-de-los-datos)
+- [Puesta en marcha](#puesta-en-marcha)
+- [API](#api)
+- [Tests](#tests)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Seguridad y límites](#seguridad-y-límites)
+- [Siguientes pasos](#siguientes-pasos)
+- [Equipo](#equipo)
+
+---
+
+## La historia de Rafael
+
+Rafael es ganadero en Teruel. Tenía **30 ovejas** y **el lobo le mató 5**. Ahora le quedan 25 y se hace tres preguntas: *¿sigo cobrando la ayuda de la PAC?, ¿me dan algo por el ataque?, ¿dónde lo miro?*
+
+Hay un detalle que Rafael no sabe: la ayuda asociada al ovino de carne exige **un mínimo de 30 ovejas** (guía oficial de la PAC 2025 del Gobierno de Aragón). El ataque no solo le ha costado 5 animales: además puede dejarle sin la ayuda.
+
+Rafael abre El Vecino que Sabe y escribe como habla:
+
+> *«Tengo 25 ovejas en extensivo en Teruel y soy agricultor activo. ¿Qué ayudas puedo pedir?»*
+
+En unos segundos, El Vecino le responde:
+
+- ❌ **No cumple** la ayuda asociada al ovino: pide 30 ovejas y tiene 25.
+- ⚠️ **Falta confirmar** el régimen de la explotación y el umbral de venta de corderos.
+- ✅ **Cumple** la condición de agricultor activo.
+- Le da el **enlace a la fuente oficial** y le avisa de que esa ayuda está *verificada automáticamente, no revisada por una persona*.
+
+Sobre el lobo, El Vecino no se inventa nada: esa ayuda todavía no está en su base de datos, y así se lo dice.
+
+## El problema
+
+Las respuestas que necesita Rafael existen, pero están repartidas entre el BOE, el boletín de su comunidad, el FEGA, la Base de Datos Nacional de Subvenciones (BDNS) y la oficina comarcal. Además, están escritas en lenguaje administrativo y cambian cada campaña.
+
+| Dato | Fuente |
 |---|---|
-| **8** Decent work and economic growth | Eases access to funding for rural farms and SMEs |
-| **10** Reduced inequalities | Narrows the aid-access gap in rural areas and between profiles with different digital skills |
-| **17** Partnerships for the goals | Connects producers with public sources of funding (EU, State and regions) |
+| Más de **563.000** agricultores y ganaderos presentaron la solicitud única de la PAC en 2026 | Ministerio de Agricultura, Pesca y Alimentación (MAPA) |
+| El **78 %** de quienes solicitan ayudas de la PAC usa algún tipo de ayuda externa para preparar la solicitud | Comisión Europea, encuesta de simplificación de la PAC (2024) |
+| **1 de cada 3** agricultores europeos dedica unos **6 días al año** a los trámites de la PAC | Comisión Europea, encuesta de simplificación de la PAC (2024) |
 
-> TODO: back the justification with one or two real data points (a report on the rural digital divide or on reliance on paid agents).
+El problema no es la falta de competencias digitales: es la **complejidad del trámite**. Por eso los agricultores pierden ayudas a las que tienen derecho o dependen de intermediarios.
 
-## How it works
+## La solución
+
+El agricultor escribe (o habla) con sus palabras, o rellena el formulario **«Mi explotación»**, y El Vecino que Sabe le responde a tres preguntas:
+
+1. **¿A qué ayudas puedo optar?** Busca las ayudas que encajan con su explotación.
+2. **¿Qué cumplo y qué me falta?** Revisa requisito por requisito: ✅ cumple · ⚠️ sin confirmar · ❌ no cumple.
+3. **¿Cómo la pido?** Explica dónde, cuándo y con qué documentos y, si una ayuda no encaja, propone alternativas.
+
+La interfaz incluye una portada explicativa, el chat con preguntas de ejemplo, el formulario «Mi explotación», un panel con las ayudas encontradas y sus fuentes, historial guardado solo en el dispositivo, dictado por voz con el reconocimiento del navegador y lectura de las respuestas en voz alta.
+
+## Qué nos diferencia
+
+| Un chatbot genérico | El Vecino que Sabe |
+|---|---|
+| Puede inventarse requisitos o importes | Solo habla de ayudas que devuelven sus herramientas |
+| «Seguro que te la dan» | Informa de requisitos, nunca garantiza la concesión |
+| Respuestas genéricas | Evalúa requisito por requisito con los datos del usuario |
+| No se sabe de dónde saca la información | Cada ayuda lleva fuente oficial, fecha y nivel de fiabilidad |
+
+La clave técnica: **la elegibilidad la calcula código determinista, no el modelo de lenguaje.** La IA explica el resultado, pero no puede convertir un «no cumple» en un «cumple».
+
+## ODS a los que contribuye
+
+| ODS | Qué cambia para Rafael |
+|---|---|
+| **8 · Trabajo decente y crecimiento económico** | Que no pierda dinero al que tiene derecho y su explotación siga viva y dando empleo |
+| **10 · Reducción de las desigualdades** | Que la ayuda le llegue aunque viva lejos de la oficina y no tenga gestoría |
+| **17 · Alianzas para lograr los objetivos** | Que le conecte con los fondos de la UE, del Estado y de su comunidad |
+
+## Cómo funciona
 
 ```
-React (nginx) ──REST──► FastAPI ──► Agent (loop) ◄──► LLM with function calling (Groq)
-                           │                │
-                           │                ▼
-                           │     Deterministic tools
-                           │  search_aids · check_eligibility ·
-                           │  get_application_guide · find_alternatives
-                           ▼                │
-                       Postgres ◄───────────┘  (aids and requirement blocks, JSONB)
+Frontend (React + Vite, servido con nginx)
+        │  REST
+        ▼
+Backend (FastAPI) ── POST /api/chat
+        │
+        ▼
+Agente ── modo single (por defecto en la demo) o modo loop
+        │
+        ▼
+Herramientas deterministas ── search_aids · check_eligibility · get_application_guide · find_alternatives
+        │
+        ▼
+Base de ayudas (Postgres o, si no hay base de datos, ficheros JSON)
 ```
 
-- **The LLM decides** which tool to use and with which parameters, and writes the answer.
-- **The code computes** eligibility: the LLM does not invent requirements.
-- Every aid has a `source_url`, a `verified_on` date and a `reliability` level (`verified`, `extracted`, `metadata_only`).
-- Only `verified` aids can produce a definitive overall eligibility result. `extracted` aids remain conditional, and `metadata_only` aids are not evaluated. Requirements marked `needs_verification` always need official confirmation.
+El agente tiene **dos modos**, que se eligen con la variable `AGENT_MODE`:
 
-### Tools
+| Modo | Quién elige las herramientas | Llamadas al LLM | Cuándo usarlo |
+|---|---|---|---|
+| `single` (el de la demo) | El código, con reglas sobre la pregunta | 1, para explicar los resultados | Con el plan gratuito de Groq: responde en unos 3 segundos |
+| `loop` | El LLM, con *function calling* | 3 o 4 por respuesta | Con un plan de IA con más capacidad: en el plan gratuito tarda 80–90 segundos |
 
-| Tool | When the agent uses it |
-|---|---|
-| `search_aids` | The user asks which aids exist or which ones they could get |
-| `check_eligibility` | They ask whether they meet an aid, what is missing or what it requires |
-| `get_application_guide` | They ask how to apply, where and with which documents |
-| `find_alternatives` | They do not meet an aid or there are no useful results |
+**Por qué usamos `single` en la demo:** el plan gratuito de Groq da unos 8.000 tokens por minuto, y el bucle de *function calling* necesita varias llamadas por respuesta, así que se quedaba sin margen. El modo `loop` está implementado y probado (tiene sus propios tests), y volver a él es la primera de nuestras [mejoras](#siguientes-pasos).
 
-System prompt: [`backend/app/agent/system_prompt.md`](backend/app/agent/system_prompt.md). Tool schemas: [`backend/app/agent/tool_schemas.py`](backend/app/agent/tool_schemas.py).
+En los dos modos:
+1. Se extrae el perfil de la explotación de la pregunta y del formulario (comunidad, tipo de ganado, número de animales, edad…).
+2. Las herramientas buscan y evalúan sobre la base de ayudas. Los requisitos son reglas del tipo *campo · operador · valor* (por ejemplo, `head_count >= 30`), y cada regla verificada lleva la **cita literal** de la fuente oficial.
+3. El LLM redacta la respuesta en español claro. Un filtro final corrige términos internos antes de mostrarla.
+4. La interfaz muestra la respuesta, las ayudas evaluadas, las fuentes y las herramientas utilizadas.
 
-## Getting started
+El system prompt está en [`backend/app/agent/system_prompt.md`](backend/app/agent/system_prompt.md), y el modo `single` en [`backend/app/agent/single.py`](backend/app/agent/single.py).
 
-Requirements: Docker and Docker Compose, and an API key from [Groq](https://console.groq.com).
+## Herramientas del agente
+
+| Herramienta | Cuándo se usa | Qué devuelve |
+|---|---|---|
+| `search_aids` | El usuario pregunta qué ayudas hay o a cuáles puede optar | Ayudas candidatas según territorio, actividad y ganado |
+| `check_eligibility` | Pregunta si cumple una ayuda, qué le falta o qué exige | El estado de cada requisito, el resultado global y una recomendación |
+| `get_application_guide` | Pregunta cómo, dónde o cuándo solicitarla | Organismo, plazo, pasos y documentos (solo si la ayuda está verificada) |
+| `find_alternatives` | No cumple una ayuda o no hay resultados útiles | Ayudas relacionadas y qué cambio le haría elegible |
+
+Los esquemas de parámetros están en [`backend/app/agent/tool_schemas.py`](backend/app/agent/tool_schemas.py).
+
+## Ejemplos de interacción
+
+Pruebas reales hechas el 12/11/2026 con la base de ayudas actual.
+
+### 1. Rafael después del ataque del lobo (modo `single`)
+
+**Pregunta:** *«Tengo 25 ovejas en extensivo en Teruel y soy agricultor activo. ¿Qué ayudas puedo pedir?»*
+
+**Razonamiento y herramientas:** el código extrae el perfil (Aragón, ovino, 25 animales, extensivo, agricultor activo) y ejecuta `search_aids`, que encuentra 3 ayudas. Después ejecuta `check_eligibility` sobre cada una de las tres. El LLM hace una única llamada para explicar el resultado. **Tiempo: 2,6 segundos.**
+
+**Respuesta (resumida):**
+- Ayuda asociada al ovino y caprino de carne: ❌ **no cumple**, porque necesita al menos 30 ovejas elegibles y tiene 25. El régimen extensivo o semiextensivo queda sin confirmar.
+- Ayuda básica a la renta y ayuda redistributiva: ⚠️ **sin confirmar**, porque sus requisitos aún no están verificados contra la fuente oficial.
+
+### 2. El mismo caso, con el agente decidiendo (modo `loop`)
+
+**Pregunta:** *«Tengo 20 ovejas en extensivo en Teruel y soy agricultor activo. ¿Qué ayudas puedo pedir?»*
+
+**Razonamiento y herramientas:** el LLM decide llamar a `search_aids` con el perfil que extrae de la pregunta y después a `check_eligibility` sobre la ayuda del ovino, pasando `head_count: 20`.
+
+**Respuesta (resumida):** ❌ no cumple el mínimo de 30 ovejas; ✅ ovino y agricultor activo; ⚠️ falta confirmar el umbral de venta de 0,6 corderos por hembra. Cita la guía oficial de Aragón con la etiqueta *«Verificada automáticamente contra la fuente oficial el 12/11/2026 (no revisada por una persona)»*, y no recomienda solicitar una ayuda que no encaja.
+
+### 3. Una pregunta general sin datos
+
+**Pregunta:** *«¿Qué ayudas hay para una explotación agrícola?»*
+
+**Razonamiento y herramientas:** sin ubicación, `search_aids` busca solo ayudas de ámbito nacional y devuelve las dos ayudas a la renta.
+
+**Respuesta (resumida):** las dos ayudas salen como ⚠️ **sin confirmar**, y el agente explica que sus requisitos todavía no están registrados, **sin inventarse ninguno**. Después pide la comunidad, la superficie y los cultivos para afinar la búsqueda.
+
+## Fiabilidad de los datos
+
+| Nivel | Significado | Qué puede decir el agente |
+|---|---|---|
+| **Verificada por una persona** | Alguien distinto de quien la extrajo la comprobó contra el documento oficial | Cumple, no cumple o sin confirmar, requisito por requisito |
+| **Verificada automáticamente** | Un agente comprobó las citas contra la fuente oficial; no la ha revisado una persona | Lo mismo, avisando de que la verificación es automática |
+| **Sin verificar** | Datos extraídos o solo datos básicos de la ficha | Que la ayuda existe y el enlace oficial; nunca evalúa requisitos |
+
+Reglas que el código hace cumplir:
+- Un dato que falta **nunca** cuenta como cumplido: el requisito pasa a «sin confirmar».
+- Una ayuda solo es «verificada» si lleva `verified_by` y cada regla evaluable tiene su cita oficial.
+- El agente nunca garantiza la concesión: la decide la administración.
+
+**Base actual:** 4 ayudas. Dos verificadas automáticamente: la ayuda asociada al ovino y caprino de carne (guía oficial de Aragón, PAC 2025) y la del vacuno de carne extensivo (ficha oficial de Aragón, PAC 2026, con el plazo ya cerrado). Otras dos sin verificar: la ayuda básica a la renta y la redistributiva.
+
+## Puesta en marcha
+
+**Requisitos:** Docker y Docker Compose, y una clave de [Groq](https://console.groq.com) (o de cualquier API compatible con OpenAI).
 
 ```bash
-cp .env.example .env          # and fill in LLM_API_KEY
+cp .env.example .env        # rellena LLM_API_KEY; deja AGENT_MODE=single
 docker compose up --build
 ```
 
-Before that, `./scripts/doctor.sh` tells you whether anything is missing on your machine.
+- Aplicación: http://localhost:3000
+- API y documentación interactiva: http://localhost:8000/docs
+- Estado del servicio: http://localhost:8000/api/health
 
-### Shortcuts with `make`
+Si cambias el `.env`, recrea el backend para que lo lea: `docker compose up -d --force-recreate backend`.
 
-A [`Makefile`](Makefile) wraps the common commands (it needs GNU Make; on Windows use WSL or Git Bash with make). Run `make help` to see them all.
-
-| Command | What it does |
-|---|---|
-| `make setup` | Creates `.env` from `.env.example` (never overwrites it) |
-| `make doctor` / `make doctor-up` | Checks your machine / the running stack |
-| `make up` / `make up-d` / `make down` | Starts (foreground / background) and stops the stack |
-| `make reset` | Stops the stack **and deletes the database volume** |
-| `make logs SERVICE=backend` | Follows the logs of one service (or all) |
-| `make test` / `make test-frontend` / `make test-all` | Backend, frontend or both test suites |
-| `make test-db` | Postgres integration tests (**empties** the `aids` and `blocks` tables) |
-| `make seed` | Loads `backend/data/*.json` into Postgres |
-| `make probe-llm` | Checks the Groq key, lists the models and tests function calling |
-| `make plan-dry REPO=ORG/REPO` | Shows what the work plan would create on GitHub |
-
-- Application: http://localhost:3000
-- API and interactive docs: http://localhost:8000/docs
-- Status: http://localhost:8000/api/health (shows whether the data comes from Postgres)
-
-The first time, the backend creates the tables and **seeds** them from `backend/data/*.json` if they are empty (`SEED_ON_START=true`).
-
-### Frontend development with hot reload
-
-```bash
-docker compose up db backend        # database and API
-cd frontend && npm install && npm run dev      # http://localhost:5173 (forwards /api to :8000)
-```
-
-### Tests
-
-```bash
-docker compose run --rm backend pytest          # backend (data from Postgres if DATABASE_URL is set)
-cd frontend && npm test                         # frontend logic (Node 18+)
-
-# Postgres integration tests (they empty the aids and blocks tables of that database)
-docker compose run --rm -e TEST_DATABASE_URL=postgresql://elvecino:elvecino_dev@db:5432/elvecinoquesabe backend pytest tests/test_db.py
-```
-
-### Environment variables
-
-| Variable | Description | Default |
-|---|---|---|
-| `APP_NAME` | Display name of the application | `El Vecino que Sabe` |
-| `LLM_API_KEY` | Groq key (or any OpenAI-compatible provider). **Never** committed to Git | — |
-| `LLM_BASE_URL` | OpenAI-compatible API endpoint | `https://api.groq.com/openai/v1` |
-| `LLM_MODEL` | Model with function-calling support | `openai/gpt-oss-120b` |
-| `LLM_TEMPERATURE` | Temperature (low = more stable tool decisions) | `0.2` |
-| `MAX_AGENT_ITERATIONS` | Maximum tool rounds per request | `4` |
-| `POSTGRES_PASSWORD` | Database password (Compose) | `elvecino_dev` |
-| `POSTGRES_HOST_PORT` | Host port for local Postgres access | `5432` |
-| `BACKEND_HOST_PORT` | Host port for the local API | `8000` |
-| `FRONTEND_HOST_PORT` | Host port for the local frontend | `3000` |
-| `DATABASE_URL` | Built by Compose; if empty, data is read from the JSON files | — |
-| `SEED_ON_START` | Seeds empty tables on startup | `true` |
-| `ALLOWED_ORIGINS` | CORS origins (only if the frontend is on another domain) | `localhost:3000,5173` |
-| `BDNS_REVIEW_TOKEN` | Shared bearer secret for the private source-review page; blank disables it | — |
-
-> Switching provider (OpenAI, another Groq model...) only takes `LLM_BASE_URL` and `LLM_MODEL`. Check in the Groq console which models are available, that they support *tool use*, and your usage limits.
-
-## Helper scripts
-
-| Script | What it is for |
-|---|---|
-| `./scripts/doctor.sh` | Checks your machine (Git, Docker, `.env`, key, ports). With `--up` it checks the running stack. On Windows, use Git Bash or WSL |
-| `docker compose run --rm backend python scripts/probe_groq.py` | Verifies the Groq key, lists the available models and tests function calling |
-| `python3 backend/scripts/explore_sources.py URL…` | Probes data sources (BDNS, FEGA…) at 1 request per second, respecting `robots.txt`, and saves small samples in `docs/samples/` |
-| `python3 plan/create_issues.py --repo ORG/REPO --dry-run` | Creates the labels, milestones and issues of the work plan on GitHub (see `plan/`) |
-| `python3 plan/build_graph.py` | Regenerates the dependency graph from `plan/tasks.csv` and checks the plan |
-
-Current product roadmap: [`docs/national-roadmap.md`](docs/national-roadmap.md). BDNS import coverage: [`docs/bdns-coverage.md`](docs/bdns-coverage.md). Source review: [`docs/bdns-review-workflow.md`](docs/bdns-review-workflow.md). The original event work plan is in [`plan/tasks.csv`](plan/tasks.csv) and [`plan/dependencies.md`](plan/dependencies.md). Decisions and data sources: [`docs/decisions.md`](docs/decisions.md) and [`docs/data_sources.md`](docs/data_sources.md). Spanish-to-English domain terms: [`docs/glossary.md`](docs/glossary.md). Working rules: [`CONTRIBUTING.md`](CONTRIBUTING.md).
-
-Deployment and operations preparation: [`docs/phase-8-operations.md`](docs/phase-8-operations.md), with a managed-database production Compose template, bounded BDNS refresh runner, backup/restore guidance, monitoring checks, service-status template and correction process. A hosting provider and named operators still need to be selected before production deployment.
-
-## API
-
-| Method | Path | Description |
-|---|---|---|
-| `POST` | `/api/chat` | Sends the conversation and the profile; returns the answer, evaluated aids, sources and trace |
-| `GET` | `/api/aids/{id}` | Detail of one aid |
-| `GET` | `/api/health` | Service status and data origin |
-
-```bash
-curl -X POST http://localhost:8000/api/chat \
-  -H "Content-Type: application/json" \
-  -d '{
-    "messages": [{"role": "user", "content": "Tengo 300 ovejas en extensivo en Teruel. ¿Qué ayudas puedo pedir?"}],
-    "profile": {"region": "Aragón", "farm_activities": ["agriculture", "livestock"], "livestock_type": ["sheep"], "production_system": "extensive"}
-  }'
-```
-
-The response contains `answer`, `aids` (id, name, `overall_result`), `sources` (url, name, `verified_on`) and `trace` (the tools the agent used).
-
-## Database (Postgres)
-
-- Tables `aids` (one row per aid, content in `JSONB`) and `blocks` (reusable requirements such as *active farmer*). Schema in [`backend/app/db/schema.sql`](backend/app/db/schema.sql), idempotent.
-- Data is **validated with Pydantic** when loaded: if something is wrong the service does not start and the message says where.
-- Seed data: `backend/data/aids.json` and `blocks.json`. To (re)load them or update existing aids:
+Para recargar las ayudas en la base de datos tras un cambio en `backend/data/*.json`:
 
 ```bash
 docker compose run --rm backend python -m app.db.seed
 ```
 
-- Rules: every datum carries its official URL; an aid only becomes `verified` when **another person** has checked it against the original document (`verified_by`).
-- Current values are **provisional** (`needs_verification`) and must not be used as advice.
-- No migrations (Alembic) on purpose: the schema is small. If it changes, edit `schema.sql` and recreate the volume (`docker compose down -v`).
+### Frontend en modo desarrollo
 
-## Frontend
-
-React 18 + Vite, JavaScript. Profile form, chat, and panels for **evaluated aids**, **official sources** and the **assistant's reasoning**.
-
-```
-frontend/src/
-├── App.jsx · main.jsx · styles.css
-├── components/   # ProfileForm, Chat, Message, ResultPanels
-├── hooks/        # useChat, useLocalStorage
-└── lib/          # pure, tested logic: api, profile, markdown, messages, url, storage, brand
+```bash
+docker compose up db backend
+cd frontend
+npm install
+npm run dev          # http://localhost:5173 (reenvía /api al backend)
+npm run dev:mock     # sin backend: respuestas de ejemplo, con un aviso en pantalla
 ```
 
-- Profile validation with the same limits as the backend, and clear errors (no connection, timeout, invalid data).
-- The assistant's answer is escaped before rendering (no XSS) and links only accept `http(s)`.
-- Profile and conversation are kept in `localStorage`.
-- In production, nginx serves the build and forwards `/api` to the backend (no CORS). If the backend is on another domain: `VITE_API_BASE`, `ALLOWED_ORIGINS` and the CSP in `frontend/nginx.conf`.
-- `package-lock.json` does not exist yet: after the first `npm install`, commit it and switch `npm install` to `npm ci` in the Dockerfile and the CI.
+Si el puerto 5173 está ocupado, Vite usa el siguiente (5174) y lo indica en la terminal.
 
-## Continuous integration (GitHub Actions)
+### Problemas frecuentes
 
-[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs on every push to `main` and on every pull request:
+- **El puerto 5432 está ocupado** (por ejemplo, por un PostgreSQL instalado en Windows): añade `POSTGRES_HOST_PORT=5433` a tu `.env`.
+- **Las respuestas tardan más de un minuto:** comprueba que el `.env` tiene `AGENT_MODE=single` y recrea el backend.
+- **Comprobar la clave del LLM:** `docker compose run --rm --no-deps backend python scripts/probe_groq.py`
 
-1. **Backend:** `pytest` with the data in JSON, and the integration tests against a real Postgres (service container).
-2. **Frontend:** tests and `npm run build`.
-3. **Docker Compose:** starts the whole stack and checks that the backend uses Postgres and that nginx serves the app and forwards `/api`.
+### Variables de entorno principales
 
-The CI needs no secrets: the agent tests use a fake client and never call Groq.
+| Variable | Descripción | Valor por defecto |
+|---|---|---|
+| `LLM_API_KEY` | Clave del proveedor del LLM. **Nunca se sube al repositorio** | — |
+| `LLM_BASE_URL` | Endpoint compatible con OpenAI | `https://api.groq.com/openai/v1` |
+| `LLM_MODEL` | Modelo con soporte de *function calling* | `openai/gpt-oss-120b` |
+| `AGENT_MODE` | `single` (una llamada al LLM) o `loop` (el LLM elige las herramientas) | `loop` en el código; `single` en `.env.example` |
+| `MAX_AGENT_ITERATIONS` | Máximo de rondas de herramientas en modo `loop` | `4` |
+| `LLM_TEMPERATURE` | Temperatura (baja = respuestas más estables) | `0.2` |
+| `POSTGRES_PASSWORD` | Contraseña de la base de datos local | `elvecino_dev` |
+| `POSTGRES_HOST_PORT` | Puerto de Postgres en tu máquina | `5432` |
+| `SEED_ON_START` | Carga las ayudas al arrancar si las tablas están vacías | `true` |
+| `ALLOWED_ORIGINS` | Orígenes permitidos por CORS | `http://localhost:3000,http://localhost:5173` |
 
-## Structure
+## API
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| `POST` | `/api/chat` | Recibe la conversación y el perfil; devuelve la respuesta, las ayudas evaluadas, las fuentes y la traza de herramientas |
+| `GET` | `/api/aids/{id}` | Detalle de una ayuda |
+| `GET` | `/api/health` | Estado del servicio, número de ayudas y origen de los datos |
+
+```bash
+curl -X POST http://localhost:8000/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{"messages": [{"role": "user", "content": "Tengo 25 ovejas en extensivo en Teruel y soy agricultor activo. ¿Qué ayudas puedo pedir?"}]}'
+```
+
+La respuesta incluye `answer`, `aids` (con el resultado de cada ayuda), `sources` (enlace, fecha y fiabilidad), `trace` (las herramientas usadas) y `coverage_notes`.
+
+Límites de entrada: hasta 4.000 caracteres por mensaje del usuario y 30 mensajes por conversación.
+
+## Tests
+
+```bash
+docker compose run --rm backend pytest      # backend: 132 tests
+cd frontend && npm test                     # frontend: 35 tests
+```
+
+Los tests del agente usan un cliente simulado y nunca llaman al LLM, así que la integración continua (GitHub Actions) no necesita secretos.
+
+## Estructura del proyecto
 
 ```
-├── .github/ (workflows/ci.yml · pull_request_template.md)
-├── Makefile · docker-compose.yml · .env.example · CONTRIBUTING.md
-├── docs/                        # decisions, data sources and samples
-├── plan/                        # tasks.csv, create_issues.py, build_graph.py and the dependency graph
-├── scripts/doctor.sh
+├── backend/
+│   ├── app/
+│   │   ├── agent/       # agente (modos single y loop), system prompt y esquemas de herramientas
+│   │   ├── tools/       # motor de requisitos y las 4 herramientas
+│   │   ├── models/      # modelos Pydantic: perfil, ayuda, API
+│   │   ├── data/        # carga y validación de las ayudas
+│   │   ├── db/          # Postgres: esquema y carga inicial
+│   │   ├── bdns/        # cliente e importador de la BDNS
+│   │   ├── core/        # configuración desde variables de entorno
+│   │   └── main.py      # rutas de FastAPI
+│   ├── data/            # aids.json y blocks.json (base de ayudas)
+│   └── tests/
 ├── frontend/
-│   ├── Dockerfile · nginx.conf · vite.config.js · package.json
-│   ├── src/                     # React
-│   └── tests/                   # node --test
-└── backend/
-    ├── Dockerfile · requirements.txt · pytest.ini
-    ├── app/
-    │   ├── main.py              # routes
-    │   ├── core/                # configuration
-    │   ├── models/              # profile, aid, API schemas
-    │   ├── db/                  # Postgres: schema.sql, database.py, seed.py
-    │   ├── data/                # sources.py (reading and validation), loader.py
-    │   ├── agent/               # agent loop, prompt and tool schemas
-    │   └── tools/               # requirements engine and the 4 tools
-    ├── data/                    # aids.json, blocks.json (seed)
-    ├── scripts/                 # probe_groq.py, explore_sources.py
-    └── tests/
+│   └── src/             # React: portada, chat, «Mi explotación», panel de ayudas, voz
+├── docs/                # documentación y la ilustración de Rafael
+├── docker-compose.yml
+└── compose.production.yaml
 ```
 
-## Interaction examples
+## Seguridad y límites
 
-> TODO (deliverable): add at least 3 real examples with the agent's reasoning (tools called and why), copying the `trace` from the response.
+- Las claves van en variables de entorno; `.env` está en `.gitignore`.
+- Las entradas se validan en el backend (Pydantic) y en el frontend.
+- La respuesta del agente se muestra solo como texto (sin `dangerouslySetInnerHTML`), así que no hay riesgo de XSS, y solo se enlazan URLs `http(s)`.
+- No se piden DNI ni datos bancarios. La conversación y el perfil se guardan solo en el dispositivo del usuario.
+- Las pantallas de cuenta, suscripción y pago son una **vista previa**: los campos están desactivados y no se cobra nada.
+- El agente **informa de requisitos, no garantiza concesiones**. Confirma siempre condiciones y plazos en la fuente oficial o en la oficina comarcal antes de solicitar.
+- **Cobertura actual limitada:** pocas ayudas verificadas y todavía ninguna por daños de fauna como el lobo.
 
-## Security and limits
+## Siguientes pasos
 
-- Keys live in environment variables; `.env` is in `.gitignore`. Change `POSTGRES_PASSWORD` outside development.
-- Inputs are validated (length, roles, types) and sanitised. Postgres only listens on `127.0.0.1`.
-- The agent **reports requirements, it does not guarantee grants**. Always confirm the conditions at the official source or the local agricultural office before applying.
-- Aid changes every campaign: always show `verified_on`.
-- Open models on Groq may occasionally produce malformed tool calls: the backend retries up to 3 times and returns tool errors to the model so it can correct itself.
+- **Agente que decide solo:** volver al modo `loop` con un plan de IA con más capacidad.
+- **Más ayudas verificadas** por personas, no solo de forma automática.
+- **Todas las comunidades autónomas** a través de la BDNS.
+- **Daños por fauna:** ayudas por ataques del lobo, como el de Rafael.
+- **Avisos de plazos** antes de que cierre cada convocatoria.
+- **«Qué papeles necesito»:** lista descargable de documentos de cada convocatoria (PAC anterior, REGA/REGEPA, certificados de Hacienda y Seguridad Social, presupuestos).
+- **Accesibilidad completa:** revisión WCAG y WAI-ARIA para personas con visión reducida.
+- **Evaluación del agente:** un *golden dataset* que compruebe en cada cambio que siempre cita el BOE o la BDNS y no se inventa nada.
 
-## Pending
+## Equipo
 
-- [ ] Try the whole stack with a real Groq key and tune the prompt from the `trace`
-- [ ] Build nationwide BDNS ingestion and coverage tracking for all autonomous communities
-- [ ] Verify agricultural and livestock aid records against linked official documents
-- [ ] Deployment at a public URL
-- [ ] Interaction examples and the supporting data point for the justification
+| Persona | Rol |
+|---|---|
+| Helen | Product Owner · presentación y contenido |
+| Vane | Backend · datos de ayudas |
+| Javier | Backend · agente y despliegue |
+| Anas | Frontend · interfaz y demo |
 
-## Team
-
-> TODO: names and roles.
+Con el apoyo de **Ebury** y **Fundación Somos F5**.
