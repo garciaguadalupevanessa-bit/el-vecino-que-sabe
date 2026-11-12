@@ -26,6 +26,9 @@ LLM_MAX_TOKENS = int(os.getenv("LLM_MAX_TOKENS", "1500"))
 LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", "0.2"))
 LLM_TIMEOUT = float(os.getenv("LLM_TIMEOUT", "60"))
 MAX_AGENT_ITERATIONS = int(os.getenv("MAX_AGENT_ITERATIONS", "4"))
+# "loop": the LLM chooses tools with function calling (3-4 LLM calls per answer).
+# "single": code runs the tools, the LLM writes once (fits Groq's free 8000 tokens/minute).
+AGENT_MODE = os.getenv("AGENT_MODE", "loop").strip().lower()
 
 # Database: if DATABASE_URL is empty, data is read from the JSON files (handy for tests)
 DATABASE_URL = os.getenv("DATABASE_URL", "")

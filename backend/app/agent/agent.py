@@ -15,6 +15,7 @@ from openai import (
     RateLimitError,
 )
 
+from app.agent import single
 from app.agent.tool_schemas import TOOLS_OPENAI
 from app.core import config
 from app.tools import run_tool
@@ -184,6 +185,49 @@ def _execute_call(tc, profile: dict) -> tuple[dict, dict]:
 
 
 def run_agent(messages: list[dict], profile: dict) -> dict:
+    if config.AGENT_MODE == "single":
+        return run_single(messages, profile)
+    return run_loop(messages, profile)
+
+
+def run_single(messages: list[dict], profile: dict) -> dict:
+    """AGENT_MODE=single: deterministic tool plan, then one LLM call (see app/agent/single.py)."""
+    client = _get_client()
+    question = next((m["content"] for m in reversed(messages) if m.get("role") == "user"), "")
+    intent = single.intent_of(question)
+    used_profile, calls = single.plan_and_run(messages, profile)
+
+    trace: list[dict] = []
+    sources: dict = {}
+    aids: dict = {}
+    coverage_notes: dict = {}
+    for tool, args, output in calls:
+        shown = {k: v for k, v in args.items() if k != "profile"}
+        trace.append({"tool": tool, "input": {**shown, **({"profile": used_profile} if "profile" in args else {})},
+                      "ok": "error" not in output})
+        _collect(output, sources, aids, coverage_notes)
+
+    convo = [{"role": "system", "content": build_system_prompt(profile)}]
+    convo += [dict(m) for m in messages]
+    convo.append({"role": "system", "content": single.results_message(intent, used_profile, calls)})
+    try:
+        msg = client.chat.completions.create(
+            model=config.LLM_MODEL, max_tokens=config.LLM_MAX_TOKENS,
+            temperature=config.LLM_TEMPERATURE, messages=convo,
+        ).choices[0].message
+        return _result(msg, trace, sources, aids, coverage_notes)
+    except AuthenticationError as e:
+        raise LLMError(MSG_BAD_KEY) from e
+    except RateLimitError as e:
+        raise LLMError(MSG_RATE_LIMIT) from e
+    except APIConnectionError as e:
+        raise LLMError(MSG_CONNECTION) from e
+    except APIStatusError as e:
+        log.exception("LLM API error")
+        raise LLMError(MSG_GENERIC) from e
+
+
+def run_loop(messages: list[dict], profile: dict) -> dict:
     client = _get_client()
     convo: list[dict] = [{"role": "system", "content": build_system_prompt(profile)}]
     convo += [dict(m) for m in messages]
