@@ -99,11 +99,11 @@ export function MicButton({ voice, disabled }) {
       disabled={disabled && !busy}
       aria-pressed={busy}
       aria-label={busy ? 'Terminar de hablar' : 'Hablar en vez de escribir'}
+      title={busy ? 'Terminar de hablar' : 'Hablar'}
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2Z" />
       </svg>
-      <span className="mic-label">{busy ? 'Terminar' : 'Hablar'}</span>
     </button>
   );
 }

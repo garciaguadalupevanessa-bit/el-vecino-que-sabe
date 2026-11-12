@@ -262,7 +262,7 @@ input[aria-invalid='true'], select[aria-invalid='true'] { border: 2px solid var(
   display: grid; place-items: center; align-content: center; gap: 0;
   background: var(--success); color: var(--on-primary); font: inherit;
 }
-.mic-btn svg { width: 26px; height: 26px; fill: currentColor; }
+.mic-btn svg { width: 28px; height: 28px; fill: currentColor; }
 .mic-btn .mic-label { font-size: 11px; font-weight: 700; line-height: 1; }
 .mic-btn:hover { filter: brightness(1.1); }
 .mic-btn:disabled { opacity: .5; cursor: not-allowed; }
@@ -483,3 +483,13 @@ input:disabled, select:disabled { background: var(--bg-wheat); color: var(--ink-
 .auth-or { text-align: center; color: var(--ink-muted); margin: var(--s3) 0; }
 .auth-switch { text-align: center; margin-top: var(--s3); }
 .link-btn { background: none; border: 0; padding: 0 2px; font: inherit; font-weight: 700; color: var(--primary); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: var(--touch); }
+
+/* Chat disclaimer: one short line under the message box instead of a banner above the conversation */
+.chat-disclaimer { margin: 0; font-size: 13px; line-height: 1.4; color: var(--ink-muted); text-align: center; }
+.chat-disclaimer strong { color: var(--primary-strong); }
+
+/* Scrollbars in the brand green */
+html, .chat-log { scrollbar-color: #A9C47F transparent; scrollbar-width: thin; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #A9C47F; border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }

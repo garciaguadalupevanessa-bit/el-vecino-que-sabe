@@ -9,9 +9,8 @@ import { useVoiceInput, voiceAvailable, MicButton, VoicePanel, ReadAloudBar, Lis
 
 export function Disclaimer() {
   return (
-    <p className="notice notice-disclaimer">
-      Lo que te digo es <strong>orientativo</strong> y no garantiza que te concedan una ayuda. La decisión final es siempre de la administración:
-      confírmalo en la fuente oficial o en tu oficina comarcal.
+    <p className="chat-disclaimer">
+      <strong>Orientativo:</strong> no garantiza la concesión. La decisión es de la administración; confírmalo en la fuente oficial o en tu oficina comarcal.
     </p>
   );
 }
@@ -141,7 +140,6 @@ export default function Chat({
   return (
     <section className="chat" aria-labelledby="chat-title">
       <h2 id="chat-title" className="visually-hidden">Conversación</h2>
-      <Disclaimer />
       {messages.length > 0 && progress < 3 && (
         <p className="support">Afina la búsqueda en «Mi explotación»: {progress} de 3 datos (ubicación, actividad y tamaño)</p>
       )}
@@ -182,6 +180,7 @@ export default function Chat({
           ? <p className="field-error" id="composer-error" role="alert">{inputError}</p>
           : <p className="counter support" id="composer-counter">{draft.length > MAX_CHARS - 300 ? `${draft.length} / ${MAX_CHARS}` : 'Pulsa Intro para enviar · Mayús + Intro para salto de línea'}</p>}
       </form>
+      <Disclaimer />
       </div>
     </section>
   );
