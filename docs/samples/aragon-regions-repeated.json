@@ -1,0 +1,54 @@
+{
+    "content":  [
+                    {
+                        "id":  1132134,
+                        "mrr":  false,
+                        "numeroConvocatoria":  "930573",
+                        "descripcion":  "Convenio de colaboraciÃ³n entre el Departamento de Agricultura, GanaderÃ­a y AlimentaciÃ³n del Gobierno de ARagÃ³n y el Ayuntamiento de San Juan de Plan por el que se concede subvenciÃ³n para el apoyo a la Escuela de Pastoreo de AragÃ³n \"La Estiva\" en 2026",
+                        "descripcionLeng":  null,
+                        "fechaRecepcion":  "2026-09-21",
+                        "nivel1":  "AUTONOMICA",
+                        "nivel2":  "ARAGÃN",
+                        "nivel3":  "DIRECCIÃN GENERAL DE CALIDAD Y SEGURIDAD ALIMENTARIA",
+                        "codigoInvente":  null
+                    },
+                    {
+                        "id":  1125358,
+                        "mrr":  false,
+                        "numeroConvocatoria":  "923797",
+                        "descripcion":  "CONVENIO ENTRE EL DPTO. DE AGRICULTURA, G. Y AL. Y EL BANCO DE ALIMENTOS DE TERUEL PARA SUBVENCIÃN DIRECTA PARA FINANCIAR ACTUACIONES CONSISTENTES EN EL SUMINISTRO DE PRODUCTOS AGRARIOS RETIRADOS DEL MERCADO Y DISTRIBUCIÃN GRATUITA A ENTIDADES BENÃFICAS.",
+                        "descripcionLeng":  null,
+                        "fechaRecepcion":  "2026-08-06",
+                        "nivel1":  "AUTONOMICA",
+                        "nivel2":  "ARAGÃN",
+                        "nivel3":  "DIRECCIÃN GENERAL DE INNOVACIÃN Y PROMOCIÃN AGROALIMENTARIA",
+                        "codigoInvente":  null
+                    }
+                ],
+    "pageable":  {
+                     "sort":  {
+                                  "sorted":  true,
+                                  "unsorted":  false,
+                                  "empty":  false
+                              },
+                     "pageNumber":  0,
+                     "pageSize":  2,
+                     "offset":  0,
+                     "unpaged":  false,
+                     "paged":  true
+                 },
+    "last":  false,
+    "totalPages":  9,
+    "totalElements":  18,
+    "first":  true,
+    "sort":  {
+                 "sorted":  true,
+                 "unsorted":  false,
+                 "empty":  false
+             },
+    "numberOfElements":  2,
+    "size":  2,
+    "number":  0,
+    "empty":  false,
+    "advertencia":  "La reutilizaciÃ³n de los datos del Sistema Nacional de Publicidad de Subvenciones y Ayudas PÃºblicas estÃ¡ sujeta a una serie de restricciones y consideraciones legales. Consulte el aviso legal en https://www.infosubvenciones.es/bdnstrans/GE/es/avisolegal.AdemÃ¡s, el usuario debe ser consciente que la informaciÃ³n presentada es de naturaleza dinÃ¡mica, y que los datos pueden ser sometidos a correcciones, inserciones, modificaciones y eliminaciones en momentos posteriores a su extracciÃ³n. Accesos al API del sistema Nacional de Publicidad de Subvenciones y Ayudas PÃºblicas. La AdministraciÃ³n Presupuestaria, para salvaguardar la protecciÃ³n del acceso libre e irrestricto de los ciudadanos a este Portal y a su informaciÃ³n podrÃ¡ adoptar medidas restrictivas de acceso al API ante situaciones de manifiesto abuso del servicio, riesgos de seguridad, o uso fraudulento de la informaciÃ³n descargada, de acuerdo con las buenas prÃ¡cticas de gestiÃ³n de datos abiertos (https://datos.gob.es/es/blog/limitaciones-la-consulta-de-una-api) establecidas por el Ministerio para la TransformaciÃ³n Digital y de la FunciÃ³n PÃºblica."
+}

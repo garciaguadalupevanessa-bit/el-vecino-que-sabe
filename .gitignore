@@ -1,24 +1,11 @@
-# Entornos virtuales
-.venv/
-venv/
-
-# Caché y Python
-__pycache__/
-*.py[cod]
-.pytest_cache/
-
-# Variables de entorno y secretos
 .env
-
-# Frontend
+.venv/
+backend/storage/bdns/
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
 node_modules/
-frontend/dist/
-
-# Documentos locales
-*.pdf
-*.docx
-*.xlsx
-
-# Sistema y VS Code
-.vscode/
-.DS_Store
+dist/
+logs/
+.env.production

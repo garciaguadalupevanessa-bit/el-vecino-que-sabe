@@ -1,0 +1,93 @@
+{
+  "panelVersion": "1.0",
+  "reviewedAt": "2026-11-11",
+  "selectionMethod": "Purposive examples located through official BDNS and gazette pages outside the audited API-query process, then screened for direct farm-holding relevance. The panel was assembled after the initial audit and includes both already-recovered and missed records by design; this creates selection bias. It is a descriptive diagnostic, not an independent blind or statistically representative benchmark.",
+  "auditSnapshot": "agricultural-search-audit.json (2026-11-10; corrected audit; first page only)",
+  "inclusionRule": "Include a BDNS call whose official record and title indicate direct support for agricultural or livestock holdings or their holders. Open-application status is tracked separately from discovery relevance.",
+  "records": [
+    {
+      "bdnsCode": "909993",
+      "group": "crop_only",
+      "title": "2026 aid for replanting fruit plots destroyed by Xylella measures",
+      "administration": "Comunitat Valenciana",
+      "basisForInclusion": "Official BDNS record identifies the fruit-plot replanting aid, economic farm beneficiaries and agricultural purpose; the official extract is linked.",
+      "availabilityNote": "Discovery positive; check current application status at the linked official record.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/909993"
+    },
+    {
+      "bdnsCode": "931649",
+      "group": "crop_only",
+      "title": "2026 cooperation aid for succession of agricultural holdings",
+      "administration": "Comunidad de Madrid",
+      "basisForInclusion": "Official BDNS record identifies agricultural holdings, economic farm beneficiaries and the agriculture sector.",
+      "availabilityNote": "The BDNS page lists an official extract dated 2026-10-05 and a 2026-10-06 to 2026-11-05 application period; its current availability is closed as of the audit date.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/931649"
+    },
+    {
+      "bdnsCode": "915152",
+      "group": "livestock_only",
+      "title": "2026 operating-cost subsidies for livestock holdings, line 2",
+      "administration": "Cabildo Insular de Lanzarote",
+      "basisForInclusion": "Official BDNS record directly names livestock holdings and lists economic beneficiaries and the agriculture, livestock, forestry and fisheries sector.",
+      "availabilityNote": "Discovery positive; check current application status at the linked official record.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/915152"
+    },
+    {
+      "bdnsCode": "860963",
+      "group": "livestock_only",
+      "title": "2026 aid for cattle holdings",
+      "administration": "Ayuntamiento de Xove",
+      "basisForInclusion": "Official BDNS record directly names cattle holdings and lists economic beneficiaries and livestock production as the economic sector.",
+      "availabilityNote": "Discovery positive; check the official call and application period before presenting it to a user.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/860963"
+    },
+    {
+      "bdnsCode": "899941",
+      "group": "livestock_only",
+      "title": "2026 investment subsidies for livestock holdings",
+      "administration": "Cabildo Insular de El Hierro",
+      "basisForInclusion": "Official BDNS record directly names investment in livestock holdings and lists economic beneficiaries and the agriculture, livestock, hunting and related-services sector.",
+      "availabilityNote": "Discovery positive; the BDNS record has no extract associated, so do not present it as an available application opportunity without further checking.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/899941"
+    },
+    {
+      "bdnsCode": "938645",
+      "group": "mixed",
+      "title": "2026 aid to the agricultural and livestock sector of Yecla",
+      "administration": "Ayuntamiento de Yecla",
+      "basisForInclusion": "Official BDNS record directly names both sectors and lists economic beneficiaries.",
+      "availabilityNote": "Discovery positive; the BDNS record says the call is not valid until its official extract is published.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/938645"
+    },
+    {
+      "bdnsCode": "938663",
+      "group": "mixed",
+      "title": "2026 direct aid to agricultural, livestock and beekeeping holdings affected by wildfires in Extremadura",
+      "administration": "Junta de Extremadura",
+      "basisForInclusion": "Official BDNS record directly names the three kinds of holdings and lists economic beneficiaries; detail classifies perennial crops and livestock.",
+      "availabilityNote": "Discovery positive; BDNS states that no official extract is published and no application period applies.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/938663"
+    },
+    {
+      "bdnsCode": "708537",
+      "group": "mixed",
+      "title": "2023 drought aid for holders of agricultural and livestock holdings",
+      "basisForInclusion": "Official BDNS record describes aid to holders of agricultural and livestock holdings affected by drought and economic beneficiaries.",
+      "availabilityNote": "Historical discovery positive; the 2023 campaign is not a current opportunity.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/708537",
+      "gazetteUrl": "https://www.juntadeandalucia.es/boja/2023/138/5"
+    }
+  ],
+  "excludedExamples": [
+    {
+      "bdnsCode": "926471",
+      "reason": "Despite mentioning agricultural holdings and livestock in its title, the official BDNS record lists legal entities that do not carry out economic activity as beneficiaries and focuses on wildfire prevention. Excluded from the farm-holder positive panel; retain as a useful screening false positive.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/926471"
+    },
+    {
+      "bdnsCode": "920344",
+      "reason": "Despite mentioning agricultural land in its title, the official BDNS record lists non-economic individuals and an entertainment-sector code. Excluded from the farm-holder positive panel; retain as a useful screening false positive.",
+      "bdnsUrl": "https://www.infosubvenciones.es/bdnstrans/GE/es/convocatorias/920344"
+    }
+  ]
+}

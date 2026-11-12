@@ -1,0 +1,3348 @@
+{
+  "RetrievedAt": "2026-11-10T23:03:48Z",
+  "Endpoint": "https://www.infosubvenciones.es/bdnstrans/api/convocatorias/busqueda",
+  "PageSize": 10,
+  "SearchScope": "Nationwide; no territory or administration filter",
+  "QueryCount": 34,
+  "Notes": [
+    "The endpoint has no direct sector filter; titles and the purpose filter are discovery routes, not an agricultural gold standard.",
+    "Only page 0 is captured for each query. Truncated queries require more pages for candidate collection.",
+    "Review candidate details and create a manually checked positive seed panel before calculating recall.",
+    "The finality catalog identifies agriculture as ID 12. The earlier finalidad=11 query and misspelled fruit term are retained in query history as superseded and excluded from active candidates.",
+    "The corrected agriculture-purpose and fruticola responses were captured with pageSize=10; candidate results remain first-page-only and are not a recall denominator."
+  ],
+  "Queries": [
+    {
+      "Activity": "crop",
+      "Term": "agricultura",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 2420,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "agrícola",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 2185,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "agraria",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 1715,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "agricultor",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 840,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "cultivo",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 304,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "PAC",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 32280,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "regadío",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 164,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "viñedo",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 156,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "hortícola",
+      "Status": "OK",
+      "ResultsOnPage": 9,
+      "TotalMatches": 9,
+      "PageSize": 10,
+      "Truncated": false
+    },
+    {
+      "Activity": "crop",
+      "Term": "cereal",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 72,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "frutal",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 30,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "olivar",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 251,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "invernadero",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 55,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "ecológica",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 571,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "ganadería",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 1638,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "ganadero",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 975,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "vacuno",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 376,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "bovino",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 164,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "ovino",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 463,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "caprino",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 268,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "porcino",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 97,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "apícola",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 253,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "avícola",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 21,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "equino",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 86,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "pastos",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 55,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "extensiva",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 49,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "raza",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 1304,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "sanidad",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 745,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "bienestar",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 1805,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "livestock",
+      "Term": "leche",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 475,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "frutácola",
+      "Status": "SUPERSEDED: misspelled term; corrected query saved separately",
+      "ResultsOnPage": 0,
+      "TotalMatches": 0,
+      "PageSize": 10,
+      "Truncated": false
+    },
+    {
+      "Activity": "purpose",
+      "Term": "finalidad=11",
+      "Status": "SUPERSEDED: not the agriculture category; excluded from candidate set",
+      "ResultsOnPage": 10,
+      "TotalMatches": 135604,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "purpose",
+      "Term": "finalidad=12",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 24124,
+      "PageSize": 10,
+      "Truncated": true
+    },
+    {
+      "Activity": "crop",
+      "Term": "frutícola",
+      "Status": "OK",
+      "ResultsOnPage": 10,
+      "TotalMatches": 33,
+      "PageSize": 10,
+      "Truncated": true
+    }
+  ],
+  "CandidateCount": 270,
+  "Candidates": [
+    {
+      "Code": "941199",
+      "InternalId": 1142760,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE LEÓN",
+      "Title": "Ayuda a Emprendedores 2026 (Agricultura)",
+      "MatchedQueries": [
+        "crop:agricultura"
+      ]
+    },
+    {
+      "Code": "941072",
+      "InternalId": 1142633,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "RESOLUCIÓN DEL CONSELLER DE AGRICULTURA, AGUA, GANADERIA Y PESA POR LA QUE SE CONCEDE SUBVENCIÓN A FECOAV PARA MEJORAR LAS PRÁCTICAS DE C",
+      "MatchedQueries": [
+        "crop:agricultura",
+        "crop:cultivo",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "940967",
+      "InternalId": 1142528,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "RESOLUCIÓN DEL CONSELLER AGRICULTURA, AGUA, GANADERIA Y PESCA POR LA QUE SE CONCEDE UNA SUBVENCIÓN A LA UNIVERSIDAD POLITÉCNICA DE VALENC",
+      "MatchedQueries": [
+        "crop:agricultura",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "940353",
+      "InternalId": 1141914,
+      "ReceivedDate": "2026-11-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA-LA MANCHA",
+      "Title": "RESOLUCIÓN DE LA CONSEJERÍA DE AGRICULTURA, GANADERÍA Y DESARROLLO RURAL, POR LA QUE SE CONCEDE UNA SUBVENCIÓN DIRECTA A COOPERATIVAS AG",
+      "MatchedQueries": [
+        "crop:agricultura",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "940214",
+      "InternalId": 1141775,
+      "ReceivedDate": "2026-11-05",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN FORAL DE BIZKAIA",
+      "Title": "Orden Foral de la Diputada Foral de Medio Natural y Agricultura por el que se concede una subvención nominativa a SASKIA-ASOCIACIÓN DE MUJ",
+      "MatchedQueries": [
+        "crop:agricultura"
+      ]
+    },
+    {
+      "Code": "939897",
+      "InternalId": 1141458,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "ORDEN de la Consejería de Agricultura, Ganadería, Pesca y Soberanía Alimentaria por la que se convocan para la campaña 2026, las ayudas ",
+      "MatchedQueries": [
+        "crop:agricultura",
+        "livestock:caprino",
+        "livestock:ganadería",
+        "livestock:ovino",
+        "livestock:porcino",
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "939868",
+      "InternalId": 1141429,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA-LA MANCHA",
+      "Title": "RESOLUCIÓN DE LA CONSEJERÍA DE AGRICULTURA, GANADERÍA Y DESARROLLO RURAL, POR LA QUE SE CONCEDE UNA SUBVENCIÓN DIRECTA A LA ASOCIACIÓN ",
+      "MatchedQueries": [
+        "crop:agricultura",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "939835",
+      "InternalId": 1141396,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA-LA MANCHA",
+      "Title": "Resolución, de 29/10/2026, de la Dirección General de Ordenación Agropecuaria, por la que se convocan, para el año 2026, las ayudas regu",
+      "MatchedQueries": [
+        "crop:agricultura",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "939798",
+      "InternalId": 1141359,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "ORDEN de la Consejería de Agricultura, Ganadería, Pesca y Soberanía Alimentaria por la que se convocan para la campaña 2026, la Ayuda a ",
+      "MatchedQueries": [
+        "crop:agricultura",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "939318",
+      "InternalId": 1140879,
+      "ReceivedDate": "2026-11-03",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE ASUNTOS EXTERIORES, UNIÓN EUROPEA Y COOPERACIÓN",
+      "Title": "CONVOCATORIA INSTRUMENTAL SUBVENCIÓN A Ministerio DE AGRICULTURA",
+      "MatchedQueries": [
+        "crop:agricultura"
+      ]
+    },
+    {
+      "Code": "941171",
+      "InternalId": 1142732,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 6 de noviembre 2026 por la que se convocan subvenciones para la certificación de determinados productos o servicios según la marc",
+      "MatchedQueries": [
+        "crop:agrícola",
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941154",
+      "InternalId": 1142715,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE ECONOMÍA, COMERCIO Y EMPRESA",
+      "Title": "ESPAÑA CRECE-ICO AGRI CRECIMIENTO Y EXPANSIÓN (MRR) (exenciones por categorías agrícola)",
+      "MatchedQueries": [
+        "crop:agrícola"
+      ]
+    },
+    {
+      "Code": "939614",
+      "InternalId": 1141175,
+      "ReceivedDate": "2026-11-03",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "ADEJE",
+      "Title": "Extracto de acuerdo de fecha 22 octubre 2026 convocatoria y concesión de subvenciones en régimen de concurrencia competitiva para sufragar",
+      "MatchedQueries": [
+        "crop:agrícola"
+      ]
+    },
+    {
+      "Code": "938803",
+      "InternalId": 1140364,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Línea de préstamos «ICF Lidera Fons de Transició Nuclear» con condiciones preferentes para el financiamiento de inversiones productivas",
+      "MatchedQueries": [
+        "crop:agrícola"
+      ]
+    },
+    {
+      "Code": "938797",
+      "InternalId": 1140358,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Línea de préstamos bonificados «ICF Lidera Fons de Transició Nuclear» para inversiones productivas en los municipios beneficiarios del ",
+      "MatchedQueries": [
+        "crop:agrícola"
+      ]
+    },
+    {
+      "Code": "938663",
+      "InternalId": 1140224,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Ayudas 2026 directas a explotaciones agrícolas, ganaderas y apícolas afectadas por los incendios forestales del verano de 2026 en Extremad",
+      "MatchedQueries": [
+        "crop:agrícola",
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "938645",
+      "InternalId": 1140206,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "YECLA",
+      "Title": "CONVOCATORIA DE AYUDAS AL SECTOR AGRÍCOLA Y GANADERO DE YECLA 2026",
+      "MatchedQueries": [
+        "crop:agrícola",
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "938604",
+      "InternalId": 1140165,
+      "ReceivedDate": "2026-10-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Convocatoria de ayuda a las explotaciones agrícolas y ganaderas del Principado de Asturias para paliar los daños ocasionados por determina",
+      "MatchedQueries": [
+        "crop:agrícola"
+      ]
+    },
+    {
+      "Code": "938438",
+      "InternalId": 1139999,
+      "ReceivedDate": "2026-10-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "Decreto 74/2026, de 22 de octubre, por el que se regula la concesión directa de subvenciones por SODERCAN, S.A., destinadas a fomentar actu",
+      "MatchedQueries": [
+        "crop:agrícola"
+      ]
+    },
+    {
+      "Code": "938086",
+      "InternalId": 1139647,
+      "ReceivedDate": "2026-10-27",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE ECONOMÍA, COMERCIO Y EMPRESA",
+      "Title": "ESPAÑA CRECE - ICO CRECIMIENTO Y EXPANSIÓN (MRR) (minimis agrícola)",
+      "MatchedQueries": [
+        "crop:agrícola"
+      ]
+    },
+    {
+      "Code": "941211",
+      "InternalId": 1142772,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "ANDÚJAR",
+      "Title": "CONVOCATORIA Y BASES REGULADORAS DE AYUDAS MUNICIPALES PARA MODERNIZACIÓN SOSTENIBLE DE EXPLOTACIONES AGRARIAS 2026",
+      "MatchedQueries": [
+        "crop:agraria"
+      ]
+    },
+    {
+      "Code": "940240",
+      "InternalId": 1141801,
+      "ReceivedDate": "2026-11-05",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "RESOLUCIÓN de 22 de septiembre de 2026, de la Consejería Medio Rural y Política Agraria por la que se convocan ayudas a la adaptación de",
+      "MatchedQueries": [
+        "crop:agraria"
+      ]
+    },
+    {
+      "Code": "939741",
+      "InternalId": 1141302,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE A CORUÑA",
+      "Title": "Programa de subvenciones dirigido a las entidades asociativas agrarias, labradoras, ganaderas, forestales y asociaciones de cazadores de la ",
+      "MatchedQueries": [
+        "crop:agraria"
+      ]
+    },
+    {
+      "Code": "939735",
+      "InternalId": 1141296,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE A CORUÑA",
+      "Title": "Programa de subvenciones a las entidades asociativas, federaciones y agrupaciones de entidades agrarias, labradoras, ganaderas y forestales ",
+      "MatchedQueries": [
+        "crop:agraria"
+      ]
+    },
+    {
+      "Code": "939095",
+      "InternalId": 1140656,
+      "ReceivedDate": "2026-10-30",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a la Asociación Agraria de Jóvenes Agricultores ASAJA para Celebración del III Congreso del Maíz Ibérico",
+      "MatchedQueries": [
+        "crop:agraria",
+        "crop:agricultor"
+      ]
+    },
+    {
+      "Code": "939044",
+      "InternalId": 1140605,
+      "ReceivedDate": "2026-10-30",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD FORAL DE NAVARRA",
+      "Title": "Concesión directa de Subvención a la Unión de Cooperativas Agrarias de Navarra (UCAN) Fomento del cooperativismo agrario 2026",
+      "MatchedQueries": [
+        "crop:agraria"
+      ]
+    },
+    {
+      "Code": "938994",
+      "InternalId": 1140555,
+      "ReceivedDate": "2026-10-30",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "MATARÓ",
+      "Title": "Convenio regulador a favor de l'Associació Agrària Cinc Sènies-Mata_Valldeix para promover la divulgación, preservación y potenciación",
+      "MatchedQueries": [
+        "crop:agraria"
+      ]
+    },
+    {
+      "Code": "938959",
+      "InternalId": 1140520,
+      "ReceivedDate": "2026-10-30",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA Y LEÓN",
+      "Title": "ORDEN de 29 de octubre de 2026, de la Consejería de Agricultura, Ganadería, Medio Rural y Política Ambiental, por la que se convocan para",
+      "MatchedQueries": [
+        "crop:agraria",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "938817",
+      "InternalId": 1140378,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a la Asociación Agraria de Jóvenes Agricultores ASAJA para el desarrollo de actividades de apoyo a la ganadería extensiva, fo",
+      "MatchedQueries": [
+        "crop:agraria",
+        "crop:agricultor",
+        "livestock:extensiva",
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "938698",
+      "InternalId": 1140259,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a UAGA para la coordinación de temporeros durante la campaña de la fruta en las Comarcas de Bajo Cinca y la Litera  y de aseso",
+      "MatchedQueries": [
+        "crop:agraria"
+      ]
+    },
+    {
+      "Code": "940186",
+      "InternalId": 1141747,
+      "ReceivedDate": "2026-11-05",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "Orden AGA/1616/2026, de 4 de noviembre, bases reguladoras y se convocan las ayudas financieras de emergencia destinadas a compensar parcialm",
+      "MatchedQueries": [
+        "crop:agricultor",
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "938435",
+      "InternalId": 1139996,
+      "ReceivedDate": "2026-10-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "GALICIA",
+      "Title": "Resolución de 27 de octubre 2026 por la que se establece el procedimiento para la concesión de una ayuda financiera directa de emergencia ",
+      "MatchedQueries": [
+        "crop:agricultor"
+      ]
+    },
+    {
+      "Code": "937466",
+      "InternalId": 1139027,
+      "ReceivedDate": "2026-10-23",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CIUDAD REAL",
+      "Title": "Subvención Nominativa a favor de la Asociación Agraria Jóvenes Agricultores ASAJA Ciudad Real para la Realización de Actividades de Desa",
+      "MatchedQueries": [
+        "crop:agricultor"
+      ]
+    },
+    {
+      "Code": "936358",
+      "InternalId": 1137919,
+      "ReceivedDate": "2026-10-20",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "VILLANUEVA DE LA SERENA",
+      "Title": "AYUDAS A LOS AGRICULTORES VILLANOVENSES PARA DESARROLLO Y MANTENIMIENTO DE SU ACTIVIDAD, EN EL EJERCICIO 2026",
+      "MatchedQueries": [
+        "crop:agricultor"
+      ]
+    },
+    {
+      "Code": "932998",
+      "InternalId": 1134559,
+      "ReceivedDate": "2026-10-02",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA Y LEÓN",
+      "Title": "Acuerdo de 24 de septiembre de 2026  de la Junta de Castilla y León, por el que se autoriza la concesión directa de subvenciones a los agr",
+      "MatchedQueries": [
+        "crop:agricultor",
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "932859",
+      "InternalId": 1134420,
+      "ReceivedDate": "2026-10-01",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CÁCERES",
+      "Title": "SN al Ayuntamiento de Aldeanueva del Camino para sufragar los gastos derivados de la ejecución del proyecto «El Agricultor. Boletín de de",
+      "MatchedQueries": [
+        "crop:agricultor"
+      ]
+    },
+    {
+      "Code": "932347",
+      "InternalId": 1133908,
+      "ReceivedDate": "2026-09-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA-LA MANCHA",
+      "Title": "Resolución de 29.09.2026 por la que se concede la subvención nominativa prevista en la Ley 5/2025, a la entidad Unión de Pequeños Agricu",
+      "MatchedQueries": [
+        "crop:agricultor"
+      ]
+    },
+    {
+      "Code": "931561",
+      "InternalId": 1133122,
+      "ReceivedDate": "2026-09-24",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Resolución del 25 septiembre de 2026 del director de la Agencia Valenciana de Fomento y Garantía Agraria, por la que se convocan ayudas al",
+      "MatchedQueries": [
+        "crop:agricultor"
+      ]
+    },
+    {
+      "Code": "936949",
+      "InternalId": 1138510,
+      "ReceivedDate": "2026-10-21",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE PALENCIA",
+      "Title": "CONVENIO DE COLABORACIÓN ENTRE LA DIPUTACIÓN DE PALENCIA Y LA ASOCIACIÓN PALENTINA DE PLANTAS AROMÁTICAS Y MEDICINALES (APAPAM) PARA LA ",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "934220",
+      "InternalId": 1135781,
+      "ReceivedDate": "2026-10-08",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas de minimis destinadas a cooperativas, SAT y otras empresas agroalimentarias afectadas por la sequía persistente, las temperaturas el",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "933755",
+      "InternalId": 1135316,
+      "ReceivedDate": "2026-10-06",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CÁCERES",
+      "Title": "SN a la Asociación para la Ayuda de las Personas con Autismo - Divertea  para la adquisición de material inventariable para la adecuación",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "933153",
+      "InternalId": 1134714,
+      "ReceivedDate": "2026-10-02",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE ASUNTOS EXTERIORES, UNIÓN EUROPEA Y COOPERACIÓN",
+      "Title": "CONVOCATORIA INSTRUMENTAL ETIOPIA PROTEC 2026: Fortalecimiento de prácticas agroecológicas en el cultivo de café para medios de vida sost",
+      "MatchedQueries": [
+        "crop:cultivo",
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "931983",
+      "InternalId": 1133544,
+      "ReceivedDate": "2026-09-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA-LA MANCHA",
+      "Title": "Resolución 29/09/2026 convocatoria de ayudas, en régimen de minimis (Reg UE 1408/2013), para la prevención de daños ocasionados por el c",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "931968",
+      "InternalId": 1133529,
+      "ReceivedDate": "2026-09-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA-LA MANCHA",
+      "Title": "Resolución 29/09/2026, convocatoria de ayudas, para la prevención de daños ocasionados por el conejo de monte en cultivos agrícolas en C",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "931941",
+      "InternalId": 1133502,
+      "ReceivedDate": "2026-09-28",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE MÁLAGA",
+      "Title": "Resolución de Presidencia 2026/7062 de 24 de septiembre, de Concesión de subvención a la Fundación CITAC destinada al proyecto \"Gastos p",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "928112",
+      "InternalId": 1129673,
+      "ReceivedDate": "2026-09-07",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a Unión de Pequeños Agricultores de Aragón (UPAAragón) para “Formación en el sistema de cultivos intercalados y asesorami",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "923459",
+      "InternalId": 1125020,
+      "ReceivedDate": "2026-08-04",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CÁCERES",
+      "Title": "SN a la Asoc de Ayuda a la Integración Social (ASAIS) para la realización del proyecto «A(L)MA: Alimentación, Salud, Educación y Cultiv",
+      "MatchedQueries": [
+        "crop:cultivo"
+      ]
+    },
+    {
+      "Code": "941268",
+      "InternalId": 1142829,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE TENERIFE",
+      "Title": "Subvención nominativa a favor de la Asociación Nuestra Señora del Amparo APREME,  “Redacción de proyecto y realización de actuaciones",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941256",
+      "InternalId": 1142817,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TACORONTE",
+      "Title": "SUBVENCION NOMINATIVA AGRUPACION CULTURAL EL CANDIL 2026",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941255",
+      "InternalId": 1142816,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE AGRICULTURA, PESCA Y ALIMENTACIÓN",
+      "Title": "SUBVENCIÓN DIRECTA RED DE ESPACIOS TEST AGRARIOS",
+      "MatchedQueries": [
+        "crop:PAC",
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941252",
+      "InternalId": 1142813,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "ORDEN DE CONCESIÓN DE UNA SUBVENCIÓN DIRECTA AL AYTO DE LA OLIVA PARA FINANCIAR \"iNTERVENCIÓN EN EL ESPACIO PÚBLICO DE EL COTILLO, FRENT",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941251",
+      "InternalId": 1142812,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "ORDEN DEL CONSEJERO DE EDUCACIÓN, FP, ACTIVIDAD FÍSICA Y DEPORTES, POR LA QUE SE CONCEDEN SUBVENCIONES DIRECTAS A 20 FEDERACIONES CANARIAS",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941208",
+      "InternalId": 1142769,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TORRELAVEGA",
+      "Title": "Concesión de subvención directa a favor del CDB Mountain Bike Torrelavega para afrontar los gastos derivados de su participación en compe",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941203",
+      "InternalId": 1142764,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TORRELAVEGA",
+      "Title": "Subvención nominativa a favor del CDE Sobre Ruedas para gastos derivados de su participación en competiciones oficiales, fomento del depor",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941188",
+      "InternalId": 1142749,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CORUÑA, A",
+      "Title": "Convenio entre Agrupación Astronómica IO y el Ayuntamiento de A Coruña para contribuir al sostenimiento de los gastos ordinarios de las a",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941160",
+      "InternalId": 1142721,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "MATADEPERA",
+      "Title": "CONVOCATORIA INSTRUMENTAL SUBVENCIÓN NOMINATIVA A L`ENTITAT AGRUPACIÓ DEFENSA FORESTAL DE MATADEPERA 2026",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "941141",
+      "InternalId": 1142702,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Subvención nominativa 2026. Ayuntamiento de Alcántara. Participación Festival Al-Títere. LEY 2/2026, de 3 de agosto, de Presupuestos Gen",
+      "MatchedQueries": [
+        "crop:PAC"
+      ]
+    },
+    {
+      "Code": "936212",
+      "InternalId": 1137773,
+      "ReceivedDate": "2026-10-19",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "GUARDAMAR DEL SEGURA",
+      "Title": "Subvención Nominativa Transferencia de Capital al Juzgado Privativo de Aguas de Guardamar del Segura para la modernización del regadío. A",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "929945",
+      "InternalId": 1131506,
+      "ReceivedDate": "2026-09-16",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "LA RIOJA",
+      "Title": "Convenio Ayto Pradejón. Reurbanización de la calle Regadío",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "928543",
+      "InternalId": 1130104,
+      "ReceivedDate": "2026-09-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Resolución del Vicepresidente Tercero y Conseller de Medio Ambiente, Infraestructuras, Territorio y de la Recuperación, para la concesión",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "928409",
+      "InternalId": 1129970,
+      "ReceivedDate": "2026-09-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD FORAL DE NAVARRA",
+      "Title": "Convocatoria para 2026 de  Ayudas a inversiones en  explotaciones agrarias Modernización regadío  R247.   PEPAC 2023-2027",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "928380",
+      "InternalId": 1129941,
+      "ReceivedDate": "2026-09-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD FORAL DE NAVARRA",
+      "Title": "Convocatoria para 2026 de  Ayudas a inversiones en  explotaciones agrarias Transformación regadío  R159.   PEPAC 2023-2027",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "919312",
+      "InternalId": 1120873,
+      "ReceivedDate": "2026-07-15",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "REGIÓN DE MURCIA",
+      "Title": "AYUDAS A COMUNIDADES DE REGANTES Y COMUNIDADES GENERALES DE REGANTES PARA LA EJECUCIÓN DE INVERSIONES EN INFRAESTRUCTURAS DE REGADÍOS CON ",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "915537",
+      "InternalId": 1117098,
+      "ReceivedDate": "2026-06-25",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas correspondientes a los años 2025, 2026 y 2027 destinadas a las comunidades de regantes para la mejora y modernización de las redes ",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "911998",
+      "InternalId": 1113559,
+      "ReceivedDate": "2026-06-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ALICANTE",
+      "Title": "Acuerdo de 3 de junio de 2026 del Pleno de la Excma. Diputación Provincial de Alicante, por el que se convocan subvenciones en 2026 a favor",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "905310",
+      "InternalId": 1106871,
+      "ReceivedDate": "2026-05-13",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD DE MADRID",
+      "Title": "AYUDAS INVERSIONES INFRAESTRUCTURAS REGADÍOS CON OBJETIVOS AMBIENTAL 2026",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "894502",
+      "InternalId": 1096063,
+      "ReceivedDate": "2026-03-23",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "UTILIZACIÓN RACIONAL DEL AGUA  Y LA MEJORA DE LA EFICIENCIA ENERGÉTICA EN REGADIOS",
+      "MatchedQueries": [
+        "crop:regadío"
+      ]
+    },
+    {
+      "Code": "931651",
+      "InternalId": 1133212,
+      "ReceivedDate": "2026-09-25",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD DE MADRID",
+      "Title": "FEADER.AYUD.MANT.VIÑEDO SECANO PRESERVA BIODIVERSIDAD C.M.PRG.26_30",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "929818",
+      "InternalId": 1131379,
+      "ReceivedDate": "2026-09-16",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE TERUEL",
+      "Title": "Convenio entre la Excma. Diputación Provincial de Teruel y La Asociación de Viñedos y Bodegas del Matarraña para la realización de acti",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "897047",
+      "InternalId": 1098608,
+      "ReceivedDate": "2026-04-07",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA Y LEÓN",
+      "Title": "Orden de 6 de abril de 2026 de la Consejería de Agricultura, Ganadería y Desarrollo Rural, por la que se convocan las ayudas a la cosecha ",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "896983",
+      "InternalId": 1098544,
+      "ReceivedDate": "2026-04-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Ayudas 2026 Reestructuración y Reconversión del Viñedo, según Resolución de 26 de marzo de 2026 que las convoca.",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "895148",
+      "InternalId": 1096709,
+      "ReceivedDate": "2026-03-25",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA Y LEÓN",
+      "Title": "Orden  de 24 de marzo de 2026 de la Consejería de Agricultura, Ganadería y Desarrollo Rural, por la que se convocan, para el año 2026, la",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "894722",
+      "InternalId": 1096283,
+      "ReceivedDate": "2026-03-23",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "GALICIA",
+      "Title": "Orden de 13 de marzo de 2026 por la que se establecen las bases reguladoras de las ayudas a la reestructuración y reconversión del viñedo",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "893534",
+      "InternalId": 1095095,
+      "ReceivedDate": "2026-03-17",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD DE MADRID",
+      "Title": "Ayuda Reestructuración y Reconversión de viñedos campaña 2026",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "891081",
+      "InternalId": 1092642,
+      "ReceivedDate": "2026-03-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "ORDEN AGA/442/2026, de 4 de marzo, que convoca subvenciones para la reestructuración y reconversión de viñedo, establecidas en el R.D.905",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "888969",
+      "InternalId": 1090530,
+      "ReceivedDate": "2026-02-23",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "REGIÓN DE MURCIA",
+      "Title": "Orden de la Consejería de Agua, Agricultura, Ganadería y Pesca por la que se aprueba la convocatoria de las ayudas de reestructuración y ",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "888572",
+      "InternalId": 1090133,
+      "ReceivedDate": "2026-02-20",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "RESOLUCIÓN de 19 de febrero de 2026 del director de la Agencia Valenciana de Fomento y Garantía Agraria, por la que se aprueba la convocat",
+      "MatchedQueries": [
+        "crop:viñedo"
+      ]
+    },
+    {
+      "Code": "825852",
+      "InternalId": 1027413,
+      "ReceivedDate": "2025-04-08",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Procedimiento para la concesión directa de una ayuda adicional a titulares de explotaciones agrícolas de herbáceos, forrajeras y aromáti",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "785780",
+      "InternalId": 987340,
+      "ReceivedDate": "2024-09-17",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TORRELAVEGA",
+      "Title": "EXPEDIENTE 2024/5371N. SUBVENCIÓN DIRECTA NOMINATIVA ASOCIACIÓN PARA LA DEFENSA Y RECUPERACIÓN DEL PATRIMONIO HORTIFRUTÍCOLA DE CANTABRI",
+      "MatchedQueries": [
+        "crop:frutícola",
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "780077",
+      "InternalId": 981637,
+      "ReceivedDate": "2024-08-12",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas a las explotaciones agrarias con cultivos herbáceos y con cultivos hortícolas del ámbito territorial de las comunidades de usuario",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "697695",
+      "InternalId": 899255,
+      "ReceivedDate": "2023-05-24",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "ORDEN AGM/707/2023, 23 de mayo, por la que se convocan subvenciones destinadas a bonificación de costes financieros generados por préstamo",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "695193",
+      "InternalId": 896753,
+      "ReceivedDate": "2023-05-16",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Resolución de la Consellera de Agricultura, Desarrollo Rural, Emergencia Climática y Transición Ecológica por la que se concede una subv",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "661108",
+      "InternalId": 862668,
+      "ReceivedDate": "2022-11-25",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "C81/22 CONVENIO DE COLABORACIÓN CON LA ASOCIACIÓN PROFESIONAL DE FLORES, PLANTAS Y TECNOLOGÍA HORTÍCOLA DE LA CV PARA LA MODERNIZACIÓN ",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "650213",
+      "InternalId": 851773,
+      "ReceivedDate": "2022-09-23",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE VALLADOLID",
+      "Title": "Decreto de Presidencia nº 4015 de 7 de Septiembre de 2022, por el que se aprueba el Convenio con la Asociación el Prao de Luyas para recup",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "535835",
+      "InternalId": 737395,
+      "ReceivedDate": "2020-11-26",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "CONVENIO CON ASFPLANT PARA DESARROLLAR UN PLAN COMUNICACIÓN Y MODERNIZACIÓN EN EL SECTOR PLANTAS Y TECNOLOGÍA HORTÍCOLA DE LA C.V.",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "510131",
+      "InternalId": 711691,
+      "ReceivedDate": "2020-06-11",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE TENERIFE",
+      "Title": "Extracto de la Convocatoria de ayudas compensatorias excepcionales a productores de aguacates, hortícolas y papas por daños temporal acaec",
+      "MatchedQueries": [
+        "crop:hortícola"
+      ]
+    },
+    {
+      "Code": "938859",
+      "InternalId": 1140420,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE LA PALMA",
+      "Title": "SUBVENCIÓN NOMINATIVA FEDERACIÓN INSULAR DE CAZA PARA LA ADQUISICIÓN SEMILLAS DE CEREAL PARA LA RECUPERACION DE CODORNIZ",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "935054",
+      "InternalId": 1136615,
+      "ReceivedDate": "2026-10-14",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE TERUEL",
+      "Title": "APROBACIÓN CONVENIO DE COLABORACIÓN ENTRE LA EXCMA. DIPUTACIÓN PROVINCIAL DE TERUEL Y CEREALES TERUEL SOC. COOP. PARA DESARROLLO AGRÍCOL",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "923251",
+      "InternalId": 1124812,
+      "ReceivedDate": "2026-08-03",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Aportación a la Fundación Centro de investigación en agrotecnologia-*Agrotecnio, para la financiación del proyecto Construcción y puest",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "893635",
+      "InternalId": 1095196,
+      "ReceivedDate": "2026-03-17",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE TENERIFE",
+      "Title": "Resolución de 9/03/2026 del Consejero Delegado de Sector Primario y Bienestar Animal  relativa a la concesión a la Asociación de Cereales",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "886072",
+      "InternalId": 1087633,
+      "ReceivedDate": "2026-02-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "LA RIOJA",
+      "Title": "A propietarios/arrendatarios fincas cereal con nido ocupado aguilucho cenizo",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "878149",
+      "InternalId": 1079710,
+      "ReceivedDate": "2025-12-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE PALENCIA",
+      "Title": "CONVENIO DE COLABORACIÓN ENTRE LA DIPUTACIÓN DE PALENCIA Y LA FUNDACIÓN CENTRO TECNOLÓGICO DE CEREALES DE CASTILLA Y LEÓN PARA LA REALI",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "871798",
+      "InternalId": 1073359,
+      "ReceivedDate": "2025-11-28",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE TERUEL",
+      "Title": "APROBACIÓN CONVENIO DE COLABORACIÓN ENTRE LA EXCMA. DIPUTACIÓN PROVINCIAL DE TERUEL Y CEREALES TERUEL SOC. COOP. PARA DESARROLLO AGRÍCOL",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "869016",
+      "InternalId": 1070577,
+      "ReceivedDate": "2025-11-17",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Subvención directa a la Cambra Oficial de Comer, Indústria, Serveis i Navegació de Barcelona / Llotja de Cereals",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "859427",
+      "InternalId": 1060988,
+      "ReceivedDate": "2025-09-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE TENERIFE",
+      "Title": "Acuerdo 24 septiembre 2025, del Consejo de Gobierno Insular, por el que se aprueba la convocatoria de ayudas excepcionales a los productores",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "853016",
+      "InternalId": 1054577,
+      "ReceivedDate": "2025-08-23",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE LA PALMA",
+      "Title": "SUBVENCIÓN NOMINATIVA FEDERACIÓN INSULAR DE CAZA 2025 - ADQUISICIÓN SEMILLA CEREAL PARA LA RECUPERACIÓN DE LA CODORNIZ",
+      "MatchedQueries": [
+        "crop:cereal"
+      ]
+    },
+    {
+      "Code": "932406",
+      "InternalId": 1133967,
+      "ReceivedDate": "2026-09-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CONSEJO INSULAR DE MENORCA",
+      "Title": "Acuerdo Consejo Rector de la Agencia RdB, de 31.08.2026, relativo a la aprobación del convenio con Cáritas Diocesana de Menorca para la co",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "925871",
+      "InternalId": 1127432,
+      "ReceivedDate": "2026-08-21",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "SAN SADURNIÑO",
+      "Title": "Acuerdo de 1 de julio de 2026 de la Junta de Gobierno Local por el que se convocan ayudas a la plantación de frutales de variedades autóct",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "914596",
+      "InternalId": 1116157,
+      "ReceivedDate": "2026-06-22",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "MOGÁN",
+      "Title": "Subvenciones en concurrencia competitiva de Ayudas en especie: entrega de Plantones de árboles frutales, año 2026.",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "896284",
+      "InternalId": 1097845,
+      "ReceivedDate": "2026-03-31",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "SANTA ÚRSULA",
+      "Title": "Procedimiento de Concesión de Subvenciones económicas a propietarios de fincas ubicadas en Santa Úrsula para compra de insumos agrícolas",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "845800",
+      "InternalId": 1047361,
+      "ReceivedDate": "2025-07-13",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "SAN SADURNIÑO",
+      "Title": "Acuerdo de 11 de julio de 2025 de la Junta de Gobierno Local por el que se convocan ayudas a la plantación de frutales de variedades autóc",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "827388",
+      "InternalId": 1028949,
+      "ReceivedDate": "2025-04-15",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "SANTA ÚRSULA",
+      "Title": "Procedimiento de concesión de subvenciones económicas para gastos realizados en la compra de insumos agrícolas, pequeñas herramientas ag",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "811220",
+      "InternalId": 1012780,
+      "ReceivedDate": "2025-01-27",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 27 de enero de 2025, por la que se efectúa la convocatoria para el año 2025 de subvenciones correspondientes a las operaciones de",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "760452",
+      "InternalId": 962012,
+      "ReceivedDate": "2024-05-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Ayuda destinada a la mejora de la producción y de la calidad de las semillas y plantones de hortalizas y de las plantas de vivero de frutal",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "747190",
+      "InternalId": 948750,
+      "ReceivedDate": "2024-03-05",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE AGRICULTURA, PESCA Y ALIMENTACIÓN",
+      "Title": "Ayudas Excepcionales a Sectores Agrícolas-Frutales y Frutos de cascara",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "689264",
+      "InternalId": 890824,
+      "ReceivedDate": "2023-04-19",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "RESOLUCIÓN  de 17 de abril se aprueba la convocatoria de concesión de ayudas destinadas a la mejora de la producción y de la calidad de l",
+      "MatchedQueries": [
+        "crop:frutal"
+      ]
+    },
+    {
+      "Code": "939326",
+      "InternalId": 1140887,
+      "ReceivedDate": "2026-11-03",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "OLIVARES",
+      "Title": "IV CAMPAÑA DE NAVIDAD FOMENTO DE LA ECONOMIA SOCIAL.- OLIVARÍZATE 2026",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "938948",
+      "InternalId": 1140509,
+      "ReceivedDate": "2026-10-30",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN FORAL DE BIZKAIA",
+      "Title": "ACUERDO de la Diputación Foral de Bizkaia por el que se concede la subvención nominativa a favor del AYUNTAMIENTO DE ZIORTZA BOLIBAR para ",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "937006",
+      "InternalId": 1138567,
+      "ReceivedDate": "2026-10-21",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CIUDAD REAL",
+      "Title": "Solicitud subvención nominativa de Ayuntamiento de Mestanza para \"Acond. Camino del Olivar de Carlos\" \t",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "933903",
+      "InternalId": 1135464,
+      "ReceivedDate": "2026-10-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "SUB.DIRECTA  DESTINADA A  PROMOCIÓN DE PROYECTOS OLIVAREROS- ADQUISICIÓN ALMAZARA COMUNITARIA",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "932768",
+      "InternalId": 1134329,
+      "ReceivedDate": "2026-10-01",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CASTELLÓN",
+      "Title": "CONVENIO CAUDIEL \" IMPLANTACIÓN CÉSPED ARTIFICIAL Y RIEGO EN CAMPO FUTBOL EL OLIVAR\"",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "931829",
+      "InternalId": 1133390,
+      "ReceivedDate": "2026-09-25",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Subv. nominativa Fundación Promoción del Olivar y Aceite",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "918198",
+      "InternalId": 1119759,
+      "ReceivedDate": "2026-07-09",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "VERA",
+      "Title": "CONVENIO DE COLABORACIÓN ENTRE EL EXCMO. AYUNTAMIENTO DE VERA Y LA “ASOCIACIÓN ECUATORIANA BOLIVARIANA HUANCAVILCA DEL AMAZONAS.\nHUDEA�",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "912484",
+      "InternalId": 1114045,
+      "ReceivedDate": "2026-06-12",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "ZAMORA",
+      "Title": "Resolución de 27 de mayo de 2026, del Sr. Concejal Delegado en materia de Recaudación, Rentas, Hacienda, Intervención y Tesorería, por e",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "912360",
+      "InternalId": 1113921,
+      "ReceivedDate": "2026-06-11",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "VERA",
+      "Title": "CONVENIO DE COLABORACIÓN ENTRE EL EXCMO. AYUNTAMIENTO DE VERA Y LA “ASOCIACIÓN ECUATORIANA BOLIVARIANA HUANCAVILCA DEL AMAZONAS.\nHUDEA�",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "912289",
+      "InternalId": 1113850,
+      "ReceivedDate": "2026-06-11",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ALICANTE",
+      "Title": "Subvención a la Asociación de productores de olivar y almazaras de Aceite Virgen Extra de la Provincia de Alicante, OLIS D´ALACANT para p",
+      "MatchedQueries": [
+        "crop:olivar"
+      ]
+    },
+    {
+      "Code": "905069",
+      "InternalId": 1106630,
+      "ReceivedDate": "2026-05-12",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "GALICIA",
+      "Title": "ORDEN del 11 de mayo de 2026  por la que se establecen las bases reguladoras de las ayudas destinadas a inversiones en máquinas de bajo con",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "903782",
+      "InternalId": 1105343,
+      "ReceivedDate": "2026-05-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CIUDAD AUTÓNOMA DE MELILLA",
+      "Title": "SUBVENCIÓN NOMINATIVA \"ASOCIACIÓN JÓVENES ARTISTAS MELILLENSES EL INVERNADERO\" 2026",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "889439",
+      "InternalId": 1091000,
+      "ReceivedDate": "2026-02-24",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE TENERIFE",
+      "Title": "Resolución de 18/12/2025 del Consejero Delegado de Sector Primario y Bienestar Animal relativa a la aportación específica a favor de CULT",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "877378",
+      "InternalId": 1078939,
+      "ReceivedDate": "2025-12-23",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas a los Seguros para las estructuras, coberturas e instalaciones de invernaderos, umbráculos y túneles.",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "872359",
+      "InternalId": 1073920,
+      "ReceivedDate": "2025-12-02",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 28 de Noviembre de 2025 se aprueban las BBRR para   concesión de ayudas indemnizatorias, en régimen de concurrencia competitiva, ",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "861175",
+      "InternalId": 1062736,
+      "ReceivedDate": "2025-10-07",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "EJIDO, EL",
+      "Title": "Acuerdo de la Junta de Gobierno de fecha 11 de septiembre de 2025 por el que se aprueban Bases Reguladoras y Convocatoria de subvenciones po",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "800682",
+      "InternalId": 1002242,
+      "ReceivedDate": "2024-12-03",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CIUDAD REAL",
+      "Title": "Solicitud Subvención Nominativa del Ayuntamiento de Almagro para Parques, cámaras, invernadero y Teatro Municipal\n\t\t\t",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "774983",
+      "InternalId": 976543,
+      "ReceivedDate": "2024-07-16",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas a los seguros de invernaderos correspondientes a la campaña 2024-2025.",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "740113",
+      "InternalId": 941673,
+      "ReceivedDate": "2024-01-18",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 17 de enero de 2024 por la que se convocan para 2024 las ayudas dirigidas a la mejora del rendimiento y la sostenibilidad global de",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "730187",
+      "InternalId": 931747,
+      "ReceivedDate": "2023-11-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas a los seguros de invernaderos correspondientes a la campaña 2023-2024.",
+      "MatchedQueries": [
+        "crop:invernadero"
+      ]
+    },
+    {
+      "Code": "940050",
+      "InternalId": 1141611,
+      "ReceivedDate": "2026-11-05",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO PARA LA TRANSICIÓN ECOLÓGICA Y EL RETO DEMOGRÁFICO",
+      "Title": "Subvenciones de concesión directa en el ámbito de la transición ecológica y el reto demográfico",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "939023",
+      "InternalId": 1140584,
+      "ReceivedDate": "2026-10-30",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE GRAN CANARIA",
+      "Title": "GC SUBVENCIÓN NOMINATIVA PARA EL AÑO 2026 A LA ASOCIACIÓN AGROECOLÓGICA BIOCOSECHA PARA VALORIZACIÓN DE LA PRODUCCIÓN ECOLÓGICA LOCAL",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "938288",
+      "InternalId": 1139849,
+      "ReceivedDate": "2026-10-27",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Resolución de la Conselleria de Agricultura, Agua, Ganadería y Pesca por la que se concede una subvención al Comité de Agricultura Ecol�",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "938070",
+      "InternalId": 1139631,
+      "ReceivedDate": "2026-10-27",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "GORLIZ",
+      "Title": "SUBVENCIONES PARA LA UTILIZACION DE LAS HUERTAS ECOLOGICAS AÑO 2026",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "936833",
+      "InternalId": 1138394,
+      "ReceivedDate": "2026-10-21",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE ASUNTOS EXTERIORES, UNIÓN EUROPEA Y COOPERACIÓN",
+      "Title": "CONVOCATORIA INSTRUMENTAL PROTEC HAITÍ 2026: Mejorar la resiliencia agroecológica y socioeconómica de las comunidades de Bainet.",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "935961",
+      "InternalId": 1137522,
+      "ReceivedDate": "2026-10-16",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE EL HIERRO",
+      "Title": "BASES ESPECÍFICAS PARA EL OTORGAMIENTO DE SUBVENCIONES PARA LA PRODUCCIÓN ECOLÓGICA 2026",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "935333",
+      "InternalId": 1136894,
+      "ReceivedDate": "2026-10-15",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TERRASSA",
+      "Title": "Decreto número 28638/2026, del 14 de octubre de 2026, de la Tenencia de Alcaldía de Transición Ecológica, por la que se abre una segunda",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "933764",
+      "InternalId": 1135325,
+      "ReceivedDate": "2026-10-06",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE A CORUÑA",
+      "Title": "Convenio con la Asociación para la defensa ecológica de Galicia (ADEGA) para financiar el proyecto Ríos en la provincia de A Coruña. añ",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "932250",
+      "InternalId": 1133811,
+      "ReceivedDate": "2026-09-29",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CHICLANA DE LA FRONTERA",
+      "Title": "CONVENIO CON LA ASOCIACIÓN AGROECOLÓGICA EL SEMILLERO-PROYECTO HUERTO EDUCATIVO_26",
+      "MatchedQueries": [
+        "crop:ecológica"
+      ]
+    },
+    {
+      "Code": "938593",
+      "InternalId": 1140154,
+      "ReceivedDate": "2026-10-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "RESOLUCIÓN DEL CONSELLER DE AGRICULTURA, AGUA, GANADERIA Y PESCA, POR LA QUE SE CONCEDE UNA SUBVENCIÓN A FAVOR DE LA FEDERACIÓ DE COOPERA",
+      "MatchedQueries": [
+        "livestock:ganadería"
+      ]
+    },
+    {
+      "Code": "940949",
+      "InternalId": 1142510,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE LEÓN",
+      "Title": "Subvención empresas sector ganadero financiación seguridad y salud en centro trabajo 2026",
+      "MatchedQueries": [
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "940751",
+      "InternalId": 1142312,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a la Asociación Aragonesa de Ganaderos de Bovinos de Raza Pirenaica (ASAPI) para la promoción, difusión y dinamización de va",
+      "MatchedQueries": [
+        "livestock:bovino",
+        "livestock:ganadero",
+        "livestock:ovino",
+        "livestock:raza",
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "940736",
+      "InternalId": 1142297,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE GRAN CANARIA",
+      "Title": "GC CONVOCATORIA DE SUBVENCIONES EXTRAORDINARIAS AL SECTOR GANADERO DE GRAN CANARIA EN RESPUESTA A LA CRISIS EN ORIENTE PRÓXIMO INICIADA EN ",
+      "MatchedQueries": [
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "939955",
+      "InternalId": 1141516,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CIUDAD REAL",
+      "Title": "Solicitud subvención nominativa del Ayuntamiento de Agudo para \"Rehabilitación camino polígono ganadero\"\t\t\t\t",
+      "MatchedQueries": [
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "938369",
+      "InternalId": 1139930,
+      "ReceivedDate": "2026-10-28",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "LLANOS DE ARIDANE, LOS",
+      "Title": "\"CONVOCATORIA DE CONCESIÓN DE AYUDA ECONÓMICA AL SECTOR GANADERO DE LOS LLANOS DE ARIDANE PARA FOMENTAR SU MANTENIMIENTO Y CRECIMIENTO (AN",
+      "MatchedQueries": [
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "937520",
+      "InternalId": 1139081,
+      "ReceivedDate": "2026-10-23",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE LA GOMERA",
+      "Title": "Extracto Res. 2026/1431 de Consejera de Asuntos Económicos, Obras Públicas, Industria y Movilidad (por delegación de Presidencia, Dec. 20",
+      "MatchedQueries": [
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "936069",
+      "InternalId": 1137630,
+      "ReceivedDate": "2026-10-19",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE GUADALAJARA",
+      "Title": "DC-10669 DE 15/10/2026 QUE APRUEBA EL CONVENIO CON LA ASOCIACIÓN DE GANADEROS/AS EXTENSIVOS DE LA COMARCA DE MOLINA DE ARAGÓN, PARA LA PRO",
+      "MatchedQueries": [
+        "livestock:extensiva",
+        "livestock:ganadero"
+      ]
+    },
+    {
+      "Code": "938148",
+      "InternalId": 1139709,
+      "ReceivedDate": "2026-10-27",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE BURGOS",
+      "Title": "Convocatoria de ayudas para el mantenimiento y mejora de las Agrupaciones de Defensa Sanitaria de ganado ovino y vacuno de la provincia de B",
+      "MatchedQueries": [
+        "livestock:ovino",
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "936281",
+      "InternalId": 1137842,
+      "ReceivedDate": "2026-10-19",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE SORIA",
+      "Title": "CONV. AYUDAS SECTOR VACUNO DEMARCACIÓN DE ORIGEN PROTEGIDA MANTEQUILLA DE SORIA",
+      "MatchedQueries": [
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "936260",
+      "InternalId": 1137821,
+      "ReceivedDate": "2026-10-19",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE SORIA",
+      "Title": "CONVOCATORIA AYUDAS DESTINADAS MEJORA GENÉTICA VACUNO, OVINO Y CAPRINO, 2026",
+      "MatchedQueries": [
+        "livestock:caprino",
+        "livestock:ovino",
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "934471",
+      "InternalId": 1136032,
+      "ReceivedDate": "2026-10-08",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas a la pérdida de ingresos derivada de las bases reguladoras que deben regir las ayudas a las explotaciones ganaderas de vacuno de Cat",
+      "MatchedQueries": [
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "934222",
+      "InternalId": 1135783,
+      "ReceivedDate": "2026-10-08",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "CONVENIO ENTRE EL GOBIERNO DE CANTABRIA Y LA ASOCIACIÓN ESPAÑOLA DE CRIADORES DE GANADO VACUNO DE RAZA MONCHINA PARA LA CONCESIÓN A ESTA ",
+      "MatchedQueries": [
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "933357",
+      "InternalId": 1134918,
+      "ReceivedDate": "2026-10-05",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas de minimis a la pérdida ocasionada por el comiso de los despojos derivada de las bases reguladoras que deben regir las ayudas a las ",
+      "MatchedQueries": [
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "933164",
+      "InternalId": 1134725,
+      "ReceivedDate": "2026-10-02",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Subv. directa 2026 al C.R.I.G.P CARNE VACUNO EXTREMADURA gastos de gestión",
+      "MatchedQueries": [
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "931611",
+      "InternalId": 1133172,
+      "ReceivedDate": "2026-09-24",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE SALAMANCA",
+      "Title": "CONVENIO DE COLABORACIÓN CON LA ASOCIACIÓN NACIONAL DE CRIADORES DE GANADO VACUNO DE RAZA MORUCHA PARA LA CELEBRACIÓN DE LA 37 EXPOSICIÓ",
+      "MatchedQueries": [
+        "livestock:vacuno"
+      ]
+    },
+    {
+      "Code": "939615",
+      "InternalId": 1141176,
+      "ReceivedDate": "2026-11-03",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "POLACIONES",
+      "Title": "CONVOCATORIA DE SUBVENCIONES PARA LA DESPARASITACIÓN DEL GANADO BOVINO, EQUINO, OVINO Y CAPRINO",
+      "MatchedQueries": [
+        "livestock:bovino",
+        "livestock:caprino",
+        "livestock:equino",
+        "livestock:ovino"
+      ]
+    },
+    {
+      "Code": "931777",
+      "InternalId": 1133338,
+      "ReceivedDate": "2026-09-25",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "ARGOÑOS",
+      "Title": "Subvención para la desparasitación del ganado bovino, equino, ovino y caprino para el año 2026",
+      "MatchedQueries": [
+        "livestock:bovino",
+        "livestock:caprino",
+        "livestock:equino",
+        "livestock:ovino"
+      ]
+    },
+    {
+      "Code": "925200",
+      "InternalId": 1126761,
+      "ReceivedDate": "2026-08-17",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas a la recuperación de la producción en explotaciones de bovino con tuberculosi",
+      "MatchedQueries": [
+        "livestock:bovino"
+      ]
+    },
+    {
+      "Code": "923505",
+      "InternalId": 1125066,
+      "ReceivedDate": "2026-08-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ILLES BALEARS",
+      "Title": "Ayudas de minimis para la mejora genética del ganado bovino de aptitud lechera del año 2026",
+      "MatchedQueries": [
+        "livestock:bovino",
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "918990",
+      "InternalId": 1120551,
+      "ReceivedDate": "2026-07-14",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ZAMORA",
+      "Title": "VALLADO VIRTUAL. Subvención destinada a la adquisición de collares con función vallado virtual para ganaderos de bovino, equino y caprino",
+      "MatchedQueries": [
+        "livestock:bovino",
+        "livestock:caprino",
+        "livestock:equino"
+      ]
+    },
+    {
+      "Code": "918987",
+      "InternalId": 1120548,
+      "ReceivedDate": "2026-07-14",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ZAMORA",
+      "Title": "BOVINO-CAPRINO. Subvenciones destinadas al fomento de los sistemas extensivos de las razas bovinas Alistana Sanabresa y Sayaguesa y de la ra",
+      "MatchedQueries": [
+        "livestock:bovino",
+        "livestock:caprino"
+      ]
+    },
+    {
+      "Code": "916692",
+      "InternalId": 1118253,
+      "ReceivedDate": "2026-07-02",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Ayudas 2026 a la repoblación en explotaciones de ganado bovino, ovino y caprino de la CA de Extremadura, objeto de vaciado sanitario s/ Dec",
+      "MatchedQueries": [
+        "livestock:bovino"
+      ]
+    },
+    {
+      "Code": "910705",
+      "InternalId": 1112266,
+      "ReceivedDate": "2026-06-04",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ZAMORA",
+      "Title": "VALLADO VIRTUAL. Subvenci�n destinada a la adquisici�n de collares con funci�n «Vallado Virtual» para ganaderos de bovino, equino y",
+      "MatchedQueries": [
+        "livestock:bovino",
+        "livestock:equino"
+      ]
+    },
+    {
+      "Code": "905483",
+      "InternalId": 1107044,
+      "ReceivedDate": "2026-05-13",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ZAMORA",
+      "Title": "BOVINO-CAPRINO. Subvenciones destinadas al fomento de los sistemas extensivos de las razas bovina Alistana-Sanabresa y Sayaguesa y, de la ra",
+      "MatchedQueries": [
+        "livestock:bovino"
+      ]
+    },
+    {
+      "Code": "940647",
+      "InternalId": 1142208,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a la Asociación de Criadores de Ovino Ansotano (ACOAN) para gastos generados por la adquisición de 700 bolos ruminales para la",
+      "MatchedQueries": [
+        "livestock:ovino",
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "940539",
+      "InternalId": 1142100,
+      "ReceivedDate": "2026-11-06",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a la Asociación Nacional de Criadores de Ganado Ovino Selecto de Raza Rasa Aragonesa (ANGRA)",
+      "MatchedQueries": [
+        "livestock:ovino",
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "936939",
+      "InternalId": 1138500,
+      "ReceivedDate": "2026-10-21",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Subvención Directa 2026 para el Salón Ovino de Castuera destinada a sufragar gastos derivados de la presencia de animales en la feria y ga",
+      "MatchedQueries": [
+        "livestock:ovino"
+      ]
+    },
+    {
+      "Code": "935460",
+      "InternalId": 1137021,
+      "ReceivedDate": "2026-10-15",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE VALLADOLID",
+      "Title": "Decreto nº 4343/2026 de fecha 30 de julio de 2026 por el que se aprueba el Convenio entre la Diputacion y la Asociacion Nacional de Criador",
+      "MatchedQueries": [
+        "livestock:ovino"
+      ]
+    },
+    {
+      "Code": "926472",
+      "InternalId": 1128033,
+      "ReceivedDate": "2026-08-26",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE OURENSE",
+      "Title": "CONVOCATORIA PARA LA CONCESIÓN DE SUBVENCIONES DESTINADAS AL FOMENTO DE LA RECRÍA DE RUMIANTES (VACUNO, OVINO Y CAPRINO) EN EXPLOTACIONES ",
+      "MatchedQueries": [
+        "livestock:caprino"
+      ]
+    },
+    {
+      "Code": "924132",
+      "InternalId": 1125693,
+      "ReceivedDate": "2026-08-07",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "Convocatoria de las ayudas a la conservación y promoción de razas autóctonas de ganado ovino-caprino en Cantabria.",
+      "MatchedQueries": [
+        "livestock:caprino"
+      ]
+    },
+    {
+      "Code": "921292",
+      "InternalId": 1122853,
+      "ReceivedDate": "2026-07-23",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE GRANADA",
+      "Title": "CONVOCATORIA EN RÉGIMEN DE CONCURRENCIA COMPETITIVA PARA CONCESIÓN DE SUBVENCIÓN A GANADEROS/AS, ASOCIACIONES Y COOPERATIVAS DE GRANADA P",
+      "MatchedQueries": [
+        "livestock:caprino"
+      ]
+    },
+    {
+      "Code": "917454",
+      "InternalId": 1119015,
+      "ReceivedDate": "2026-07-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Resolución de 25 de junio de 2026, por la que se apruba la convocatoria de ayudas \"de minimis\" destinadas a compensar las dificultades de r",
+      "MatchedQueries": [
+        "livestock:caprino",
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "935764",
+      "InternalId": 1137325,
+      "ReceivedDate": "2026-10-16",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "REGIÓN DE MURCIA",
+      "Title": "Decreto n.º 194/2026 de 8 de octubre, por el que se aprueban las normas especiales reguladoras de la subvención a otorgar por concesión d",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "921984",
+      "InternalId": 1123545,
+      "ReceivedDate": "2026-07-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "ORDEN por la que se convocan para la campaña 2026, las ayudas de la Medida III Apoyo a la producción animal, Acción III.7 Ayuda para la p",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "916464",
+      "InternalId": 1118025,
+      "ReceivedDate": "2026-07-01",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas destinadas a la ejecución de programas de sanidad animal del sector porcino, de la cunicultura, de la producción apícola y a los p",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "892973",
+      "InternalId": 1094534,
+      "ReceivedDate": "2026-03-13",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE TENERIFE",
+      "Title": "Ayudas con destino a sufragar los gastos de alimentación de las especies de ovino, caprino, vacuno, porcino, cunícola y avícola (gallinas",
+      "MatchedQueries": [
+        "livestock:avícola",
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "890462",
+      "InternalId": 1092023,
+      "ReceivedDate": "2026-03-02",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE SANIDAD",
+      "Title": "Resolución de la Directora de la Agencia Española de Medicamentos y Productos\nSanitarios, por la que se concede una subvención a la Asoci",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "870613",
+      "InternalId": 1072174,
+      "ReceivedDate": "2025-11-24",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "ORDEN POR LA QUE SE CONVOCAN PARA LA CAMPAÑA 2025, LAS AYUDAS DE LA MEDIDA III, ACCION III.5 CONSUMO HUMANO DE CARNE FRESCA DE VACUNO, PORC",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "868113",
+      "InternalId": 1069674,
+      "ReceivedDate": "2025-11-12",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "REGIÓN DE MURCIA",
+      "Title": "ORDEN DE LA CONSEJERÍA DE EMPRESA, EMPLEO Y ECONOMÍA SOCIAL DE CONCESIÓN DE SUBVENCIÓN NOMINATIVA A FAVOR DE SEPOR PARA LA ORGANIZACIÓN",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "862204",
+      "InternalId": 1063765,
+      "ReceivedDate": "2025-10-14",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "REGIÓN DE MURCIA",
+      "Title": "Decreto nº 151/2025, de 9 de octubre, por el que se aprueban las normas especiales reguladoras de la subvención, por concesión directa, a",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "859335",
+      "InternalId": 1060896,
+      "ReceivedDate": "2025-09-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas destinadas a la ejecución de programas de sanidad animal del sector porcino, de la cunicultura, de la producción apícola y a los p",
+      "MatchedQueries": [
+        "livestock:porcino"
+      ]
+    },
+    {
+      "Code": "938893",
+      "InternalId": 1140454,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Resolución de 28 de mayo de 2025 por la que se aprueba la convocatoria de ayudas a la apicultura en el marco de la Intervención Sectorial ",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "938892",
+      "InternalId": 1140453,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Resolución de 28 de mayo de 2025 por la que se aprueba la convocatoria de ayudas a la apicultura en el marco de la Intervención Sectorial ",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "938891",
+      "InternalId": 1140452,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Resolución de 28 de mayo de 2025 por la que se aprueba la convocatoria de ayudas a la apicultura en el marco de la Intervención Sectorial ",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "938890",
+      "InternalId": 1140451,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Resolución de 28 de mayo de 2025 por la que se aprueba la convocatoria de ayudas a la apicultura en el marco de la Intervención Sectorial ",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "938889",
+      "InternalId": 1140450,
+      "ReceivedDate": "2026-10-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Resolución de 28 de mayo de 2025 por la que se aprueba la convocatoria de ayudas a la apicultura en el marco de la Intervención Sectorial ",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "938607",
+      "InternalId": 1140168,
+      "ReceivedDate": "2026-10-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "Resolución de 28 de mayo de 2025 por la que se aprueba la convocatoria de ayudas a la apicultura en el marco de la Intervención Sectorial ",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "936514",
+      "InternalId": 1138075,
+      "ReceivedDate": "2026-10-20",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE SORIA",
+      "Title": "CONVOCATORIA AYUDAS DEL SECTOR APÍCOLA 2026",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "933961",
+      "InternalId": 1135522,
+      "ReceivedDate": "2026-10-07",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas de minimis para compensar las pérdidas de productividad en los sectores apícola y cunícola.",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "925055",
+      "InternalId": 1126616,
+      "ReceivedDate": "2026-08-14",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE BURGOS",
+      "Title": "CONVOCATORIA DE AYUDAS AL SECTOR APICOLA DE LA PROVINCIA DE BURGOS, EN EL AÑO 2026 (API/2026)",
+      "MatchedQueries": [
+        "livestock:apícola"
+      ]
+    },
+    {
+      "Code": "939308",
+      "InternalId": 1140869,
+      "ReceivedDate": "2026-11-02",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayuda directa excluida de concurrencia competitiva destinada a cubrir los gastos de estructura y funcionamiento de la Secretaria del Mercat ",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "924193",
+      "InternalId": 1125754,
+      "ReceivedDate": "2026-08-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas minimis bioseguridad avicola",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "905411",
+      "InternalId": 1106972,
+      "ReceivedDate": "2026-05-13",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "PRAT DE LLOBREGAT, EL",
+      "Title": "Concesión de subvención a la Associació de Criadors Raça Prat para el proyecto de soporte a la gestión y la asistencia técnica y al Pr",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "874701",
+      "InternalId": 1076262,
+      "ReceivedDate": "2025-12-12",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE LA PALMA",
+      "Title": "SUBVENCIÓN ISONORTE - PROMOCIÓN GANADERÍA AVÍCOLA",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "872316",
+      "InternalId": 1073877,
+      "ReceivedDate": "2025-12-02",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "SUBVENCION NOMINATIVA A FAVOR DE LA ASOCIACION REGIONAL AVICOLA BARRADA CANTABRA",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "857664",
+      "InternalId": 1059225,
+      "ReceivedDate": "2025-09-19",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas minimis bioseguridad avicola",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "838900",
+      "InternalId": 1040461,
+      "ReceivedDate": "2025-06-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "PRAT DE LLOBREGAT, EL",
+      "Title": "Subvención nominativa para el proyecto de soporte a la gestión y assistència técnica y al Programa de conservación y mantenimiento del ",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "825252",
+      "InternalId": 1026813,
+      "ReceivedDate": "2025-04-07",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE TENERIFE",
+      "Title": "Ayudas con destino a sufragar los gastos de alimentación de las especies de ovino, caprino, vacuno, porcino, cunícola y avícola (gallinas",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "817847",
+      "InternalId": 1019407,
+      "ReceivedDate": "2025-03-03",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TORRELAVEGA",
+      "Title": "EXPEDIENTE2024/10760L. SUBVENCIÓN DIRECTA EXCEPCIONAL A FAVOR DE LA ASOCIACIÓN REGIONAL AVÍCOLA BARRADA CÁNTABRIA, POR LA ORGANIZACIÓN ",
+      "MatchedQueries": [
+        "livestock:avícola"
+      ]
+    },
+    {
+      "Code": "940743",
+      "InternalId": 1142304,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Subvención a la Asociación Aragonesa de Equino Hispano-Bretón (ARAHISBRE) año 2026 para gastos derivados de la mejora de la difusión de",
+      "MatchedQueries": [
+        "livestock:equino",
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "940238",
+      "InternalId": 1141799,
+      "ReceivedDate": "2026-11-05",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "PRINCIPADO DE ASTURIAS",
+      "Title": "SUBVENCIÓN NOMINATIVA A ACGEMA MEJORA SECTOR EQUINO 2026",
+      "MatchedQueries": [
+        "livestock:equino"
+      ]
+    },
+    {
+      "Code": "920515",
+      "InternalId": 1122076,
+      "ReceivedDate": "2026-07-21",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "CONVENIO ENTRE EL GOBIERNO DE CANTABRIA Y LA ASOCIACION DE CRIADORES DE GANADO EQUINO DE RAZA HISPANO BRETONA EN CANTABRIA \"MANADAS\" PARA LA",
+      "MatchedQueries": [
+        "livestock:equino"
+      ]
+    },
+    {
+      "Code": "902876",
+      "InternalId": 1104437,
+      "ReceivedDate": "2026-04-30",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN FORAL DE BIZKAIA",
+      "Title": "Subvención nominativa a la Asociación EQUINOCCIO NATURA",
+      "MatchedQueries": [
+        "livestock:equino"
+      ]
+    },
+    {
+      "Code": "901325",
+      "InternalId": 1102886,
+      "ReceivedDate": "2026-04-24",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ILLES BALEARS",
+      "Title": "Ayudas de minimis para el fomento del sector equino del año 2026 – CONTROL DE DOPAJE",
+      "MatchedQueries": [
+        "livestock:equino"
+      ]
+    },
+    {
+      "Code": "901323",
+      "InternalId": 1102884,
+      "ReceivedDate": "2026-04-24",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ILLES BALEARS",
+      "Title": "Ayudas de minimis para el fomento del sector equino del año 2026 – ENTIDADES-LIBRO GENEALÓGICO",
+      "MatchedQueries": [
+        "livestock:equino"
+      ]
+    },
+    {
+      "Code": "936051",
+      "InternalId": 1137612,
+      "ReceivedDate": "2026-10-19",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "Apertura pista forestal de acceso. Proyecto \"Pista abriendo pastos\" en el Marco del Plan Pirineos",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "923200",
+      "InternalId": 1124761,
+      "ReceivedDate": "2026-08-03",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TINEO",
+      "Title": "CONVOCATORIA DE SUBVENCIONES CONCURSO DE CABALLOS DE PASTOS",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "907148",
+      "InternalId": 1108709,
+      "ReceivedDate": "2026-05-21",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN FORAL DE BIZKAIA",
+      "Title": "DECRETO FORAL 52/2026, de 21 de mayo, de la Diputación Foral de Bizkaia por el que se establecen las bases de  subvenciones a asociaciones ",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "904990",
+      "InternalId": 1106551,
+      "ReceivedDate": "2026-05-12",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ZAMORA",
+      "Title": "CERCADOS PASTOS COMUNALES. Subvención destinada a ayuntamientos de la provincia de Zamora para la instalación y reparación de cercados ga",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "903677",
+      "InternalId": 1105238,
+      "ReceivedDate": "2026-05-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "Decreto 32/2026, de 30 de abril, por la que se regula la concesióndirecta de subvenciones para alimentación del ganado bovino de explotaci",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "888029",
+      "InternalId": 1089590,
+      "ReceivedDate": "2026-02-18",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "LA RIOJA",
+      "Title": "Ayuda a ganaderos de ovino y caprino sin pastos",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "884429",
+      "InternalId": 1085990,
+      "ReceivedDate": "2026-01-30",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 30 de enero de 2026, por la que se efectúa la convocatoria para el año 2026 de subvenciones correspondientes a las operaciones de",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "884004",
+      "InternalId": 1085565,
+      "ReceivedDate": "2026-01-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ILLES BALEARS",
+      "Title": "AYUDAS INTERVENCIONES EN FORMA DE PAGOS DIRECTOS 2026  -17 -Ayuda para márgenes o islas de biodiversidad en pastos",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "883995",
+      "InternalId": 1085556,
+      "ReceivedDate": "2026-01-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ILLES BALEARS",
+      "Title": "AYUDAS INTERVENCIONES EN FORMA DE PAGOS DIRECTOS 2026  -14 -Ayuda para los ganaderos extensivos y semiextensivos de ovino y caprino sin past",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "879430",
+      "InternalId": 1080991,
+      "ReceivedDate": "2026-01-01",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE LUGO",
+      "Title": "EXCEP. MED. RURAL `6E REUNION CIENTIFICA DE LA SOCIEDAD ESPAÑOLA DE PASTOS`",
+      "MatchedQueries": [
+        "livestock:pastos"
+      ]
+    },
+    {
+      "Code": "929383",
+      "InternalId": 1130944,
+      "ReceivedDate": "2026-09-14",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE LUGO",
+      "Title": "EXCEP. MED. RURAL `IMPULSO DE LA MARCA COLECTIVA SABERES DO MONTE COMO HERRAMIENTA DE MERCADO PARA LA VALORIZACIÓN DE LA GANADERIA EXTENSIV",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "918901",
+      "InternalId": 1120462,
+      "ReceivedDate": "2026-07-13",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "ORDEN AGA/.../2026 por la que se convocan subvenciones para la adaptación de la ganadería extensiva a los retos ambientales y a los desaf�",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "911463",
+      "InternalId": 1113024,
+      "ReceivedDate": "2026-06-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Resolución de la Conselleria de Agricultura, Agua, Ganadería y Pesca, por la que se convocan para el ejercicio 2026, ayudas a la ganaderí",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "897094",
+      "InternalId": 1098655,
+      "ReceivedDate": "2026-04-07",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE ALICANTE",
+      "Title": "Convocatoria subvenciones dinerarias para la mejora de la gestión integral de los montes municipales a través de la ganadería extensiva, ",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "881174",
+      "InternalId": 1082735,
+      "ReceivedDate": "2026-01-13",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Ayudas 2026 a la mejora en bioseguridad de las explotaciones ganaderas extensivas de las especies bovina y/o caprina, s/ Decreto 172/2025, d",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "880147",
+      "InternalId": 1081708,
+      "ReceivedDate": "2026-01-07",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO PARA LA TRANSICIÓN ECOLÓGICA Y EL RETO DEMOGRÁFICO",
+      "Title": "Subvención directa al Conselh Generau D´Aran para la ejecución de proyectos de coexistencia de los grandes carnívoros con la ganaderia e",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "871738",
+      "InternalId": 1073299,
+      "ReceivedDate": "2025-11-28",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Ayuda en especie al Ayuntamiento de San Juan de Plan para el fomento de la ganadería extensiva mediante bolsa de empleo online. Proyecto BE",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "853866",
+      "InternalId": 1055427,
+      "ReceivedDate": "2025-08-28",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE AVILA",
+      "Title": "CONVOCATORIA DE SUBVENCIONES DESTINADAS A\nGANADEROS DE CAPRINO EXTENSIVO DE LA SIERRA DE GREDOS QUE\nPONGAN EN VALOR LA GANADERÍA EXTENSIVA ",
+      "MatchedQueries": [
+        "livestock:extensiva"
+      ]
+    },
+    {
+      "Code": "941097",
+      "InternalId": 1142658,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE CÁDIZ",
+      "Title": "SUBV NOMINATIVA AYTO GRAZALEMA - RECR HIST SANGRE Y AMOR EN LA SIERRA Y RECR HIST MOROS Y CRISTIANOS",
+      "MatchedQueries": [
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "940702",
+      "InternalId": 1142263,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE HUESCA",
+      "Title": "Concesión de una subvención a la Unión de Productores de Rasa Aragonesa (UPRA-GRUPO PASTORES) para la difusión de la mejora genética de",
+      "MatchedQueries": [
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "940522",
+      "InternalId": 1142083,
+      "ReceivedDate": "2026-11-06",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "SAN FERNANDO",
+      "Title": "CONVOCATORIA DE SUBVENCIONES DEL AYUNTAMIENTO DE SAN FERNANDO DESTINADAS A LA MITIGACIÓN ACÚSTICA EN LAS TERRAZAS DE ESTABLECIMIENTOS DE H",
+      "MatchedQueries": [
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "940375",
+      "InternalId": 1141936,
+      "ReceivedDate": "2026-11-06",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "ALCALÁ DE HENARES",
+      "Title": "Acuerdo de la Junta de Gobierno Local 30-10-2026, por el que se aprueban las Bases de la Convocatoria del II Certamen de Poesía contra la v",
+      "MatchedQueries": [
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "940324",
+      "InternalId": 1141885,
+      "ReceivedDate": "2026-11-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Subvenciones 2026 para el fomento de la cría en pureza de razas autóctonas en la Comunidad Autónoma de Extremadura según Resolución de ",
+      "MatchedQueries": [
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "939892",
+      "InternalId": 1141453,
+      "ReceivedDate": "2026-11-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Resolución de concesión de la subvención prevista nominativamente en la Ley 2/2026, de 3 de agosto, de Presupuesto para el año 2026 a la",
+      "MatchedQueries": [
+        "livestock:raza"
+      ]
+    },
+    {
+      "Code": "940843",
+      "InternalId": 1142404,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Resolución del Conseller de Sanidad de regulación y concesión de una subvención nominativa a la Academia de Enfermería de la Comunitat ",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "940839",
+      "InternalId": 1142400,
+      "ReceivedDate": "2026-11-09",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "Resolución del Conseller de Sanidad de regulación y concesión de una subvención nominativa a la Reial Acadèmia de Medicina de la Comuni",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "933692",
+      "InternalId": 1135253,
+      "ReceivedDate": "2026-10-06",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "GALICIA",
+      "Title": "INDEMNIZACIONES EN MATERIA DE SANIDAD VEGETAL",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "933270",
+      "InternalId": 1134831,
+      "ReceivedDate": "2026-10-02",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "BENIDORM",
+      "Title": "Convocatoria de subvenciones a Asociaciones y Entidades sin fin de lucro, en el ámbito de los Servicios Sociales, Igualdad y Sanidad destin",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "932607",
+      "InternalId": 1134168,
+      "ReceivedDate": "2026-09-30",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "TALAVERA DE LA REINA",
+      "Title": "CONVENIO REGULADOR DE SUBVENCIÓN PREVISTA EN LA PARTIDA DE SANIDAD - AYUNTAMIENTO DE TALAVERA DE LA REINA A FAVOR DE LA UNIVERSIDAD DE CAST",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "928183",
+      "InternalId": 1129744,
+      "ReceivedDate": "2026-09-08",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "SEVILLA",
+      "Title": "convocatoria de la subvención “Sevilla por la promoción de la salud” para el ejercicio 2026, al efecto de  fortalecer y consolidar el ",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "924684",
+      "InternalId": 1126245,
+      "ReceivedDate": "2026-08-12",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "Subvención Nominativa a favor de la Fundación Juan Ciudad, para el desarrollo del programa de apoyo de la sanidad en Benín en el Hospital",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "924415",
+      "InternalId": 1125976,
+      "ReceivedDate": "2026-08-11",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CABILDO INSULAR DE LANZAROTE",
+      "Title": "SUBVENCIÓN NOMINATIVA A LA ASOCIACIÓN DE PACIENTES Y USUARIOS DE SANIDAD Y DE ATENCIÓN SOCIOSANITARIA, APUSAS",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "923162",
+      "InternalId": 1124723,
+      "ReceivedDate": "2026-08-03",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Resolución de 8 de Agosto de 2026,de la D.G. de Comunicación Social de la Consej.de Presidencia, Sanidad y Emergencias, por la que se conv",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "923073",
+      "InternalId": 1124634,
+      "ReceivedDate": "2026-07-31",
+      "Administration": "ESTADO",
+      "TerritoryOrBody": "MINISTERIO DE DEFENSA",
+      "Title": "Premios Sanidad Militar 2026",
+      "MatchedQueries": [
+        "livestock:sanidad"
+      ]
+    },
+    {
+      "Code": "940366",
+      "InternalId": 1141927,
+      "ReceivedDate": "2026-11-06",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CASAR, EL",
+      "Title": "BASES Y CONVOCATORIA EN MATERIA DE BIENESTAR SOCIAL PARA LA CONCESIÓN DE SUBVENCIONES EN RÉGIMEN DE CONCURRENCIA COMPETITIVA",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "938550",
+      "InternalId": 1140111,
+      "ReceivedDate": "2026-10-28",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "PUERTO DEL ROSARIO",
+      "Title": "Convocatoria para la Concesión, en régimen de concurrencia competitiva, de subvenciones destinadas a asociaciones y entidades sin ánimo d",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "938021",
+      "InternalId": 1139582,
+      "ReceivedDate": "2026-10-26",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "ORDEN DEL VICEPRESIDENTE Y CONSEJERO DE DESREGULACIÓN, BIENESTAR SOCIAL Y FAMILIA, POR LA QUE SE CONCEDE UNA SUBVENCIÓN DIRECTA A LA FUNDA",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "938019",
+      "InternalId": 1139580,
+      "ReceivedDate": "2026-10-26",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "ORDEN DEL VICEPRESIDENTE Y CONSEJERO DE DESREGULACIÓN, BIENESTAR SOCIAL Y FAMILIA, POR LA QUE SE CONCEDE UNA SUBVENCIÓN DIRECTA A LA FUNDA",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "937978",
+      "InternalId": 1139539,
+      "ReceivedDate": "2026-10-26",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "ORDEN DEL VICEPRESIDENTE Y CONSEJERO DE DESREGULACIÓN, BIENESTAR SOCIAL Y FAMILIA, POR LA QUE SE CONCEDE UNA SUBVENCIÓN DIRECTA A LA FUNDA",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "937500",
+      "InternalId": 1139061,
+      "ReceivedDate": "2026-10-23",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "ORDEN DEL VICEPRESIDENTE Y CONSEJERO DE DESREGULACIÓN, BIENESTAR SOCIAL Y FAMILIA POR LA QUE SE CONCEDE UNA SUBVENCIÓN DIRECTA A LA RED AR",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "937349",
+      "InternalId": 1138910,
+      "ReceivedDate": "2026-10-22",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD FORAL DE NAVARRA",
+      "Title": "Subvención a entidades locales para programas comunitarios de promoción del Bienestar emocional",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "937110",
+      "InternalId": 1138671,
+      "ReceivedDate": "2026-10-22",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNIDAD FORAL DE NAVARRA",
+      "Title": "Subvenciones a programas comunitarios de promoción del Bienestar Emocional",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "936995",
+      "InternalId": 1138556,
+      "ReceivedDate": "2026-10-21",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "ROSSELLÓ",
+      "Title": "Convocatoria de subvenciones para la realización de actividades e iniciativas en los ámbitos del bienestar social, cultura, deportes, medi",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "936980",
+      "InternalId": 1138541,
+      "ReceivedDate": "2026-10-21",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "GANDIA",
+      "Title": "2026 SUBVENCIÓN NOMINATIVA MODIFICACIÓN CUARTA PRESUPUESTO 2026 del Área Gestora Bienestar social y persona beneficiaria CENTRO DE ACOGID",
+      "MatchedQueries": [
+        "livestock:bienestar"
+      ]
+    },
+    {
+      "Code": "935051",
+      "InternalId": 1136612,
+      "ReceivedDate": "2026-10-14",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE TERUEL",
+      "Title": "CONVENIO DE COLABORACIÓN ENTRE LA EXCMA. DIPUTACIÓN PROVINCIAL DE TERUEL Y LA ASOCIACIÓN TUROLENSE DE PRODUCTORES DE LECHE Y QUESO, PARA ",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "935047",
+      "InternalId": 1136608,
+      "ReceivedDate": "2026-10-14",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 13 de octubre de 2026, por la que se establece la convocatoria de las ayudas al control de rendimiento lechero en la Comunidad Aut�",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "929347",
+      "InternalId": 1130908,
+      "ReceivedDate": "2026-09-14",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE LUGO",
+      "Title": "SUBV. NOM. EMPLEO. JORNADAS TECNICAS VACUNO DE LECHE. ANUALIDAD 2026. AFRICOR",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "921968",
+      "InternalId": 1123529,
+      "ReceivedDate": "2026-07-28",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANARIAS",
+      "Title": "ORDEN por la que se convocan para la campaña 2026 las ayudas de la Acción III.2 Apoyo al sector vacuno, Subacción III.2.5 Ayuda a la repo",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "921719",
+      "InternalId": 1123280,
+      "ReceivedDate": "2026-07-27",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "GALICIA",
+      "Title": "Resolución de 21 de julio de 2026 por la que se regula el procedimiento para la concesión de las ayudas para el suministro de frutas fresc",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "921435",
+      "InternalId": 1122996,
+      "ReceivedDate": "2026-07-24",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Subvenciones 2026 destinadas al control del rendimiento lechero en régimen de concurrencia competitiva, en la Comunidad Autónoma de Extrem",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "921422",
+      "InternalId": 1122983,
+      "ReceivedDate": "2026-07-24",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "ZARAGOZA",
+      "Title": "Convenio HERMANDAD EL REFUGIO: Personas sin hogar y Gota de leche.",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "917758",
+      "InternalId": 1119319,
+      "ReceivedDate": "2026-07-07",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE LEÓN",
+      "Title": "CONVOCATORIA SUBVENCIONES GANADEROS VACUNO LECHE GENOTIPADO",
+      "MatchedQueries": [
+        "livestock:leche"
+      ]
+    },
+    {
+      "Code": "941235",
+      "InternalId": 1142796,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CANTABRIA",
+      "Title": "Subvención nominativa a favor de la FUNDACIÓN OSO PARDO",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941233",
+      "InternalId": 1142794,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CASTILLA-LA MANCHA",
+      "Title": "SUBVENCIÓN NOMINATIVA A LA ENTIDAD COOPERATIVAS AGRO-ALIMENTARIAS CASTILLA-LA MANCHA.",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941210",
+      "InternalId": 1142771,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "GIJÓN",
+      "Title": "ACUERDO DE 28 DE ABRIL DE 2026 DE LA JUNTA DE GOBIERNO LOCAL DEL AYUNTAMIENTO DE GIJÓN POR EL QUE SE CONCEDE SUBVENCIÓN A LA SOCIEDAD ASTRON",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941189",
+      "InternalId": 1142750,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "GIJÓN",
+      "Title": "ACUERDO DE 28 DE ABRIL DE 2026 DE LA JUNTA DE GOBIERNO LOCAL DEL AYUNTAMIENTO DE GIJÓN POR EL QUE SE CONCEDE SUBVENCIÓN A LA ASOCIACIÓN GIJO",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941170",
+      "InternalId": 1142731,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 6 de noviembre 2026 por la que se convocan subvenciones para la certificación de determinados productos o servicios según la marca ",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941169",
+      "InternalId": 1142730,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ANDALUCÍA",
+      "Title": "Orden de 6 de noviembre 2026 por la que se convocan subvencionespara la certificación de determinados productos o servicios según la marca P",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941132",
+      "InternalId": 1142693,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "CONSELL INSULAR D’EIVISSA",
+      "Title": "Subvención nominativa a la Agrupació de Defensa Sanitària de Ramat Oví d'Eivissa para el año 2026",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "941125",
+      "InternalId": 1142686,
+      "ReceivedDate": "2026-11-10",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "SANTA EULÀRIA DES RIU",
+      "Title": "CONVOCATORIA DE “PLAN DE CONSERVACIÓN Y MEJORA DEL ENTORNO RURAL EN EL MUNICIPIO DE SANTA EULÀRIA DES RIU 2026”",
+      "MatchedQueries": [
+        "purpose:finalidad=12"
+      ]
+    },
+    {
+      "Code": "909993",
+      "InternalId": 1111554,
+      "ReceivedDate": "2026-06-02",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "COMUNITAT VALENCIANA",
+      "Title": "RESOLUCIÓN, de la directora general de Producción Agrícola y Ganadera, por la que se efectúa la convocatoria, para el ejercicio 2026, las ay",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "886120",
+      "InternalId": 1087681,
+      "ReceivedDate": "2026-02-09",
+      "Administration": "OTROS",
+      "TerritoryOrBody": "CÁMARA DE COMERCIO DE CÁCERES",
+      "Title": "Visita Profesional a la feria hortofrutícola FRUIT ATRACTION SAO PAULO 2026 (BRASIL)",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "821775",
+      "InternalId": 1023336,
+      "ReceivedDate": "2025-03-20",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "CATALUÑA",
+      "Title": "Ayudas destinadas a las centrales frutícolas titularidad de cooperativas, SAT o empresas, afectadas por las heladas de abril de 2022.",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "814314",
+      "InternalId": 1015874,
+      "ReceivedDate": "2025-02-12",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "REGIÓN DE MURCIA",
+      "Title": "Resolución de 11 de febrero de 2025 del Director del Instituto de Fomento de la Región de Murcia, por delegación, de convocatoria de ayudas ",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "811687",
+      "InternalId": 1013247,
+      "ReceivedDate": "2025-01-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ILLES BALEARS",
+      "Title": "AYUDAS INTERVENCIONES EN FORMA DE PAGOS DIRECTOS 2025  - 13 -Ayuda asociada  para el engorde de terneros en la explotación de nacimiento bar",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "811680",
+      "InternalId": 1013240,
+      "ReceivedDate": "2025-01-29",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ILLES BALEARS",
+      "Title": "AYUDAS INTERVENCIONES EN FORMA DE PAGOS DIRECTOS 2025  - 12 -Ayuda asociada para los ganaderos extensivos y semiextensivos de ovino y caprin",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "791539",
+      "InternalId": 993099,
+      "ReceivedDate": "2024-10-17",
+      "Administration": "LOCAL",
+      "TerritoryOrBody": "DIPUTACIÓN PROV. DE JAÉN",
+      "Title": "CONVOCATORIA DESTINADA AYTOS. PARA INVERSIONES EN ADAPTACIÓN DE INSTACIONES MUNICIPALES PARA LA IMPLANTACIÓN DE PROYECTOS EMPRENDEDORES RELA",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "765715",
+      "InternalId": 967275,
+      "ReceivedDate": "2024-06-04",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "EXTREMADURA",
+      "Title": "Subvención nominativa 2024 a la Asociación de Fruticultores de Extremadura (AFRUEX) para estudio estadístico plan estratégico en el sector f",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    },
+    {
+      "Code": "751155",
+      "InternalId": 952715,
+      "ReceivedDate": "2024-03-25",
+      "Administration": "AUTONOMICA",
+      "TerritoryOrBody": "ARAGÓN",
+      "Title": "Orden AGA/2024, de concesión de subvención nominativa a APHARNS, Asociación Profesional de Horticultores de Aragón, Rioja, Navarra y Soria, ",
+      "MatchedQueries": [
+        "crop:frutícola"
+      ]
+    }
+  ],
+  "ActiveSearchCount": 32,
+  "CatalogRequestCount": 1,
+  "TotalApiRequestCount": 35,
+  "AgriculturePurposeId": 12
+}

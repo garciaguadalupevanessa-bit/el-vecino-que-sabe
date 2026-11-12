@@ -1,0 +1,24 @@
+{
+  "active_farmer": [
+    {
+      "description": "Ser agricultor activo: acreditar ingresos agrarios o ejercer una actividad agraria efectiva (requisitos comunes de la PAC).",
+      "field": "active_farmer", "operator": "==", "value": true,
+      "source_url": "https://www.boe.es/",
+      "needs_verification": true
+    },
+    {
+      "description": "Las sociedades (SL, SA) deben acreditar un porcentaje mínimo de ingresos agrarios sobre sus ingresos totales.",
+      "field": null,
+      "source_url": "https://www.boe.es/",
+      "needs_verification": true
+    }
+  ],
+  "conditionality": [
+    {
+      "description": "Cumplir la condicionalidad reforzada y la condicionalidad social.",
+      "field": null,
+      "source_url": "https://www.fega.gob.es/",
+      "needs_verification": true
+    }
+  ]
+}
