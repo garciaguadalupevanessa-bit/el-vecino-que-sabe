@@ -88,3 +88,10 @@ test("safeUrl only accepts http(s)", () => {
 test("the brand is defined", () => {
   assert.ok(APP_NAME.trim().length > 0 && APP_TAGLINE.trim().length > 0);
 });
+
+test("textToHtml links <https://...> autolinks without the closing bracket", () => {
+  const html = textToHtml("Fuente: <https://www.fega.gob.es/es/ayuda>.");
+  assert.ok(html.includes('href="https://www.fega.gob.es/es/ayuda"'));
+  assert.ok(!html.includes("&gt;\""));
+  assert.ok(!html.includes("%3E"));
+});

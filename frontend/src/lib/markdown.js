@@ -17,6 +17,8 @@ function inline(escaped) {
   const out = escaped
     // [text](https://...) with text and URL already escaped
     .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (_, text, url) => keep(link(url, text)))
+    // <https://...> autolinks (the angle brackets arrive already escaped)
+    .replace(/&lt;(https?:\/\/[^\s]+?)&gt;/g, (_, url) => keep(link(url, url)))
     // bare URLs
     .replace(/https?:\/\/[^\s<]*[^\s<.,;:!?)\]]/g, (url) => keep(link(url, url)))
     .replace(/`([^`]+)`/g, (_, c) => keep(`<code>${c}</code>`))
