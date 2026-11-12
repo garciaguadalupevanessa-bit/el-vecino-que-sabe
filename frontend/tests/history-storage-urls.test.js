@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildChatPayload, buildMessages, validateUserText, MAX_MESSAGES } from '../src/lib/history.js';
+import { buildChatPayload, buildMessages, validateUserText, MAX_MESSAGES, HISTORY_SENT, ASSISTANT_CHARS_SENT } from '../src/lib/history.js';
 import { loadState, saveProfile, saveMessages, clearAll } from '../src/lib/storage.js';
 import { safeHttpUrl, displayHost } from '../src/lib/urls.js';
 
@@ -15,6 +15,7 @@ test('payload ends with the user message and respects the 30 limit', () => {
   history.push({ role: 'user', content: 'último' });
   const msgs = buildMessages(history);
   assert.ok(msgs.length <= MAX_MESSAGES);
+  assert.ok(msgs.length <= HISTORY_SENT, 'only recent turns are sent (Groq token limit)');
   assert.equal(msgs.at(-1).content, 'último');
   assert.equal(msgs[0].role, 'user');
 });
@@ -51,4 +52,10 @@ test('only http(s) links are allowed', () => {
   assert.equal(safeHttpUrl('no es url'), null);
   assert.equal(safeHttpUrl('https://www.fega.gob.es/es'), 'https://www.fega.gob.es/es');
   assert.equal(displayHost('https://www.fega.gob.es/es'), 'fega.gob.es');
+});
+
+test('long earlier answers are shortened before sending', () => {
+  const msgs = buildMessages([{ role: 'user', content: 'a' }, { role: 'assistant', content: 'x'.repeat(5000) }, { role: 'user', content: 'b' }]);
+  assert.equal(msgs[1].content.length, ASSISTANT_CHARS_SENT + 1);
+  assert.equal(msgs.at(-1).content, 'b');
 });
